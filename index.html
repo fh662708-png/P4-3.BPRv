@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4 - 3º BPRv</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { 
+            background-color: #0f172a;
+            margin: 0; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Marca d'água no fundo da tela */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 450px;
+            background: url('94702.jpg') no-repeat center center;
+            background-size: contain;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container { 
+            position: relative;
+            z-index: 1;
+            width: 100%; 
+            max-width: 720px; /* Reduzido para encaixar perfeitamente */
+            background: rgba(255, 255, 255, 0.96); 
+            padding: 14px 16px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #b91c1c;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* Barra de Login mais compacta */
+        .header-login { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #1e293b; 
+            color: white;
+            padding: 6px 10px; 
+            border-radius: 5px; 
+            margin-bottom: 10px; 
+            font-size: 12px;
+        }
+
+        .form-group { margin-bottom: 6px; }
+        label { display: block; margin-bottom: 2px; font-weight: bold; color: #334155; font-size: 11px; }
+        input, select { width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; }
+
+        button { 
+            background-color: #16a34a; 
+            color: white; 
+            border: none; 
+            padding: 6px 10px; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            cursor: pointer;
+            font-size: 12px;
+        }
+        button:hover { opacity: 0.9; }
+
+        .btn-alt { background-color: #2563eb; }
+        .btn-logout { background-color: #dc2626; }
+        .btn-status { background-color: #d97706; color: white; padding: 3px 6px; font-size: 10px; border-radius: 3px; }
+        .btn-relatorio { background-color: #0284c7; padding: 4px 8px; font-size: 11px; }
+
+        /* Tabelas ultra compactas */
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; background: white; border-radius: 4px; overflow: hidden; font-size: 12px; }
+        th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #1e293b; color: white; font-weight: 600; font-size: 11px; }
+
+        .badge { padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: white; }
+        .bg-pendente { background-color: #d97706; }
+        .bg-entregue { background-color: #16a34a; }
+
+        /* Abas compactadas */
+        .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+        .tab-btn { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .tab-btn.active { background: #1e293b; color: white; }
+
+        .relatorio-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        /* Cartões de estatística reduzidos */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .card-stat {
+            background: white;
+            padding: 6px 8px;
+            border-radius: 5px;
+            border-left: 3px solid #2563eb;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        @media print {
+            body::before { opacity: 0.05; }
+            .header-login, .tabs, #solicitacoesView, form, .btn-print { display: none !important; }
+            .container { box-shadow: none; border: none; width: 100%; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <div>
+            <h3 style="margin: 0; color: #1e293b; font-size: 18px;">P4 - 3º BPRv</h3>
+            <small style="color: #64748b; font-size: 11px;">Policiamento Rodoviário - São Paulo</small>
+        </div>
+    </div>
+
+    <div class="header-login">
+        <div>Sessão: <span id="usuarioNome" style="color: #60a5fa; font-weight: bold;">Usuário Comum</span></div>
+        <button id="btnLoginLogout" class="btn-alt" onclick="alternarLogin()">Entrar como ADM</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="mudarAba('solicitacoes')">Solicitações</button>
+        <button class="tab-btn" onclick="mudarAba('relatorio')">Relatório Mensal</button>
+    </div>
+
+    <!-- ABA SOLICITAÇÕES -->
+    <div id="abaSolicitacoes">
+        <h4 style="margin: 0 0 6px 0; font-size: 13px;">Nova Solicitação</h4>
+        <form id="solicitacaoForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 110px; gap: 6px;">
+                <div class="form-group">
+                    <label for="solicitante">Quem Solicitou:</label>
+                    <input type="text" id="solicitante" placeholder="Ex: Cmt João" required>
+                </div>
+                <div class="form-group">
+                    <label for="item">Item Solicitado:</label>
+                    <input type="text" id="item" placeholder="Ex: Papel A4" required>
+                </div>
+                <div class="form-group">
+                    <label for="data">Data:</label>
+                    <input type="date" id="data" required>
+                </div>
+            </div>
+            <button type="submit" style="margin-top: 4px; width: 100%;">Cadastrar Solicitação</button>
+        </form>
+
+        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #e2e8f0;">
+
+        <h4 style="margin: 0 0 6px 0; font-size: 13px;">Solicitações Registradas</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Solicitante</th>
+                    <th>Item</th>
+                    <th>Status</th>
+                    <th>Ação (ADM)</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCorpo"></tbody>
+        </table>
+    </div>
+
+    <!-- ABA RELATÓRIO MENSAL -->
+    <div id="abaRelatorio" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="margin: 0; font-size: 13px;">Relatório Mensal</h4>
+            <button class="btn-relatorio btn-print" onclick="window.print()">Imprimir</button>
+        </div>
+
+        <div class="relatorio-card">
+            <label for="filtroMesAno">Filtrar por Mês/Ano:</label>
+            <input type="month" id="filtroMesAno" onchange="gerarRelatorio()" style="max-width: 150px;">
+        </div>
+
+        <div class="cards-grid">
+            <div class="card-stat" style="border-color: #2563eb;">
+                <small style="color: #64748b; font-size: 10px;">Total Mês</small>
+                <h3 id="statTotal" style="margin: 0; font-size: 15px;">0</h3>
+            </div>
+            <div class="card-stat" style="border-color: #16a34a;">
+                <small style="color: #64748b; font-size: 10px;">Entregues</small>
+                <h3 id="statEntregue" style="margin: 0; font-size: 15px; color: #16a34a;">0</h3>
+            </div>
+            <div class="card-stat" style="border-color: #d97706;">
+                <small style="color: #64748b; font-size: 10px;">Pendentes</small>
+                <h3 id="statPendente" style="margin: 0; font-size: 15px; color: #d97706;">0</h3>
+            </div>
+        </div>
+
+        <h4 style="margin: 8px 0 4px 0; font-size: 13px;">Consolidado do Mês</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantidade Solicitada</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaRelatorio"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const SENHA_ADM = "3Bprv";
+    let isAdmin = false;
+
+    document.getElementById('data').value = new Date().toISOString().split('T')[0];
+    document.getElementById('filtroMesAno').value = new Date().toISOString().slice(0, 7);
+
+    let solicitacoes = JSON.parse(localStorage.getItem('solicitacoes_p4')) || [
+        { id: 1, solicitante: "Cb João", item: "Resma Papel A4", data: new Date().toISOString().split('T')[0], status: "Pendente" }
+    ];
+
+    function alternarLogin() {
+        if (!isAdmin) {
+            let senha = prompt("Digite a senha do ADM:");
+            if (senha === SENHA_ADM) {
+                isAdmin = true;
+                document.getElementById('usuarioNome').innerText = "Administrador (ADM)";
+                document.getElementById('usuarioNome').style.color = "#4ade80";
+                document.getElementById('btnLoginLogout').innerText = "Sair do ADM";
+                document.getElementById('btnLoginLogout').className = "btn-logout";
+            } else if (senha !== null) {
+                alert("Senha incorreta!");
+            }
+        } else {
+            isAdmin = false;
+            document.getElementById('usuarioNome').innerText = "Usuário Comum";
+            document.getElementById('usuarioNome').style.color = "#60a5fa";
+            document.getElementById('btnLoginLogout').innerText = "Entrar como ADM";
+            document.getElementById('btnLoginLogout').className = "btn-alt";
+        }
+        atualizarTabela();
+    }
+
+    function mudarAba(aba) {
+        const btnSolicitacoes = document.querySelectorAll('.tab-btn')[0];
+        const btnRelatorio = document.querySelectorAll('.tab-btn')[1];
+
+        if (aba === 'solicitacoes') {
+            document.getElementById('abaSolicitacoes').style.display = 'block';
+            document.getElementById('abaRelatorio').style.display = 'none';
+            btnSolicitacoes.classList.add('active');
+            btnRelatorio.classList.remove('active');
+        } else {
+            document.getElementById('abaSolicitacoes').style.display = 'none';
+            document.getElementById('abaRelatorio').style.display = 'block';
+            btnSolicitacoes.classList.remove('active');
+            btnRelatorio.classList.add('active');
+            gerarRelatorio();
+        }
+    }
+
+    function salvarDados() {
+        localStorage.setItem('solicitacoes_p4', JSON.stringify(solicitacoes));
+    }
+
+    document.getElementById('solicitacaoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        solicitacoes.push({
+            id: Date.now(),
+            solicitante: document.getElementById('solicitante').value,
+            item: document.getElementById('item').value,
+            data: document.getElementById('data').value,
+            status: "Pendente"
+        });
+        salvarDados();
+        this.reset();
+        document.getElementById('data').value = new Date().toISOString().split('T')[0];
+        atualizarTabela();
+    });
+
+    function alterarStatus(id) {
+        if (!isAdmin) return;
+        const item = solicitacoes.find(s => s.id === id);
+        if (item) {
+            item.status = item.status === "Pendente" ? "Entregue" : "Pendente";
+            salvarDados();
+            atualizarTabela();
+        }
+    }
+
+    function atualizarTabela() {
+        const corpo = document.getElementById('tabelaCorpo');
+        corpo.innerHTML = "";
+
+        if (solicitacoes.length === 0) {
+            corpo.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhuma solicitação encontrada.</td></tr>`;
+            return;
+        }
+
+        solicitacoes.forEach(s => {
+            const dataFmt = s.data ? s.data.split('-').reverse().join('/') : '-';
+            const badgeClass = s.status === "Entregue" ? "bg-entregue" : "bg-pendente";
+            const acaoHtml = isAdmin 
+                ? `<button class="btn-status" onclick="alterarStatus(${s.id})">Marcar ${s.status === 'Pendente' ? 'Entregue' : 'Pendente'}</button>`
+                : `<span style="color: #94a3b8; font-size: 10px;">Requer ADM</span>`;
+
+            corpo.innerHTML += `
+                <tr>
+                    <td>${dataFmt}</td>
+                    <td><strong>${s.solicitante}</strong></td>
+                    <td>${s.item}</td>
+                    <td><span class="badge ${badgeClass}">${s.status}</span></td>
+                    <td>${acaoHtml}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function gerarRelatorio() {
+        const mesAno = document.getElementById('filtroMesAno').value;
+        const tabelaRelatorio = document.getElementById('tabelaRelatorio');
+        tabelaRelatorio.innerHTML = "";
+
+        const filtrados = solicitacoes.filter(s => s.data && s.data.startsWith(mesAno));
+
+        document.getElementById('statTotal').innerText = filtrados.length;
+        document.getElementById('statEntregue').innerText = filtrados.filter(s => s.status === "Entregue").length;
+        document.getElementById('statPendente').innerText = filtrados.filter(s => s.status === "Pendente").length;
+
+        if (filtrados.length === 0) {
+            tabelaRelatorio.innerHTML = `<tr><td colspan="2" style="text-align:center;">Nenhum item solicitado neste mês.</td></tr>`;
+            return;
+        }
+
+        const contagemItens = {};
+        filtrados.forEach(s => {
+            const itemNome = s.item.trim().toLowerCase();
+            contagemItens[itemNome] = (contagemItens[itemNome] || 0) + 1;
+        });
+
+        for (const [item, qtd] of Object.entries(contagemItens)) {
+            tabelaRelatorio.innerHTML += `
+                <tr>
+                    <td style="text-transform: capitalize;"><strong>${item}</strong></td>
+                    <td>${qtd}</td>
+                </tr>
+            `;
+        }
+    }
+
+    atualizarTabela();
+</script>
+
+</body>
+</html>
