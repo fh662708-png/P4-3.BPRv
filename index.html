@@ -2,8 +2,48 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <title>Meu Site com Banco de Dados</title>
+</head>
+<body>
+
+    <h1>Lista de Itens Global</h1>
+    
+    <!-- Formulário para adicionar novos itens -->
+    <input type="text" id="itemInput" placeholder="Digite um item...">
+    <button id="addBtn">Adicionar para Todos</button>
+
+    <!-- Lista onde os itens vão aparecer -->
+    <ul id="listaItens"></ul>
+
+    <!-- O código JavaScript do Passo 3 vai aqui embaixo -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P4 - 3º BPRv</title>
+
+    <!-- ÍCONE DO APLICATIVO -->
+    <link rel="icon" type="image/jpeg" href="brasao.jpg">
+    <link rel="apple-touch-icon" href="brasao.jpg">
+    
+    <!-- MANIFEST PARA INSTALAÇÃO COMO APP (PWA) -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        &quot;name&quot;: &quot;P4 - 3º BPRv&quot;,
+        &quot;short_name&quot;: &quot;P4 3BPRv&quot;,
+        &quot;start_url&quot;: &quot;.&quot;,
+        &quot;display&quot;: &quot;standalone&quot;,
+        &quot;background_color&quot;: &quot;#0f172a&quot;,
+        &quot;theme_color&quot;: &quot;#0f172a&quot;,
+        &quot;icons&quot;: [{
+            &quot;src&quot;: &quot;brasao.jpg&quot;,
+            &quot;sizes&quot;: &quot;512x512&quot;,
+            &quot;type&quot;: &quot;image/jpeg&quot;
+        }]
+    }">
+
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
@@ -17,18 +57,18 @@
             position: relative;
         }
 
-        /* Marca d'água no fundo da tela */
+        /* MARCA D'ÁGUA DO BRASÃO NO FUNDO DA TELA */
         body::before {
             content: "";
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 450px;
-            height: 450px;
-            background: url('94702.jpg') no-repeat center center;
+            width: 500px;
+            height: 500px;
+            background: url('brasao.jpg') no-repeat center center;
             background-size: contain;
-            opacity: 0.12;
+            opacity: 0.18;
             pointer-events: none;
             z-index: 0;
         }
@@ -37,9 +77,9 @@
             position: relative;
             z-index: 1;
             width: 100%; 
-            max-width: 720px; /* Reduzido para encaixar perfeitamente */
-            background: rgba(255, 255, 255, 0.96); 
-            padding: 14px 16px; 
+            max-width: 800px; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 16px 20px; 
             border-radius: 8px; 
             box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
@@ -53,92 +93,175 @@
             margin-bottom: 10px;
         }
 
-        /* Barra de Login mais compacta */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
         .header-login { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             background: #1e293b; 
             color: white;
-            padding: 6px 10px; 
+            padding: 8px 12px; 
             border-radius: 5px; 
-            margin-bottom: 10px; 
-            font-size: 12px;
+            margin-bottom: 12px; 
+            font-size: 13px;
         }
 
-        .form-group { margin-bottom: 6px; }
-        label { display: block; margin-bottom: 2px; font-weight: bold; color: #334155; font-size: 11px; }
-        input, select { width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-weight: bold; color: #334155; font-size: 13px; }
+        input, select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 13px; }
 
         button { 
             background-color: #16a34a; 
             color: white; 
             border: none; 
-            padding: 6px 10px; 
+            padding: 8px 12px; 
             font-weight: bold; 
-            border-radius: 4px; 
+            border-radius: 5px; 
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
         }
         button:hover { opacity: 0.9; }
 
         .btn-alt { background-color: #2563eb; }
         .btn-logout { background-color: #dc2626; }
-        .btn-status { background-color: #d97706; color: white; padding: 3px 6px; font-size: 10px; border-radius: 3px; }
-        .btn-relatorio { background-color: #0284c7; padding: 4px 8px; font-size: 11px; }
+        .btn-status { background-color: #d97706; color: white; padding: 4px 8px; font-size: 11px; border-radius: 3px; }
+        .btn-relatorio { background-color: #0284c7; padding: 6px 12px; font-size: 12px; }
 
-        /* Tabelas ultra compactas */
-        table { width: 100%; border-collapse: collapse; margin-top: 8px; background: white; border-radius: 4px; overflow: hidden; font-size: 12px; }
-        th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
-        th { background-color: #1e293b; color: white; font-weight: 600; font-size: 11px; }
+        /* CONTANIER COM ROLAGEM PARA O HISTÓRICO E ESTOQUE */
+        .tabela-container {
+            max-height: 380px; /* Altere este valor para diminuir ou aumentar a altura */
+            overflow-y: auto;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-top: 8px;
+            background: white;
+        }
 
-        .badge { padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: white; }
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 12px; }
+        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
+        
+        /* CABEÇALHO FIXO DURANTE A ROLAGEM */
+        th { 
+            background-color: #1e293b; 
+            color: white; 
+            font-weight: 600; 
+            font-size: 12px; 
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .badge { padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: bold; color: white; }
         .bg-pendente { background-color: #d97706; }
         .bg-entregue { background-color: #16a34a; }
 
-        /* Abas compactadas */
-        .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
-        .tab-btn { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tab-btn { background: #e2e8f0; color: #334155; border: none; padding: 8px 14px; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 13px; }
         .tab-btn.active { background: #1e293b; color: white; }
+        .btn-nova-solicitation { background-color: #16a34a; color: white; margin-left: auto; }
 
         .relatorio-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 8px;
-            border-radius: 5px;
-            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
         }
 
-        /* Cartões de estatística reduzidos */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         .card-stat {
             background: white;
-            padding: 6px 8px;
-            border-radius: 5px;
-            border-left: 3px solid #2563eb;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+
+        .modal-close {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        .modal-close:hover { color: #dc2626; }
 
         @media print {
             body::before { opacity: 0.05; }
-            .header-login, .tabs, #solicitacoesView, form, .btn-print { display: none !important; }
+            .header-login, .tabs, .modal-overlay, form, .btn-print { display: none !important; }
             .container { box-shadow: none; border: none; width: 100%; padding: 0; }
+            .tabela-container { max-height: none; overflow: visible; border: none; }
         }
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="header-logo">
-        <div>
-            <h3 style="margin: 0; color: #1e293b; font-size: 18px;">P4 - 3º BPRv</h3>
-            <small style="color: #64748b; font-size: 11px;">Policiamento Rodoviário - São Paulo</small>
+        <div class="logo-box">
+            <img src="brasao.jpg" alt="Brasão Policiamento Rodoviário" class="logo-img">
+            <div>
+                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">P4 - 3º BPRv</h3>
+                <small style="color: #64748b; font-size: 12px;">Policiamento Rodoviário - São Paulo</small>
+            </div>
         </div>
     </div>
 
@@ -148,98 +271,226 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="mudarAba('solicitacoes')">Solicitações</button>
+        <button class="tab-btn active" onclick="mudarAba('solicitacoes')">Solicitações Registradas</button>
         <button class="tab-btn" onclick="mudarAba('relatorio')">Relatório Mensal</button>
+        <button class="tab-btn" onclick="mudarAba('estoque')">Estoque / Cadastros</button>
+        <button class="tab-btn btn-nova-solicitation" onclick="abrirModalSolicitacao()">+ Nova Solicitação</button>
     </div>
 
-    <!-- ABA SOLICITAÇÕES -->
+    <!-- ABA SOLICITAÇÕES REGISTRADAS -->
     <div id="abaSolicitacoes">
-        <h4 style="margin: 0 0 6px 0; font-size: 13px;">Nova Solicitação</h4>
-        <form id="solicitacaoForm">
-            <div style="display: grid; grid-template-columns: 1fr 1fr 110px; gap: 6px;">
-                <div class="form-group">
-                    <label for="solicitante">Quem Solicitou:</label>
-                    <input type="text" id="solicitante" placeholder="Ex: Cmt João" required>
-                </div>
-                <div class="form-group">
-                    <label for="item">Item Solicitado:</label>
-                    <input type="text" id="item" placeholder="Ex: Papel A4" required>
-                </div>
-                <div class="form-group">
-                    <label for="data">Data:</label>
-                    <input type="date" id="data" required>
-                </div>
-            </div>
-            <button type="submit" style="margin-top: 4px; width: 100%;">Cadastrar Solicitação</button>
-        </form>
-
-        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #e2e8f0;">
-
-        <h4 style="margin: 0 0 6px 0; font-size: 13px;">Solicitações Registradas</h4>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Solicitante</th>
-                    <th>Item</th>
-                    <th>Status</th>
-                    <th>Ação (ADM)</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaCorpo"></tbody>
-        </table>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="margin: 0; font-size: 15px; color: #1e293b;">Histórico de Solicitações</h4>
+        </div>
+        
+        <!-- CONTAINER COM TAMANHO AJUSTADO E SCROLL -->
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Solicitante</th>
+                        <th>Item(ns)</th>
+                        <th>Qtd Total</th>
+                        <th>Status</th>
+                        <th>Ação (ADM)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaCorpo"></tbody>
+            </table>
+        </div>
     </div>
 
     <!-- ABA RELATÓRIO MENSAL -->
     <div id="abaRelatorio" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <h4 style="margin: 0; font-size: 13px;">Relatório Mensal</h4>
-            <button class="btn-relatorio btn-print" onclick="window.print()">Imprimir</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="margin: 0; font-size: 15px;">Relatório Mensal</h4>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn-relatorio btn-print" onclick="window.print()">Imprimir</button>
+                <button class="btn-relatorio btn-print" style="background-color: #b91c1c;" onclick="exportarRelatorioPDF()">Exportar PDF</button>
+            </div>
         </div>
 
-        <div class="relatorio-card">
-            <label for="filtroMesAno">Filtrar por Mês/Ano:</label>
-            <input type="month" id="filtroMesAno" onchange="gerarRelatorio()" style="max-width: 150px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="relatorio-card" style="margin-bottom: 0;">
+                <label for="filtroMesAno">Filtrar por Mês/Ano:</label>
+                <input type="month" id="filtroMesAno" onchange="gerarRelatorio()">
+            </div>
+            <div class="relatorio-card" style="margin-bottom: 0;">
+                <label for="filtroSolicitante">Filtrar por Solicitante/Seção:</label>
+                <select id="filtroSolicitante" onchange="gerarRelatorio()">
+                    <option value="todos">Todos os Solicitantes</option>
+                </select>
+            </div>
         </div>
 
         <div class="cards-grid">
             <div class="card-stat" style="border-color: #2563eb;">
-                <small style="color: #64748b; font-size: 10px;">Total Mês</small>
-                <h3 id="statTotal" style="margin: 0; font-size: 15px;">0</h3>
+                <small style="color: #64748b; font-size: 11px;">Total Mês</small>
+                <h3 id="statTotal" style="margin: 0; font-size: 18px;">0</h3>
             </div>
             <div class="card-stat" style="border-color: #16a34a;">
-                <small style="color: #64748b; font-size: 10px;">Entregues</small>
-                <h3 id="statEntregue" style="margin: 0; font-size: 15px; color: #16a34a;">0</h3>
+                <small style="color: #64748b; font-size: 11px;">Entregues</small>
+                <h3 id="statEntregue" style="margin: 0; font-size: 18px; color: #16a34a;">0</h3>
             </div>
             <div class="card-stat" style="border-color: #d97706;">
-                <small style="color: #64748b; font-size: 10px;">Pendentes</small>
-                <h3 id="statPendente" style="margin: 0; font-size: 15px; color: #d97706;">0</h3>
+                <small style="color: #64748b; font-size: 11px;">Pendentes</small>
+                <h3 id="statPendente" style="margin: 0; font-size: 18px; color: #d97706;">0</h3>
             </div>
         </div>
 
-        <h4 style="margin: 8px 0 4px 0; font-size: 13px;">Consolidado do Mês</h4>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantidade Solicitada</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaRelatorio"></tbody>
-        </table>
+        <h4 id="tituloConsolidado" style="margin: 12px 0 6px 0; font-size: 14px;">Consolidado do Mês</h4>
+        <div class="tabela-container" style="max-height: 220px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade Solicitada</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaRelatorio"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA ESTOQUE E CADASTROS -->
+    <div id="abaEstoque" style="display: none;">
+        <div class="relatorio-card" id="cadSolicitanteFormCard" style="display: none; border-left: 4px solid #2563eb;">
+            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Cadastrar Solicitante / Seção (ADM)</h4>
+            <form id="cadSolicitanteForm" onsubmit="cadastrarNovoSolicitante(event)">
+                <div style="display: grid; grid-template-columns: 1fr 110px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="novoSolicitanteNome">Nome da Seção/Unidade:</label>
+                        <input type="text" id="novoSolicitanteNome" placeholder="Ex: Bop/2, Cia/1, P1" required>
+                    </div>
+                    <button type="submit" style="margin-top: 20px; height: 35px;">Cadastrar</button>
+                </div>
+            </form>
+            <div id="listaSolicitantesCadastrados" style="margin-top: 10px; font-size: 12px;"></div>
+        </div>
+
+        <div class="relatorio-card" id="estoqueFormCard" style="display: none;">
+            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Adicionar / Repor Item no Estoque (ADM)</h4>
+            <form id="estoqueForm">
+                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="estoqueItem">Nome do Item:</label>
+                        <input type="text" id="estoqueItem" placeholder="Ex: Papel A4" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="estoqueQtd">Qtd:</label>
+                        <input type="number" id="estoqueQtd" min="1" value="1" required>
+                    </div>
+                </div>
+                <button type="submit" style="margin-top: 8px; width: 100%;">Adicionar ao Estoque</button>
+            </form>
+            <small style="color: #64748b; font-size: 11px;">Se o item já existir, a quantidade informada será somada ao saldo atual.</small>
+        </div>
+
+        <h4 style="margin: 12px 0 6px 0; font-size: 14px;">Itens em Estoque</h4>
+        <div class="tabela-container" style="max-height: 250px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade Atual</th>
+                        <th>Ação (ADM)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaEstoque"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE SOLICITAÇÃO -->
+<div class="modal-overlay" id="modalSolicitacao">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin: 0; color: #1e293b; font-size: 17px;">Nova Solicitação de Material</h3>
+            <button class="modal-close" onclick="fecharModalSolicitacao()">&times;</button>
+        </div>
+
+        <form id="solicitacaoForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label for="solicitanteBase">Seção/Unidade:</label>
+                    <select id="solicitanteBase" required>
+                        <option value="" disabled selected>Selecione</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="solicitanteRE">RE do Policial:</label>
+                    <input type="text" id="solicitanteRE" placeholder="Ex: 123456-7" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data da Solicitação:</label>
+                <input type="date" id="data" required>
+            </div>
+
+            <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
+                <h5 style="margin: 0 0 10px 0; color: #334155; font-size: 13px;">Adicionar Itens</h5>
+                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="item">Item Solicitado:</label>
+                        <select id="item" onchange="atualizarEstoqueDisponivelView(); alternarItemPersonalizado();">
+                            <option value="" disabled selected>Selecione um item</option>
+                        </select>
+                        <input type="text" id="itemPersonalizado" placeholder="Digite o nome do item" style="display: none; margin-top: 6px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="quantidade">Qtd:</label>
+                        <input type="number" id="quantidade" min="1" value="1">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                    <small id="estoqueDisponivelInfo" style="color: #64748b; font-size: 11px;">Estoque: -</small>
+                    <button type="button" class="btn-alt" onclick="adicionarItemTemporario()" style="font-size: 12px; padding: 6px 12px;">+ Adicionar à Lista</button>
+                </div>
+            </div>
+
+            <div id="areaListaTemporaria" style="display: none; margin-bottom: 16px; background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1;">
+                <strong style="font-size: 12px; color: #334155;">Lista de Itens Selecionados:</strong>
+                <ul id="listaItensTemporarios" style="margin: 6px 0 10px 0; padding-left: 20px; font-size: 13px;"></ul>
+            </div>
+
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <button type="button" onclick="fecharModalSolicitacao()" style="background-color: #64748b;">Cancelar</button>
+                <button type="submit" style="background-color: #16a34a; padding: 10px 18px;">Finalizar e Cadastrar</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
     const SENHA_ADM = "3Bprv";
     let isAdmin = false;
+    let itensCarrinho = [];
 
     document.getElementById('data').value = new Date().toISOString().split('T')[0];
     document.getElementById('filtroMesAno').value = new Date().toISOString().slice(0, 7);
 
-    let solicitacoes = JSON.parse(localStorage.getItem('solicitacoes_p4')) || [
-        { id: 1, solicitante: "Cb João", item: "Resma Papel A4", data: new Date().toISOString().split('T')[0], status: "Pendente" }
-    ];
+    let solicitacoes = JSON.parse(localStorage.getItem('solicitacoes_p4')) || [];
+    let estoque = JSON.parse(localStorage.getItem('estoque_p4')) || [];
+    let solicitantesCadastrados = JSON.parse(localStorage.getItem('solicitantes_p4')) || ['Bop/1', 'Bop/2', 'Bop/3', 'P1', 'P2', 'P3', 'P4'];
+
+    function abrirModalSolicitacao() {
+        document.getElementById('modalSolicitacao').style.display = 'flex';
+        atualizarSelectSolicitantes();
+        popularSelectItens();
+    }
+
+    function fecharModalSolicitacao() {
+        document.getElementById('modalSolicitacao').style.display = 'none';
+        itensCarrinho = [];
+        renderizarListaTemporaria();
+        document.getElementById('solicitacaoForm').reset();
+        document.getElementById('data').value = new Date().toISOString().split('T')[0];
+        alternarItemPersonalizado();
+    }
 
     function alternarLogin() {
         if (!isAdmin) {
@@ -260,45 +511,228 @@
             document.getElementById('btnLoginLogout').innerText = "Entrar como ADM";
             document.getElementById('btnLoginLogout').className = "btn-alt";
         }
+        
+        document.getElementById('cadSolicitanteFormCard').style.display = isAdmin ? 'block' : 'none';
+        document.getElementById('estoqueFormCard').style.display = isAdmin ? 'block' : 'none';
+        
+        atualizarSelectSolicitantes();
+        popularFiltroSolicitantes();
         atualizarTabela();
+        gerarRelatorio();
+        atualizarTabelaEstoque();
     }
 
     function mudarAba(aba) {
-        const btnSolicitacoes = document.querySelectorAll('.tab-btn')[0];
-        const btnRelatorio = document.querySelectorAll('.tab-btn')[1];
+        const botoes = document.querySelectorAll('.tab-btn:not(.btn-nova-solicitation)');
+        const abas = {
+            solicitacoes: document.getElementById('abaSolicitacoes'),
+            relatorio: document.getElementById('abaRelatorio'),
+            estoque: document.getElementById('abaEstoque')
+        };
+        const indices = { solicitacoes: 0, relatorio: 1, estoque: 2 };
 
-        if (aba === 'solicitacoes') {
-            document.getElementById('abaSolicitacoes').style.display = 'block';
-            document.getElementById('abaRelatorio').style.display = 'none';
-            btnSolicitacoes.classList.add('active');
-            btnRelatorio.classList.remove('active');
-        } else {
-            document.getElementById('abaSolicitacoes').style.display = 'none';
-            document.getElementById('abaRelatorio').style.display = 'block';
-            btnSolicitacoes.classList.remove('active');
-            btnRelatorio.classList.add('active');
+        Object.keys(abas).forEach(nome => {
+            abas[nome].style.display = (nome === aba) ? 'block' : 'none';
+            if (botoes[indices[nome]]) {
+                botoes[indices[nome]].classList.toggle('active', nome === aba);
+            }
+        });
+
+        if (aba === 'relatorio') {
+            popularFiltroSolicitantes();
             gerarRelatorio();
+        } else if (aba === 'estoque') {
+            atualizarTabelaEstoque();
+            renderizarListaSolicitantesGerenciamento();
         }
     }
 
-    function salvarDados() {
-        localStorage.setItem('solicitacoes_p4', JSON.stringify(solicitacoes));
+    function salvarDados() { localStorage.setItem('solicitacoes_p4', JSON.stringify(solicitacoes)); }
+    function salvarEstoque() { localStorage.setItem('estoque_p4', JSON.stringify(estoque)); }
+    function salvarSolicitantes() { localStorage.setItem('solicitantes_p4', JSON.stringify(solicitantesCadastrados)); }
+
+    function cadastrarNovoSolicitante(e) {
+        e.preventDefault();
+        if (!isAdmin) return;
+        const nome = document.getElementById('novoSolicitanteNome').value.trim();
+        if (nome && !solicitantesCadastrados.includes(nome)) {
+            solicitantesCadastrados.push(nome);
+            solicitantesCadastrados.sort();
+            salvarSolicitantes();
+            document.getElementById('novoSolicitanteNome').value = '';
+            atualizarSelectSolicitantes();
+            popularFiltroSolicitantes();
+            renderizarListaSolicitantesGerenciamento();
+            alert('Solicitante/Seção cadastrada com sucesso!');
+        } else if (solicitantesCadastrados.includes(nome)) {
+            alert('Este solicitante já está cadastrado!');
+        }
+    }
+
+    function removerSolicitanteCadastrado(nome) {
+        if (!isAdmin) return;
+        if (confirm(`Remover "${nome}" da lista de solicitantes?`)) {
+            solicitantesCadastrados = solicitantesCadastrados.filter(s => s !== nome);
+            salvarSolicitantes();
+            atualizarSelectSolicitantes();
+            popularFiltroSolicitantes();
+            renderizarListaSolicitantesGerenciamento();
+        }
+    }
+
+    function renderizarListaSolicitantesGerenciamento() {
+        const div = document.getElementById('listaSolicitantesCadastrados');
+        if (!div) return;
+        if (solicitantesCadastrados.length === 0) {
+            div.innerHTML = "<em>Nenhum solicitante cadastrado.</em>";
+            return;
+        }
+        let html = "<strong>Cadastrados:</strong> ";
+        html += solicitantesCadastrados.map(s => `
+            <span style="background:#e2e8f0; padding:2px 6px; border-radius:4px; margin-right:4px; display:inline-block; margin-top:4px;">
+                ${s} ${isAdmin ? `<a href="#" onclick="removerSolicitanteCadastrado('${s}'); return false;" style="color:#dc2626; font-weight:bold; margin-left:4px;">&times;</a>` : ''}
+            </span>
+        `).join('');
+        div.innerHTML = html;
+    }
+
+    function atualizarSelectSolicitantes() {
+        const select = document.getElementById('solicitanteBase');
+        const valorAtual = select.value;
+        select.innerHTML = '<option value="" disabled selected>Selecione</option>' +
+            solicitantesCadastrados.map(s => `<option value="${s}">${s}</option>`).join('');
+        if (solicitantesCadastrados.includes(valorAtual)) {
+            select.value = valorAtual;
+        }
+    }
+
+    function atualizarEstoqueDisponivelView() {
+        const info = document.getElementById('estoqueDisponivelInfo');
+        const itemVal = obterItemSolicitado().trim().toLowerCase();
+
+        if (!itemVal) {
+            info.innerText = 'Estoque: -';
+            info.style.color = '#64748b';
+            return;
+        }
+
+        const entrada = estoque.find(e => e.item.trim().toLowerCase() === itemVal);
+        if (entrada) {
+            info.innerText = `Estoque: ${entrada.quantidade}`;
+            info.style.color = entrada.quantidade <= 2 ? '#d97706' : '#16a34a';
+        } else {
+            info.innerText = 'Não controlado';
+            info.style.color = '#94a3b8';
+        }
+    }
+
+    document.getElementById('itemPersonalizado').addEventListener('input', atualizarEstoqueDisponivelView);
+
+    function adicionarItemTemporario() {
+        const itemNome = obterItemSolicitado();
+        const quantidade = parseInt(document.getElementById('quantidade').value, 10) || 1;
+
+        if (!itemNome) {
+            alert('Selecione ou digite um item válido.');
+            return;
+        }
+
+        const resultadoBaixa = abaterEstoque(itemNome, quantidade);
+        if (resultadoBaixa.encontrado && !resultadoBaixa.suficiente) {
+            const continuar = confirm(
+                `Atenção: estoque insuficiente para "${itemNome}".\n` +
+                `Disponível: ${resultadoBaixa.disponivelAntes}. Solicitado: ${quantidade}.\n\n` +
+                `Deseja incluir mesmo assim?`
+            );
+            if (!continuar) return;
+        }
+
+        itensCarrinho.push({ item: itemNome, quantidade: quantidade });
+
+        document.getElementById('item').value = '';
+        document.getElementById('quantidade').value = 1;
+        alternarItemPersonalizado();
+        atualizarEstoqueDisponivelView();
+        renderizarListaTemporaria();
+        atualizarTabelaEstoque();
+    }
+
+    function renderizarListaTemporaria() {
+        const container = document.getElementById('areaListaTemporaria');
+        const ul = document.getElementById('listaItensTemporarios');
+        ul.innerHTML = '';
+
+        if (itensCarrinho.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        container.style.display = 'block';
+        itensCarrinho.forEach((it, index) => {
+            ul.innerHTML += `
+                <li style="margin-bottom: 2px;">
+                    <strong>${it.item}</strong> — Qtd: ${it.quantidade} 
+                    <a href="#" onclick="removerItemCarrinho(${index}); return false;" style="color: #dc2626; margin-left: 8px; font-size: 11px;">[remover]</a>
+                </li>`;
+        });
+    }
+
+    function removerItemCarrinho(index) {
+        itensCarrinho.splice(index, 1);
+        renderizarListaTemporaria();
     }
 
     document.getElementById('solicitacaoForm').addEventListener('submit', function(e) {
         e.preventDefault();
+
+        const base = document.getElementById('solicitanteBase').value;
+        const re = document.getElementById('solicitanteRE').value.trim();
+
+        if (!base) {
+            alert('Selecione a Seção/Unidade do solicitante.');
+            return;
+        }
+
+        if (itensCarrinho.length === 0) {
+            alert('Adicione pelo menos um item à lista antes de finalizar.');
+            return;
+        }
+
+        const solicitanteFormatado = `${base} - RE ${re}`;
+        const descricaoItens = itensCarrinho.map(i => `${i.item} (x${i.quantidade})`).join(', ');
+        const totalQtd = itensCarrinho.reduce((acc, curr) => acc + curr.quantidade, 0);
+
         solicitacoes.push({
             id: Date.now(),
-            solicitante: document.getElementById('solicitante').value,
-            item: document.getElementById('item').value,
+            solicitanteBase: base,
+            solicitanteRE: re,
+            solicitante: solicitanteFormatado,
+            item: descricaoItens,
+            quantidade: totalQtd,
             data: document.getElementById('data').value,
             status: "Pendente"
         });
+
         salvarDados();
-        this.reset();
-        document.getElementById('data').value = new Date().toISOString().split('T')[0];
+        fecharModalSolicitacao();
         atualizarTabela();
+        popularFiltroSolicitantes();
+        atualizarTabelaEstoque();
     });
+
+    function abaterEstoque(itemNome, quantidade) {
+        const chave = itemNome.trim().toLowerCase();
+        const entrada = estoque.find(e => e.item.trim().toLowerCase() === chave);
+
+        if (!entrada) return { encontrado: false, suficiente: true };
+
+        const disponivelAntes = entrada.quantidade;
+        const suficiente = disponivelAntes >= quantidade;
+        entrada.quantidade = Math.max(0, disponivelAntes - quantidade);
+        salvarEstoque();
+
+        return { encontrado: true, suficiente, disponivelAntes };
+    }
 
     function alterarStatus(id) {
         if (!isAdmin) return;
@@ -315,7 +749,7 @@
         corpo.innerHTML = "";
 
         if (solicitacoes.length === 0) {
-            corpo.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhuma solicitação encontrada.</td></tr>`;
+            corpo.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhuma solicitação encontrada.</td></tr>`;
             return;
         }
 
@@ -331,6 +765,7 @@
                     <td>${dataFmt}</td>
                     <td><strong>${s.solicitante}</strong></td>
                     <td>${s.item}</td>
+                    <td>${s.quantidade || 1}</td>
                     <td><span class="badge ${badgeClass}">${s.status}</span></td>
                     <td>${acaoHtml}</td>
                 </tr>
@@ -338,16 +773,144 @@
         });
     }
 
+    function popularSelectItens() {
+        const select = document.getElementById('item');
+        const valorAtual = select.value;
+
+        const itensOrdenados = estoque.slice().sort((a, b) => a.item.localeCompare(b.item));
+        let optionsHtml = '<option value="" disabled selected>Selecione um item</option>';
+
+        if (itensOrdenados.length === 0) {
+            optionsHtml += '<option value="" disabled>Nenhum item cadastrado</option>';
+        } else {
+            optionsHtml += itensOrdenados
+                .map(e => `<option value="${e.item}">${e.item} — ${e.quantidade} em estoque</option>`)
+                .join('');
+        }
+
+        optionsHtml += '<option value="__outro__">Outro (item não cadastrado)</option>';
+        select.innerHTML = optionsHtml;
+
+        const valores = itensOrdenados.map(e => e.item).concat('__outro__');
+        select.value = valores.includes(valorAtual) ? valorAtual : '';
+        alternarItemPersonalizado();
+    }
+
+    function alternarItemPersonalizado() {
+        const select = document.getElementById('item');
+        const campoPersonalizado = document.getElementById('itemPersonalizado');
+        const mostrar = select.value === '__outro__';
+        campoPersonalizado.style.display = mostrar ? 'block' : 'none';
+        campoPersonalizado.required = mostrar;
+        if (!mostrar) campoPersonalizado.value = '';
+    }
+
+    function obterItemSolicitado() {
+        const select = document.getElementById('item');
+        if (select.value === '__outro__') {
+            return document.getElementById('itemPersonalizado').value.trim();
+        }
+        return select.value;
+    }
+
+    function atualizarTabelaEstoque() {
+        const corpo = document.getElementById('tabelaEstoque');
+        corpo.innerHTML = "";
+        popularSelectItens();
+
+        if (estoque.length === 0) {
+            corpo.innerHTML = `<tr><td colspan="3" style="text-align:center;">Nenhum item cadastrado no estoque.</td></tr>`;
+            return;
+        }
+
+        estoque
+            .slice()
+            .sort((a, b) => a.item.localeCompare(b.item))
+            .forEach(e => {
+                const baixo = e.quantidade <= 2;
+                const acaoHtml = isAdmin
+                    ? `<button class="btn-status" style="background-color:#dc2626;" onclick="removerItemEstoque('${e.id}')">Remover</button>`
+                    : `<span style="color: #94a3b8; font-size: 10px;">-</span>`;
+
+                corpo.innerHTML += `
+                    <tr>
+                        <td><strong>${e.item}</strong></td>
+                        <td>${baixo ? `<span class="badge bg-pendente">${e.quantidade}</span>` : e.quantidade}</td>
+                        <td>${acaoHtml}</td>
+                    </tr>
+                `;
+            });
+    }
+
+    function removerItemEstoque(id) {
+        if (!isAdmin) return;
+        if (!confirm('Remover este item do estoque?')) return;
+        estoque = estoque.filter(e => e.id !== id);
+        salvarEstoque();
+        atualizarTabelaEstoque();
+    }
+
+    document.getElementById('estoqueForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!isAdmin) return;
+
+        const nome = document.getElementById('estoqueItem').value.trim();
+        const qtd = parseInt(document.getElementById('estoqueQtd').value, 10) || 0;
+        const chave = nome.toLowerCase();
+
+        const existente = estoque.find(e => e.item.trim().toLowerCase() === chave);
+        if (existente) {
+            existente.quantidade += qtd;
+        } else {
+            estoque.push({ id: Date.now().toString(), item: nome, quantidade: qtd });
+        }
+
+        salvarEstoque();
+        this.reset();
+        document.getElementById('estoqueQtd').value = 1;
+        atualizarTabelaEstoque();
+    });
+
+    function popularFiltroSolicitantes() {
+        const select = document.getElementById('filtroSolicitante');
+        const valorAtual = select.value;
+        
+        const unidadesHistorico = solicitacoes.map(s => s.solicitanteBase || s.solicitante);
+        const todasUnidades = [...new Set([...solicitantesCadastrados, ...unidadesHistorico])].filter(Boolean).sort();
+
+        select.innerHTML = '<option value="todos">Todos os Solicitantes</option>' +
+            todasUnidades.map(n => `<option value="${n}">${n}</option>`).join('');
+            
+        if (todasUnidades.includes(valorAtual)) {
+            select.value = valorAtual;
+        } else {
+            select.value = 'todos';
+        }
+    }
+
     function gerarRelatorio() {
         const mesAno = document.getElementById('filtroMesAno').value;
+        const solicitanteSelecionado = document.getElementById('filtroSolicitante').value;
         const tabelaRelatorio = document.getElementById('tabelaRelatorio');
         tabelaRelatorio.innerHTML = "";
 
-        const filtrados = solicitacoes.filter(s => s.data && s.data.startsWith(mesAno));
+        let filtrados = solicitacoes.filter(s => s.data && s.data.startsWith(mesAno));
+
+        if (solicitanteSelecionado !== 'todos') {
+            filtrados = filtrados.filter(s => 
+                (s.solicitanteBase && s.solicitanteBase === solicitanteSelecionado) ||
+                (s.solicitante && s.solicitante.startsWith(solicitanteSelecionado))
+            );
+        }
 
         document.getElementById('statTotal').innerText = filtrados.length;
         document.getElementById('statEntregue').innerText = filtrados.filter(s => s.status === "Entregue").length;
         document.getElementById('statPendente').innerText = filtrados.filter(s => s.status === "Pendente").length;
+
+        const titulo = document.getElementById('tituloConsolidado');
+        titulo.innerText = (solicitanteSelecionado !== 'todos')
+            ? `Consolidado do Mês - ${solicitanteSelecionado}`
+            : 'Consolidado do Mês';
 
         if (filtrados.length === 0) {
             tabelaRelatorio.innerHTML = `<tr><td colspan="2" style="text-align:center;">Nenhum item solicitado neste mês.</td></tr>`;
@@ -357,7 +920,8 @@
         const contagemItens = {};
         filtrados.forEach(s => {
             const itemNome = s.item.trim().toLowerCase();
-            contagemItens[itemNome] = (contagemItens[itemNome] || 0) + 1;
+            const qtd = s.quantidade || 1;
+            contagemItens[itemNome] = (contagemItens[itemNome] || 0) + qtd;
         });
 
         for (const [item, qtd] of Object.entries(contagemItens)) {
@@ -370,7 +934,68 @@
         }
     }
 
+    function exportarRelatorioPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const mesAno = document.getElementById('filtroMesAno').value;
+        const solicitanteSelecionado = document.getElementById('filtroSolicitante').value;
+        const [ano, mes] = mesAno.split('-');
+        const nomesMes = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+        const mesNome = nomesMes[parseInt(mes, 10) - 1] || mes;
+
+        doc.setFontSize(14);
+        doc.text('P4 - 3º BPRv - Relatório Mensal', 14, 15);
+        doc.setFontSize(10);
+        doc.text(`Período: ${mesNome}/${ano}`, 14, 22);
+
+        let y = 28;
+        if (solicitanteSelecionado !== 'todos') {
+            doc.text(`Solicitante/Seção: ${solicitanteSelecionado}`, 14, y);
+            y += 6;
+        }
+
+        const total = document.getElementById('statTotal').innerText;
+        const entregue = document.getElementById('statEntregue').innerText;
+        const pendente = document.getElementById('statPendente').innerText;
+        doc.text(`Total: ${total}    Entregues: ${entregue}    Pendentes: ${pendente}`, 14, y);
+        y += 6;
+
+        const linhas = [];
+        document.querySelectorAll('#tabelaRelatorio tr').forEach(tr => {
+            const cels = tr.querySelectorAll('td');
+            if (cels.length === 2) {
+                linhas.push([cels[0].innerText, cels[1].innerText]);
+            }
+        });
+
+        doc.autoTable({
+            startY: y + 2,
+            head: [['Item', 'Quantidade Solicitada']],
+            body: linhas.length ? linhas : [['Nenhum item solicitado neste mês.', '']],
+            headStyles: { fillColor: [30, 41, 59] }
+        });
+
+        const nomeArquivo = solicitanteSelecionado !== 'todos'
+            ? `relatorio_${mesAno}_${solicitanteSelecionado.replace(/\s+/g, '_')}.pdf`
+            : `relatorio_${mesAno}.pdf`;
+        doc.save(nomeArquivo);
+    }
+
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            self.addEventListener('install', e => e.waitUntil(self.skipWaiting()));
+            self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl);
+    }
+
+    atualizarSelectSolicitantes();
+    popularFiltroSolicitantes();
     atualizarTabela();
+    atualizarTabelaEstoque();
 </script>
 
 </body>
