@@ -1,24 +1,466 @@
-<!-- Importação dos módulos do Firebase (v10 JS SDK) -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4 - 3º BPRv</title>
+
+    <!-- ÍCONE DO APLICATIVO -->
+    <link rel="icon" type="image/jpeg" href="brasao.jpg">
+    <link rel="apple-touch-icon" href="brasao.jpg">
+    
+    <!-- MANIFEST PARA INSTALAÇÃO COMO APP (PWA) -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        &quot;name&quot;: &quot;P4 - 3º BPRv&quot;,
+        &quot;short_name&quot;: &quot;P4 3BPRv&quot;,
+        &quot;start_url&quot;: &quot;.&quot;,
+        &quot;display&quot;: &quot;standalone&quot;,
+        &quot;background_color&quot;: &quot;#0f172a&quot;,
+        &quot;theme_color&quot;: &quot;#0f172a&quot;,
+        &quot;icons&quot;: [{
+            &quot;src&quot;: &quot;brasao.jpg&quot;,
+            &quot;sizes&quot;: &quot;512x512&quot;,
+            &quot;type&quot;: &quot;image/jpeg&quot;
+        }]
+    }">
+
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { 
+            background-color: #0f172a;
+            margin: 0; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* MARCA D'ÁGUA DO BRASÃO NO FUNDO DA TELA */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: url('brasao.jpg') no-repeat center center;
+            background-size: contain;
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container { 
+            position: relative;
+            z-index: 1;
+            width: 100%; 
+            max-width: 800px; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 16px 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #b91c1c;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .header-login { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: #1e293b; 
+            color: white;
+            padding: 8px 12px; 
+            border-radius: 5px; 
+            margin-bottom: 12px; 
+            font-size: 13px;
+        }
+
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-weight: bold; color: #334155; font-size: 13px; }
+        input, select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 13px; }
+
+        button { 
+            background-color: #16a34a; 
+            color: white; 
+            border: none; 
+            padding: 8px 12px; 
+            font-weight: bold; 
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 13px;
+        }
+        button:hover { opacity: 0.9; }
+
+        .btn-alt { background-color: #2563eb; }
+        .btn-logout { background-color: #dc2626; }
+        .btn-status { background-color: #d97706; color: white; padding: 4px 8px; font-size: 11px; border-radius: 3px; }
+        .btn-relatorio { background-color: #0284c7; padding: 6px 12px; font-size: 12px; }
+
+        .tabela-container {
+            max-height: 380px;
+            overflow-y: auto;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-top: 8px;
+            background: white;
+        }
+
+        table { width: 100%; border-collapse: collapse; background: white; font-size: 12px; }
+        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
+        
+        th { 
+            background-color: #1e293b; 
+            color: white; 
+            font-weight: 600; 
+            font-size: 12px; 
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .badge { padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: bold; color: white; }
+        .bg-pendente { background-color: #d97706; }
+        .bg-entregue { background-color: #16a34a; }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tab-btn { background: #e2e8f0; color: #334155; border: none; padding: 8px 14px; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 13px; }
+        .tab-btn.active { background: #1e293b; color: white; }
+        .btn-nova-solicitation { background-color: #16a34a; color: white; margin-left: auto; }
+
+        .relatorio-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-stat {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+
+        .modal-close {
+            background: transparent;
+            color: #64748b;
+            border: none;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        .modal-close:hover { color: #dc2626; }
+
+        @media print {
+            body::before { opacity: 0.05; }
+            .header-login, .tabs, .modal-overlay, form, .btn-print { display: none !important; }
+            .container { box-shadow: none; border: none; width: 100%; padding: 0; }
+            .tabela-container { max-height: none; overflow: visible; border: none; }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <div class="logo-box">
+            <img src="brasao.jpg" alt="Brasão Policiamento Rodoviário" class="logo-img">
+            <div>
+                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">P4 - 3º BPRv</h3>
+                <small style="color: #64748b; font-size: 12px;">Policiamento Rodoviário - São Paulo</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-login">
+        <div>Sessão: <span id="usuarioNome" style="color: #60a5fa; font-weight: bold;">Usuário Comum</span></div>
+        <button id="btnLoginLogout" class="btn-alt" onclick="alternarLogin()">Entrar como ADM</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="mudarAba('solicitacoes')">Solicitações Registradas</button>
+        <button class="tab-btn" onclick="mudarAba('relatorio')">Relatório Mensal</button>
+        <button class="tab-btn" onclick="mudarAba('estoque')">Estoque / Cadastros</button>
+        <button class="tab-btn btn-nova-solicitation" onclick="abrirModalSolicitacao()">+ Nova Solicitação</button>
+    </div>
+
+    <!-- ABA SOLICITAÇÕES REGISTRADAS -->
+    <div id="abaSolicitacoes">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="margin: 0; font-size: 15px; color: #1e293b;">Histórico de Solicitações</h4>
+        </div>
+        
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Solicitante</th>
+                        <th>Item(ns)</th>
+                        <th>Qtd Total</th>
+                        <th>Status</th>
+                        <th>Ação (ADM)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaCorpo"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA RELATÓRIO MENSAL -->
+    <div id="abaRelatorio" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="margin: 0; font-size: 15px;">Relatório Mensal</h4>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn-relatorio btn-print" onclick="window.print()">Imprimir</button>
+                <button class="btn-relatorio btn-print" style="background-color: #b91c1c;" onclick="exportarRelatorioPDF()">Exportar PDF</button>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="relatorio-card" style="margin-bottom: 0;">
+                <label for="filtroMesAno">Filtrar por Mês/Ano:</label>
+                <input type="month" id="filtroMesAno" onchange="gerarRelatorio()">
+            </div>
+            <div class="relatorio-card" style="margin-bottom: 0;">
+                <label for="filtroSolicitante">Filtrar por Solicitante/Seção:</label>
+                <select id="filtroSolicitante" onchange="gerarRelatorio()">
+                    <option value="todos">Todos os Solicitantes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card-stat" style="border-color: #2563eb;">
+                <small style="color: #64748b; font-size: 11px;">Total Mês</small>
+                <h3 id="statTotal" style="margin: 0; font-size: 18px;">0</h3>
+            </div>
+            <div class="card-stat" style="border-color: #16a34a;">
+                <small style="color: #64748b; font-size: 11px;">Entregues</small>
+                <h3 id="statEntregue" style="margin: 0; font-size: 18px; color: #16a34a;">0</h3>
+            </div>
+            <div class="card-stat" style="border-color: #d97706;">
+                <small style="color: #64748b; font-size: 11px;">Pendentes</small>
+                <h3 id="statPendente" style="margin: 0; font-size: 18px; color: #d97706;">0</h3>
+            </div>
+        </div>
+
+        <h4 id="tituloConsolidado" style="margin: 12px 0 6px 0; font-size: 14px;">Consolidado do Mês</h4>
+        <div class="tabela-container" style="max-height: 220px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade Solicitada</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaRelatorio"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA ESTOQUE E CADASTROS -->
+    <div id="abaEstoque" style="display: none;">
+        <div class="relatorio-card" id="cadSolicitanteFormCard" style="display: none; border-left: 4px solid #2563eb;">
+            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Cadastrar Solicitante / Seção (ADM)</h4>
+            <form id="cadSolicitanteForm" onsubmit="cadastrarNovoSolicitante(event)">
+                <div style="display: grid; grid-template-columns: 1fr 110px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="novoSolicitanteNome">Nome da Seção/Unidade:</label>
+                        <input type="text" id="novoSolicitanteNome" placeholder="Ex: Bop/2, Cia/1, P1" required>
+                    </div>
+                    <button type="submit" style="margin-top: 20px; height: 35px;">Cadastrar</button>
+                </div>
+            </form>
+            <div id="listaSolicitantesCadastrados" style="margin-top: 10px; font-size: 12px;"></div>
+        </div>
+
+        <div class="relatorio-card" id="estoqueFormCard" style="display: none;">
+            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Adicionar / Repor Item no Estoque (ADM)</h4>
+            <form id="estoqueForm" onsubmit="adicionarItemEstoque(event)">
+                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="estoqueItem">Nome do Item:</label>
+                        <input type="text" id="estoqueItem" placeholder="Ex: Papel A4" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="estoqueQtd">Qtd:</label>
+                        <input type="number" id="estoqueQtd" min="1" value="1" required>
+                    </div>
+                </div>
+                <button type="submit" style="margin-top: 8px; width: 100%;">Adicionar ao Estoque</button>
+            </form>
+            <small style="color: #64748b; font-size: 11px;">Se o item já existir, a quantidade informada será somada ao saldo atual.</small>
+        </div>
+
+        <h4 style="margin: 12px 0 6px 0; font-size: 14px;">Itens em Estoque</h4>
+        <div class="tabela-container" style="max-height: 250px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade Atual</th>
+                        <th>Ação (ADM)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaEstoque"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE SOLICITAÇÃO -->
+<div class="modal-overlay" id="modalSolicitacao">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin: 0; color: #1e293b; font-size: 17px;">Nova Solicitação de Material</h3>
+            <button class="modal-close" onclick="fecharModalSolicitacao()">&times;</button>
+        </div>
+
+        <form id="solicitacaoForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="form-group">
+                    <label for="solicitanteBase">Seção/Unidade:</label>
+                    <select id="solicitanteBase" required>
+                        <option value="" disabled selected>Selecione</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="solicitanteRE">RE do Policial:</label>
+                    <input type="text" id="solicitanteRE" placeholder="Ex: 123456-7" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data da Solicitação:</label>
+                <input type="date" id="data" required>
+            </div>
+
+            <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
+                <h5 style="margin: 0 0 10px 0; color: #334155; font-size: 13px;">Adicionar Itens</h5>
+                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="item">Item Solicitado:</label>
+                        <select id="item" onchange="atualizarEstoqueDisponivelView(); alternarItemPersonalizado();">
+                            <option value="" disabled selected>Selecione um item</option>
+                        </select>
+                        <input type="text" id="itemPersonalizado" placeholder="Digite o nome do item" style="display: none; margin-top: 6px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="quantidade">Qtd:</label>
+                        <input type="number" id="quantidade" min="1" value="1">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                    <small id="estoqueDisponivelInfo" style="color: #64748b; font-size: 11px;">Estoque: -</small>
+                    <button type="button" class="btn-alt" onclick="adicionarItemTemporario()" style="font-size: 12px; padding: 6px 12px;">+ Adicionar à Lista</button>
+                </div>
+            </div>
+
+            <div id="areaListaTemporaria" style="display: none; margin-bottom: 16px; background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1;">
+                <strong style="font-size: 12px; color: #334155;">Lista de Itens Selecionados:</strong>
+                <ul id="listaItensTemporarios" style="margin: 6px 0 10px 0; padding-left: 20px; font-size: 13px;"></ul>
+            </div>
+
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <button type="button" onclick="fecharModalSolicitacao()" style="background-color: #64748b;">Cancelar</button>
+                <button type="submit" style="background-color: #16a34a; padding: 10px 18px;">Finalizar e Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- INTEGRAÇÃO COM FIREBASE MODERNO (v10+ SDK MODULES) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getDatabase, ref, push, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // SUAS CONFIGURAÇÕES DO FIREBASE (Substitua pelos seus dados)
+  // Suas configurações do Firebase
   const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_PROJETO.firebaseapp.com",
-    databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_PROJETO.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef"
+    apiKey: "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
+    authDomain: "bprv-2c760.firebaseapp.com",
+    projectId: "bprv-2c760",
+    storageBucket: "bprv-2c760.firebasestorage.app",
+    messagingSenderId: "940006401979",
+    appId: "1:940006401979:web:bf678dc236f2fd2332469e",
+    databaseURL: "https://bprv-2c760-default-rtdb.firebaseio.com"
   };
 
-  // Inicialização
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Referências do Banco de Dados
   const solicitacoesRef = ref(db, 'solicitacoes');
   const estoqueRef = ref(db, 'estoque');
   const solicitantesRef = ref(db, 'solicitantes');
@@ -31,7 +473,11 @@
   window.estoque = [];
   window.solicitantesCadastrados = [];
 
-  // SINCRONIZAÇÃO EM TEMPO REAL (Realtime Listeners)
+  // Inicialização de Datas
+  document.getElementById('data').value = new Date().toISOString().split('T')[0];
+  document.getElementById('filtroMesAno').value = new Date().toISOString().slice(0, 7);
+
+  // LISTENERS DE TEMPO REAL DO FIREBASE
   onValue(solicitacoesRef, (snapshot) => {
     const data = snapshot.val();
     window.solicitacoes = data ? Object.keys(data).map(key => ({ idFirebase: key, ...data[key] })) : [];
@@ -48,51 +494,385 @@
 
   onValue(solicitantesRef, (snapshot) => {
     const data = snapshot.val();
-    window.solicitantesCadastrados = data ? Object.values(data) : ['Bop/1', 'Bop/2', 'Bop/3', 'P1', 'P2', 'P3', 'P4'];
+    if (data) {
+      window.solicitantesCadastrados = Object.values(data);
+    } else {
+      window.solicitantesCadastrados = ['Bop/1', 'Bop/2', 'Bop/3', 'P1', 'P2', 'P3', 'P4'];
+      set(solicitantesRef, window.solicitantesCadastrados);
+    }
     atualizarSelectSolicitantes();
     popularFiltroSolicitantes();
     renderizarListaSolicitantesGerenciamento();
   });
 
-  // FUNÇÕES DE PERSISTÊNCIA NO FIREBASE
+  // FUNÇÕES DE MANIPULAÇÃO DO MODAL E SESSÃO
+  window.abrirModalSolicitacao = function() {
+    document.getElementById('modalSolicitacao').style.display = 'flex';
+    atualizarSelectSolicitantes();
+    popularSelectItens();
+  }
+
+  window.fecharModalSolicitacao = function() {
+    document.getElementById('modalSolicitacao').style.display = 'none';
+    window.itensCarrinho = [];
+    renderizarListaTemporaria();
+    document.getElementById('solicitacaoForm').reset();
+    document.getElementById('data').value = new Date().toISOString().split('T')[0];
+    alternarItemPersonalizado();
+  }
+
+  window.alternarLogin = function() {
+    if (!window.isAdmin) {
+        let senha = prompt("Digite a senha do ADM:");
+        if (senha === window.SENHA_ADM) {
+            window.isAdmin = true;
+            document.getElementById('usuarioNome').innerText = "Administrador (ADM)";
+            document.getElementById('usuarioNome').style.color = "#4ade80";
+            document.getElementById('btnLoginLogout').innerText = "Sair do ADM";
+            document.getElementById('btnLoginLogout').className = "btn-logout";
+        } else if (senha !== null) {
+            alert("Senha incorreta!");
+        }
+    } else {
+        window.isAdmin = false;
+        document.getElementById('usuarioNome').innerText = "Usuário Comum";
+        document.getElementById('usuarioNome').style.color = "#60a5fa";
+        document.getElementById('btnLoginLogout').innerText = "Entrar como ADM";
+        document.getElementById('btnLoginLogout').className = "btn-alt";
+    }
+    
+    document.getElementById('cadSolicitanteFormCard').style.display = window.isAdmin ? 'block' : 'none';
+    document.getElementById('estoqueFormCard').style.display = window.isAdmin ? 'block' : 'none';
+    
+    atualizarSelectSolicitantes();
+    popularFiltroSolicitantes();
+    atualizarTabela();
+    gerarRelatorio();
+    atualizarTabelaEstoque();
+  }
+
+  window.mudarAba = function(aba) {
+    const botoes = document.querySelectorAll('.tab-btn:not(.btn-nova-solicitation)');
+    const abas = {
+        solicitacoes: document.getElementById('abaSolicitacoes'),
+        relatorio: document.getElementById('abaRelatorio'),
+        estoque: document.getElementById('abaEstoque')
+    };
+    const indices = { solicitacoes: 0, relatorio: 1, estoque: 2 };
+
+    Object.keys(abas).forEach(nome => {
+        abas[nome].style.display = (nome === aba) ? 'block' : 'none';
+        if (botoes[indices[nome]]) {
+            botoes[indices[nome]].classList.toggle('active', nome === aba);
+        }
+    });
+
+    if (aba === 'relatorio') {
+        popularFiltroSolicitantes();
+        gerarRelatorio();
+    } else if (aba === 'estoque') {
+        atualizarTabelaEstoque();
+        renderizarListaSolicitantesGerenciamento();
+    }
+  }
+
+  // GERENCIAMENTO DE SOLICITANTES
   window.cadastrarNovoSolicitante = function(e) {
     e.preventDefault();
-    if (!isAdmin) return;
+    if (!window.isAdmin) return;
     const nome = document.getElementById('novoSolicitanteNome').value.trim();
     if (nome && !window.solicitantesCadastrados.includes(nome)) {
-      push(solicitantesRef, nome);
-      document.getElementById('novoSolicitanteNome').value = '';
+        push(solicitantesRef, nome);
+        document.getElementById('novoSolicitanteNome').value = '';
+        alert('Solicitante/Seção cadastrada com sucesso!');
+    } else if (window.solicitantesCadastrados.includes(nome)) {
+        alert('Este solicitante já está cadastrado!');
     }
-  };
+  }
 
-  window.alterarStatus = function(idFirebase) {
-    if (!isAdmin) return;
-    const item = window.solicitacoes.find(s => s.idFirebase === idFirebase);
-    if (item) {
-      const novoStatus = item.status === "Pendente" ? "Entregue" : "Pendente";
-      update(ref(db, `solicitacoes/${idFirebase}`), { status: novoStatus });
+  window.removerSolicitanteCadastrado = function(nome) {
+    if (!window.isAdmin) return;
+    if (confirm(`Remover "${nome}" da lista de solicitantes?`)) {
+        const novos = window.solicitantesCadastrados.filter(s => s !== nome);
+        set(solicitantesRef, novos);
     }
-  };
+  }
 
+  function renderizarListaSolicitantesGerenciamento() {
+    const div = document.getElementById('listaSolicitantesCadastrados');
+    if (!div) return;
+    if (window.solicitantesCadastrados.length === 0) {
+        div.innerHTML = "<em>Nenhum solicitante cadastrado.</em>";
+        return;
+    }
+    let html = "<strong>Cadastrados:</strong> ";
+    html += window.solicitantesCadastrados.map(s => `
+        <span style="background:#e2e8f0; padding:2px 6px; border-radius:4px; margin-right:4px; display:inline-block; margin-top:4px;">
+            ${s} ${window.isAdmin ? `<a href="#" onclick="removerSolicitanteCadastrado('${s}'); return false;" style="color:#dc2626; font-weight:bold; margin-left:4px;">&times;</a>` : ''}
+        </span>
+    `).join('');
+    div.innerHTML = html;
+  }
+
+  function atualizarSelectSolicitantes() {
+    const select = document.getElementById('solicitanteBase');
+    const valorAtual = select.value;
+    select.innerHTML = '<option value="" disabled selected>Selecione</option>' +
+        window.solicitantesCadastrados.map(s => `<option value="${s}">${s}</option>`).join('');
+    if (window.solicitantesCadastrados.includes(valorAtual)) {
+        select.value = valorAtual;
+    }
+  }
+
+  function popularFiltroSolicitantes() {
+    const select = document.getElementById('filtroSolicitante');
+    const valorAtual = select.value;
+    select.innerHTML = '<option value="todos">Todos os Solicitantes</option>' +
+        window.solicitantesCadastrados.map(s => `<option value="${s}">${s}</option>`).join('');
+    select.value = valorAtual || 'todos';
+  }
+
+  // GERENCIAMENTO DO ESTOQUE
+  window.adicionarItemEstoque = function(e) {
+    e.preventDefault();
+    if (!window.isAdmin) return;
+    const itemNome = document.getElementById('estoqueItem').value.trim();
+    const qtd = parseInt(document.getElementById('estoqueQtd').value, 10) || 1;
+
+    const itemExistente = window.estoque.find(e => e.item.toLowerCase() === itemNome.toLowerCase());
+    if (itemExistente) {
+        update(ref(db, `estoque/${itemExistente.idFirebase}`), { quantidade: itemExistente.quantidade + qtd });
+    } else {
+        push(estoqueRef, { item: itemNome, quantidade: qtd });
+    }
+    document.getElementById('estoqueForm').reset();
+  }
+
+  window.removerItemEstoque = function(idFirebase) {
+    if (!window.isAdmin) return;
+    if (confirm("Deseja realmente remover este item do estoque?")) {
+        remove(ref(db, `estoque/${idFirebase}`));
+    }
+  }
+
+  function atualizarTabelaEstoque() {
+    const corpo = document.getElementById('tabelaEstoque');
+    corpo.innerHTML = "";
+    if (window.estoque.length === 0) {
+        corpo.innerHTML = `<tr><td colspan="3" style="text-align:center;">Nenhum item em estoque.</td></tr>`;
+        return;
+    }
+    window.estoque.forEach(e => {
+        const acao = window.isAdmin ? `<button onclick="removerItemEstoque('${e.idFirebase}')" style="background:#dc2626; padding:2px 6px; font-size:10px;">Excluir</button>` : '-';
+        corpo.innerHTML += `<tr><td><strong>${e.item}</strong></td><td>${e.quantidade}</td><td>${acao}</td></tr>`;
+    });
+  }
+
+  function popularSelectItens() {
+    const select = document.getElementById('item');
+    let html = '<option value="" disabled selected>Selecione um item</option>';
+    window.estoque.forEach(e => {
+        html += `<option value="${e.item}">${e.item} (Estoque: ${e.quantidade})</option>`;
+    });
+    html += '<option value="Outro">Outro (Digitar manualmente)</option>';
+    select.innerHTML = html;
+  }
+
+  window.alternarItemPersonalizado = function() {
+    const select = document.getElementById('item');
+    const inputCustom = document.getElementById('itemPersonalizado');
+    inputCustom.style.display = select.value === 'Outro' ? 'block' : 'none';
+  }
+
+  function obterItemSolicitado() {
+    const select = document.getElementById('item');
+    return select.value === 'Outro' ? document.getElementById('itemPersonalizado').value.trim() : select.value;
+  }
+
+  window.atualizarEstoqueDisponivelView = function() {
+    const info = document.getElementById('estoqueDisponivelInfo');
+    const itemVal = obterItemSolicitado().trim().toLowerCase();
+    if (!itemVal) {
+        info.innerText = 'Estoque: -';
+        info.style.color = '#64748b';
+        return;
+    }
+    const entrada = window.estoque.find(e => e.item.trim().toLowerCase() === itemVal);
+    if (entrada) {
+        info.innerText = `Estoque: ${entrada.quantidade}`;
+        info.style.color = entrada.quantidade <= 2 ? '#d97706' : '#16a34a';
+    } else {
+        info.innerText = 'Não controlado';
+        info.style.color = '#94a3b8';
+    }
+  }
+
+  window.adicionarItemTemporario = function() {
+    const itemNome = obterItemSolicitado();
+    const quantidade = parseInt(document.getElementById('quantidade').value, 10) || 1;
+    if (!itemNome) {
+        alert('Selecione ou digite um item válido.');
+        return;
+    }
+    window.itensCarrinho.push({ item: itemNome, quantidade: quantidade });
+    document.getElementById('item').value = '';
+    document.getElementById('quantidade').value = 1;
+    alternarItemPersonalizado();
+    atualizarEstoqueDisponivelView();
+    renderizarListaTemporaria();
+  }
+
+  function renderizarListaTemporaria() {
+    const container = document.getElementById('areaListaTemporaria');
+    const ul = document.getElementById('listaItensTemporarios');
+    ul.innerHTML = '';
+    if (window.itensCarrinho.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+    container.style.display = 'block';
+    window.itensCarrinho.forEach((it, index) => {
+        ul.innerHTML += `
+            <li style="margin-bottom: 2px;">
+                <strong>${it.item}</strong> — Qtd: ${it.quantidade} 
+                <a href="#" onclick="removerItemCarrinho(${index}); return false;" style="color: #dc2626; margin-left: 8px; font-size: 11px;">[remover]</a>
+            </li>`;
+    });
+  }
+
+  window.removerItemCarrinho = function(index) {
+    window.itensCarrinho.splice(index, 1);
+    renderizarListaTemporaria();
+  }
+
+  // ENVIO DE SOLICITAÇÃO AO FIREBASE
   document.getElementById('solicitacaoForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const base = document.getElementById('solicitanteBase').value;
     const re = document.getElementById('solicitanteRE').value.trim();
 
-    if (!base || window.itensCarrinho.length === 0) return;
+    if (!base || window.itensCarrinho.length === 0) {
+        alert('Preencha os dados e adicione ao menos um item.');
+        return;
+    }
 
     const novaSolicitacao = {
-      solicitanteBase: base,
-      solicitanteRE: re,
-      solicitante: `${base} - RE ${re}`,
-      item: window.itensCarrinho.map(i => `${i.item} (x${i.quantidade})`).join(', '),
-      quantidade: window.itensCarrinho.reduce((acc, curr) => acc + curr.quantidade, 0),
-      data: document.getElementById('data').value,
-      status: "Pendente",
-      timestamp: Date.now()
+        solicitanteBase: base,
+        solicitanteRE: re,
+        solicitante: `${base} - RE ${re}`,
+        item: window.itensCarrinho.map(i => `${i.item} (x${i.quantidade})`).join(', '),
+        quantidade: window.itensCarrinho.reduce((acc, curr) => acc + curr.quantidade, 0),
+        data: document.getElementById('data').value,
+        status: "Pendente",
+        timestamp: Date.now()
     };
+
+    // Baixa automática no estoque se o item existir
+    window.itensCarrinho.forEach(carrinhoItem => {
+        const itemEstoque = window.estoque.find(e => e.item.toLowerCase() === carrinhoItem.item.toLowerCase());
+        if (itemEstoque) {
+            const novaQtd = Math.max(0, itemEstoque.quantidade - carrinhoItem.quantidade);
+            update(ref(db, `estoque/${itemEstoque.idFirebase}`), { quantidade: novaQtd });
+        }
+    });
 
     push(solicitacoesRef, novaSolicitacao);
     fecharModalSolicitacao();
   });
+
+  window.alterarStatus = function(idFirebase) {
+    if (!window.isAdmin) return;
+    const item = window.solicitacoes.find(s => s.idFirebase === idFirebase);
+    if (item) {
+        const novoStatus = item.status === "Pendente" ? "Entregue" : "Pendente";
+        update(ref(db, `solicitacoes/${idFirebase}`), { status: novoStatus });
+    }
+  }
+
+  function atualizarTabela() {
+    const corpo = document.getElementById('tabelaCorpo');
+    corpo.innerHTML = "";
+    if (window.solicitacoes.length === 0) {
+        corpo.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhuma solicitação encontrada.</td></tr>`;
+        return;
+    }
+    window.solicitacoes.forEach(s => {
+        const dataFmt = s.data ? s.data.split('-').reverse().join('/') : '-';
+        const badgeClass = s.status === "Entregue" ? "bg-entregue" : "bg-pendente";
+        const acaoHtml = window.isAdmin 
+            ? `<button class="btn-status" onclick="alterarStatus('${s.idFirebase}')">Marcar ${s.status === 'Pendente' ? 'Entregue' : 'Pendente'}</button>`
+            : `<span style="color: #94a3b8; font-size: 10px;">Requer ADM</span>`;
+
+        corpo.innerHTML += `
+            <tr>
+                <td>${dataFmt}</td>
+                <td><strong>${s.solicitante}</strong></td>
+                <td>${s.item}</td>
+                <td>${s.quantidade || 1}</td>
+                <td><span class="badge ${badgeClass}">${s.status}</span></td>
+                <td>${acaoHtml}</td>
+            </tr>
+        `;
+    });
+  }
+
+  // GERAR RELATÓRIO
+  window.gerarRelatorio = function() {
+    const mesAno = document.getElementById('filtroMesAno').value;
+    const filtroSolicitante = document.getElementById('filtroSolicitante').value;
+
+    const filtrados = window.solicitacoes.filter(s => {
+        const bateMes = s.data && s.data.startsWith(mesAno);
+        const bateSolicitante = filtroSolicitante === 'todos' || s.solicitanteBase === filtroSolicitante;
+        return bateMes && bateSolicitante;
+    });
+
+    document.getElementById('statTotal').innerText = filtrados.length;
+    document.getElementById('statEntregue').innerText = filtrados.filter(s => s.status === 'Entregue').length;
+    document.getElementById('statPendente').innerText = filtrados.filter(s => s.status === 'Pendente').length;
+
+    const consolidados = {};
+    filtrados.forEach(s => {
+        const itensArr = s.item.split(', ');
+        itensArr.forEach(iStr => {
+            const match = iStr.match(/(.+) \(x(\d+)\)/);
+            if (match) {
+                const nome = match[1];
+                const qtd = parseInt(match[2], 10);
+                consolidados[nome] = (consolidados[nome] || 0) + qtd;
+            } else {
+                consolidados[iStr] = (consolidados[iStr] || 0) + 1;
+            }
+        });
+    });
+
+    const tbody = document.getElementById('tabelaRelatorio');
+    tbody.innerHTML = '';
+    Object.keys(consolidados).forEach(item => {
+        tbody.innerHTML += `<tr><td>${item}</td><td>${consolidados[item]}</td></tr>`;
+    });
+  }
+
+  // EXPORTAÇÃO PDF
+  window.exportarRelatorioPDF = function() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text("Relatório Mensal de Solicitações - P4 3º BPRv", 14, 15);
+    
+    const rows = [];
+    document.querySelectorAll("#tabelaRelatorio tr").forEach(tr => {
+        const cols = tr.querySelectorAll("td");
+        if(cols.length) rows.push([cols[0].innerText, cols[1].innerText]);
+    });
+
+    doc.autoTable({
+        head: [['Item', 'Quantidade Solicitada']],
+        body: rows,
+        startY: 25
+    });
+
+    doc.save(`relatorio_${document.getElementById('filtroMesAno').value}.pdf`);
+  }
 </script>
+</body>
+</html>
