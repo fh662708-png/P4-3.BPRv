@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,22 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P4 - 3º BPRv</title>
 
-    <!-- IMAGEM DO BRASÃO -->
-    <link rel="icon" type="image/jpeg" href="rodoviaria.jfif">
-    <link rel="apple-touch-icon" href="rodoviaria.jfif">
+    <!-- BRASÃO -->
+    <link rel="icon" type="image/jpeg" href="brasao.jpg">
+    <link rel="apple-touch-icon" href="brasao.jpg">
 
+    <!-- PWA -->
     <link rel="manifest" href="data:application/manifest+json,{
-        &quot;name&quot;: &quot;P4 - 3º BPRv&quot;,
-        &quot;short_name&quot;: &quot;P4 3BPRv&quot;,
-        &quot;start_url&quot;: &quot;.&quot;,
-        &quot;display&quot;: &quot;standalone&quot;,
-        &quot;background_color&quot;: &quot;#0f172a&quot;,
-        &quot;theme_color&quot;: &quot;#0f172a&quot;,
-        &quot;icons&quot;: [{
-            &quot;src&quot;: &quot;rodoviaria.jfif&quot;,
-            &quot;sizes&quot;: &quot;512x512&quot;,
-            &quot;type&quot;: &quot;image/jpeg&quot;
-        }]
+        &quot;name&quot;:&quot;P4 - 3º BPRv&quot;,
+        &quot;short_name&quot;:&quot;P4 3BPRv&quot;,
+        &quot;start_url&quot;:&quot;.&quot;,
+        &quot;display&quot;:&quot;standalone&quot;,
+        &quot;background_color&quot;:&quot;#0f172a&quot;,
+        &quot;theme_color&quot;:&quot;#0f172a&quot;
     }">
 
     <style>
@@ -40,22 +36,17 @@
             position: relative;
         }
 
-        /* =====================================================
-           MARCA D'ÁGUA DO BRASÃO
-        ===================================================== */
         body::before {
             content: "";
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 650px;
-            height: 650px;
-            background-image: url('rodoviaria.jfif');
-            background-repeat: no-repeat;
-            background-position: center;
+            width: 500px;
+            height: 500px;
+            background: url('brasao.jpg') no-repeat center center;
             background-size: contain;
-            opacity: 0.10;
+            opacity: 0.18;
             pointer-events: none;
             z-index: 0;
         }
@@ -64,23 +55,19 @@
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             background: rgba(255, 255, 255, 0.96);
             padding: 16px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
 
-        /* =====================================================
-           CABEÇALHO
-        ===================================================== */
-
         .header-logo {
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid #b91c1c;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             margin-bottom: 10px;
         }
 
@@ -91,10 +78,9 @@
         }
 
         .logo-img {
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             object-fit: contain;
-            border-radius: 5px;
         }
 
         .header-login {
@@ -109,10 +95,6 @@
             font-size: 13px;
         }
 
-        /* =====================================================
-           FORMULÁRIOS
-        ===================================================== */
-
         .form-group {
             margin-bottom: 12px;
         }
@@ -125,20 +107,12 @@
             font-size: 13px;
         }
 
-        input,
-        select {
+        input, select {
             width: 100%;
             padding: 8px 10px;
             border: 1px solid #cbd5e1;
             border-radius: 5px;
             font-size: 13px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37,99,235,0.12);
         }
 
         button {
@@ -172,12 +146,13 @@
             border-radius: 3px;
         }
 
-        .btn-excluir {
+        .btn-delete {
             background-color: #dc2626;
             color: white;
             padding: 4px 8px;
             font-size: 11px;
             border-radius: 3px;
+            margin-top: 4px;
         }
 
         .btn-relatorio {
@@ -186,9 +161,9 @@
             font-size: 12px;
         }
 
-        /* =====================================================
-           TABELAS
-        ===================================================== */
+        .btn-master {
+            background-color: #7c3aed;
+        }
 
         .tabela-container {
             max-height: 380px;
@@ -206,8 +181,7 @@
             font-size: 12px;
         }
 
-        th,
-        td {
+        th, td {
             text-align: left;
             padding: 8px 10px;
             border-bottom: 1px solid #e2e8f0;
@@ -222,10 +196,6 @@
             top: 0;
             z-index: 2;
         }
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
 
         .badge {
             padding: 3px 8px;
@@ -243,9 +213,9 @@
             background-color: #16a34a;
         }
 
-        /* =====================================================
-           ABAS
-        ===================================================== */
+        .bg-cancelado {
+            background-color: #dc2626;
+        }
 
         .tabs {
             display: flex;
@@ -276,19 +246,6 @@
             margin-left: auto;
         }
 
-        .btn-master-tab {
-            background: #7c3aed;
-            color: white;
-        }
-
-        .btn-master-tab.active {
-            background: #5b21b6;
-        }
-
-        /* =====================================================
-           CARDS
-        ===================================================== */
-
         .relatorio-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -311,10 +268,6 @@
             border-left: 4px solid #2563eb;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-
-        /* =====================================================
-           MODAL
-        ===================================================== */
 
         .modal-overlay {
             display: none;
@@ -366,109 +319,43 @@
             color: #dc2626;
         }
 
-        /* =====================================================
-           ADMINISTRADORES
-        ===================================================== */
-
-        .master-box {
-            border: 2px solid #7c3aed;
-            background: #faf5ff;
-            border-radius: 8px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-
-        .master-title {
-            color: #6d28d9;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
         .admin-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            background: white;
-            border: 1px solid #e2e8f0;
+        }
+
+        .aviso-master {
+            background: #ede9fe;
+            border-left: 4px solid #7c3aed;
+            padding: 10px;
             border-radius: 5px;
+            margin-bottom: 12px;
+            font-size: 12px;
         }
 
-        .admin-info strong {
-            color: #1e293b;
-        }
-
-        .admin-info small {
-            color: #64748b;
-        }
-
-        .master-badge {
-            background: #7c3aed;
-            color: white;
-            padding: 3px 7px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        /* =====================================================
-           RESPONSIVO
-        ===================================================== */
-
-        @media (max-width: 650px) {
-            .container {
-                padding: 12px;
-            }
-
+        @media(max-width:700px) {
             .cards-grid {
                 grid-template-columns: 1fr;
             }
 
-            .header-logo {
-                align-items: flex-start;
-            }
-
-            .logo-img {
-                width: 52px;
-                height: 52px;
-            }
-
-            .header-logo h3 {
-                font-size: 17px !important;
-            }
-
-            .tabs {
-                gap: 5px;
-            }
-
-            .tab-btn {
-                padding: 7px 9px;
-                font-size: 11px;
-            }
-
-            .btn-nova-solicitation {
-                margin-left: 0;
+            .container {
+                padding: 12px;
             }
 
             table {
-                min-width: 650px;
+                font-size: 11px;
             }
 
-            .tabela-container {
-                overflow-x: auto;
-            }
-
-            .admin-item {
-                flex-direction: column;
-                align-items: flex-start;
+            th, td {
+                padding: 6px;
             }
         }
-
-        /* =====================================================
-           IMPRESSÃO
-        ===================================================== */
 
         @media print {
             body::before {
@@ -479,8 +366,7 @@
             .tabs,
             .modal-overlay,
             form,
-            .btn-print,
-            #abaAdministradores {
+            .btn-print {
                 display: none !important;
             }
 
@@ -507,121 +393,82 @@
 
 <div class="container">
 
-    <!-- =====================================================
-         CABEÇALHO
-    ===================================================== -->
-
     <div class="header-logo">
         <div class="logo-box">
-
-            <img
-                src="rodoviaria.jfif"
-                alt="Brasão Policiamento Rodoviário"
-                class="logo-img"
-            >
+            <img src="brasao.jpg"
+                 alt="Brasão Policiamento Rodoviário"
+                 class="logo-img">
 
             <div>
-                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">
+                <h3 style="margin:0;color:#1e293b;font-size:20px;">
                     P4 - 3º BPRv
                 </h3>
 
-                <small style="color: #64748b; font-size: 12px;">
+                <small style="color:#64748b;font-size:12px;">
                     Policiamento Rodoviário - São Paulo
                 </small>
             </div>
         </div>
     </div>
 
-    <!-- =====================================================
-         LOGIN
-    ===================================================== -->
-
     <div class="header-login">
 
         <div>
             Sessão:
-            <span
-                id="usuarioNome"
-                style="color: #60a5fa; font-weight: bold;"
-            >
+            <span id="usuarioNome"
+                  style="color:#60a5fa;font-weight:bold;">
                 Usuário Comum
             </span>
         </div>
 
-        <button
-            id="btnLoginLogout"
-            class="btn-alt"
-            onclick="alternarLogin()"
-        >
-            Entrar como ADM
-        </button>
+        <div style="display:flex;gap:5px;">
+            <button id="btnLoginLogout"
+                    class="btn-alt"
+                    onclick="alternarLogin()">
+                Entrar como ADM
+            </button>
+        </div>
 
     </div>
 
-    <!-- =====================================================
-         ABAS
-    ===================================================== -->
-
     <div class="tabs">
 
-        <button
-            class="tab-btn active"
-            onclick="mudarAba('solicitacoes')"
-        >
+        <button class="tab-btn active"
+                onclick="mudarAba('solicitacoes')">
             Solicitações Registradas
         </button>
 
-        <button
-            class="tab-btn"
-            onclick="mudarAba('relatorio')"
-        >
+        <button class="tab-btn"
+                onclick="mudarAba('relatorio')">
             Relatório Mensal
         </button>
 
-        <button
-            class="tab-btn"
-            onclick="mudarAba('estoque')"
-        >
+        <button class="tab-btn"
+                onclick="mudarAba('estoque')">
             Estoque / Cadastros
         </button>
 
-        <!-- ABA MASTER -->
-        <button
-            id="tabAdministradores"
-            class="tab-btn btn-master-tab"
-            onclick="mudarAba('administradores')"
-            style="display:none;"
-        >
+        <button id="btnGerenciarAdmins"
+                class="tab-btn btn-master"
+                style="display:none;"
+                onclick="abrirModalAdmins()">
             Administradores
         </button>
 
-        <button
-            class="tab-btn btn-nova-solicitation"
-            onclick="abrirModalSolicitacao()"
-        >
+        <button class="tab-btn btn-nova-solicitation"
+                onclick="abrirModalSolicitacao()">
             + Nova Solicitação
         </button>
 
     </div>
 
-    <!-- =====================================================
-         ABA SOLICITAÇÕES
-    ===================================================== -->
+    <!-- SOLICITAÇÕES -->
 
     <div id="abaSolicitacoes">
 
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:8px;
-        ">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
 
-            <h4 style="
-                margin:0;
-                font-size:15px;
-                color:#1e293b;
-            ">
+            <h4 style="margin:0;font-size:15px;color:#1e293b;">
                 Histórico de Solicitações
             </h4>
 
@@ -637,9 +484,9 @@
                         <th>Data</th>
                         <th>Solicitante</th>
                         <th>Item(ns)</th>
-                        <th>Qtd Total</th>
+                        <th>Qtd</th>
                         <th>Status</th>
-                        <th>Ação</th>
+                        <th>Ação ADM</th>
                     </tr>
 
                 </thead>
@@ -652,21 +499,11 @@
 
     </div>
 
-    <!-- =====================================================
-         ABA RELATÓRIO
-    ===================================================== -->
+    <!-- RELATÓRIO -->
 
-    <div
-        id="abaRelatorio"
-        style="display:none;"
-    >
+    <div id="abaRelatorio" style="display:none;">
 
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:12px;
-        ">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
 
             <h4 style="margin:0;font-size:15px;">
                 Relatório Mensal
@@ -674,18 +511,14 @@
 
             <div style="display:flex;gap:6px;">
 
-                <button
-                    class="btn-relatorio btn-print"
-                    onclick="window.print()"
-                >
+                <button class="btn-relatorio btn-print"
+                        onclick="window.print()">
                     Imprimir
                 </button>
 
-                <button
-                    class="btn-relatorio btn-print"
-                    style="background-color:#b91c1c;"
-                    onclick="exportarRelatorioPDF()"
-                >
+                <button class="btn-relatorio btn-print"
+                        style="background:#b91c1c;"
+                        onclick="exportarRelatorioPDF()">
                     Exportar PDF
                 </button>
 
@@ -693,46 +526,33 @@
 
         </div>
 
-        <div style="
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:10px;
-            margin-bottom:12px;
-        ">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
 
-            <div
-                class="relatorio-card"
-                style="margin-bottom:0;"
-            >
+            <div class="relatorio-card" style="margin-bottom:0;">
 
                 <label for="filtroMesAno">
                     Filtrar por Mês/Ano:
                 </label>
 
-                <input
-                    type="month"
-                    id="filtroMesAno"
-                    onchange="gerarRelatorio()"
-                >
+                <input type="month"
+                       id="filtroMesAno"
+                       onchange="gerarRelatorio()">
 
             </div>
 
-            <div
-                class="relatorio-card"
-                style="margin-bottom:0;"
-            >
+            <div class="relatorio-card" style="margin-bottom:0;">
 
                 <label for="filtroSolicitante">
                     Filtrar por Solicitante/Seção:
                 </label>
 
-                <select
-                    id="filtroSolicitante"
-                    onchange="gerarRelatorio()"
-                >
+                <select id="filtroSolicitante"
+                        onchange="gerarRelatorio()">
+
                     <option value="todos">
                         Todos os Solicitantes
                     </option>
+
                 </select>
 
             </div>
@@ -741,75 +561,56 @@
 
         <div class="cards-grid">
 
-            <div
-                class="card-stat"
-                style="border-color:#2563eb;"
-            >
+            <div class="card-stat"
+                 style="border-color:#2563eb;">
+
                 <small style="color:#64748b;font-size:11px;">
                     Total Mês
                 </small>
 
-                <h3
-                    id="statTotal"
-                    style="margin:0;font-size:18px;"
-                >
+                <h3 id="statTotal"
+                    style="margin:0;font-size:18px;">
                     0
                 </h3>
+
             </div>
 
-            <div
-                class="card-stat"
-                style="border-color:#16a34a;"
-            >
+            <div class="card-stat"
+                 style="border-color:#16a34a;">
+
                 <small style="color:#64748b;font-size:11px;">
                     Entregues
                 </small>
 
-                <h3
-                    id="statEntregue"
-                    style="
-                        margin:0;
-                        font-size:18px;
-                        color:#16a34a;
-                    "
-                >
+                <h3 id="statEntregue"
+                    style="margin:0;font-size:18px;color:#16a34a;">
                     0
                 </h3>
+
             </div>
 
-            <div
-                class="card-stat"
-                style="border-color:#d97706;"
-            >
+            <div class="card-stat"
+                 style="border-color:#d97706;">
+
                 <small style="color:#64748b;font-size:11px;">
                     Pendentes
                 </small>
 
-                <h3
-                    id="statPendente"
-                    style="
-                        margin:0;
-                        font-size:18px;
-                        color:#d97706;
-                    "
-                >
+                <h3 id="statPendente"
+                    style="margin:0;font-size:18px;color:#d97706;">
                     0
                 </h3>
+
             </div>
 
         </div>
 
-        <h4
-            id="tituloConsolidado"
-            style="margin:12px 0 6px 0;font-size:14px;"
-        >
+        <h4 style="margin:12px 0 6px 0;font-size:14px;">
             Consolidado do Mês
         </h4>
 
-        <div
-            class="tabela-container"
-            style="max-height:220px;"
-        >
+        <div class="tabela-container"
+             style="max-height:220px;">
 
             <table>
 
@@ -828,66 +629,40 @@
 
     </div>
 
-    <!-- =====================================================
-         ABA ESTOQUE
-    ===================================================== -->
+    <!-- ESTOQUE -->
 
-    <div
-        id="abaEstoque"
-        style="display:none;"
-    >
+    <div id="abaEstoque"
+         style="display:none;">
 
-        <!-- CADASTRAR SOLICITANTE -->
+        <div id="cadSolicitanteFormCard"
+             class="relatorio-card"
+             style="display:none;border-left:4px solid #2563eb;">
 
-        <div
-            class="relatorio-card"
-            id="cadSolicitanteFormCard"
-            style="
-                display:none;
-                border-left:4px solid #2563eb;
-            "
-        >
-
-            <h4 style="
-                margin:0 0 8px 0;
-                font-size:14px;
-            ">
-                Cadastrar Solicitante / Seção (ADM)
+            <h4 style="margin:0 0 8px 0;font-size:14px;">
+                Cadastrar Solicitante / Seção
             </h4>
 
-            <form
-                id="cadSolicitanteForm"
-                onsubmit="cadastrarNovoSolicitante(event)"
-            >
+            <form id="cadSolicitanteForm"
+                  onsubmit="cadastrarNovoSolicitante(event)">
 
-                <div style="
-                    display:grid;
-                    grid-template-columns:1fr 110px;
-                    gap:8px;
-                ">
+                <div style="display:grid;grid-template-columns:1fr 110px;gap:8px;">
 
-                    <div
-                        class="form-group"
-                        style="margin-bottom:0;"
-                    >
+                    <div class="form-group"
+                         style="margin-bottom:0;">
 
                         <label for="novoSolicitanteNome">
                             Nome da Seção/Unidade:
                         </label>
 
-                        <input
-                            type="text"
-                            id="novoSolicitanteNome"
-                            placeholder="Ex: Bop/2, Cia/1, P1"
-                            required
-                        >
+                        <input type="text"
+                               id="novoSolicitanteNome"
+                               placeholder="Ex: Bop/2, Cia/1, P1"
+                               required>
 
                     </div>
 
-                    <button
-                        type="submit"
-                        style="margin-top:20px;height:35px;"
-                    >
+                    <button type="submit"
+                            style="margin-top:20px;height:35px;">
                         Cadastrar
                     </button>
 
@@ -895,111 +670,71 @@
 
             </form>
 
-            <div
-                id="listaSolicitantesCadastrados"
-                style="
-                    margin-top:10px;
-                    font-size:12px;
-                "
-            ></div>
+            <div id="listaSolicitantesCadastrados"
+                 style="margin-top:10px;font-size:12px;">
+            </div>
 
         </div>
 
-        <!-- ESTOQUE -->
+        <div id="estoqueFormCard"
+             class="relatorio-card"
+             style="display:none;">
 
-        <div
-            class="relatorio-card"
-            id="estoqueFormCard"
-            style="display:none;"
-        >
-
-            <h4 style="
-                margin:0 0 8px 0;
-                font-size:14px;
-            ">
-                Adicionar / Repor Item no Estoque (ADM)
+            <h4 style="margin:0 0 8px 0;font-size:14px;">
+                Adicionar / Repor Item no Estoque
             </h4>
 
-            <form
-                id="estoqueForm"
-                onsubmit="adicionarItemEstoque(event)"
-            >
+            <form id="estoqueForm"
+                  onsubmit="adicionarItemEstoque(event)">
 
-                <div style="
-                    display:grid;
-                    grid-template-columns:1fr 100px;
-                    gap:8px;
-                ">
+                <div style="display:grid;grid-template-columns:1fr 100px;gap:8px;">
 
-                    <div
-                        class="form-group"
-                        style="margin-bottom:0;"
-                    >
+                    <div class="form-group"
+                         style="margin-bottom:0;">
 
                         <label for="estoqueItem">
                             Nome do Item:
                         </label>
 
-                        <input
-                            type="text"
-                            id="estoqueItem"
-                            placeholder="Ex: Papel A4"
-                            required
-                        >
+                        <input type="text"
+                               id="estoqueItem"
+                               placeholder="Ex: Papel A4"
+                               required>
 
                     </div>
 
-                    <div
-                        class="form-group"
-                        style="margin-bottom:0;"
-                    >
+                    <div class="form-group"
+                         style="margin-bottom:0;">
 
                         <label for="estoqueQtd">
                             Qtd:
                         </label>
 
-                        <input
-                            type="number"
-                            id="estoqueQtd"
-                            min="1"
-                            value="1"
-                            required
-                        >
+                        <input type="number"
+                               id="estoqueQtd"
+                               min="1"
+                               value="1"
+                               required>
 
                     </div>
 
                 </div>
 
-                <button
-                    type="submit"
-                    style="margin-top:8px;width:100%;"
-                >
+                <button type="submit"
+                        style="margin-top:8px;width:100%;">
                     Adicionar ao Estoque
                 </button>
 
             </form>
 
-            <small style="
-                color:#64748b;
-                font-size:11px;
-            ">
-                Se o item já existir, a quantidade informada
-                será somada ao saldo atual.
-            </small>
-
         </div>
 
-        <h4 style="
-            margin:12px 0 6px 0;
-            font-size:14px;
-        ">
+        <h4 style="margin:12px 0 6px 0;font-size:14px;">
             Itens em Estoque
         </h4>
 
-        <div
-            class="tabela-container"
-            style="max-height:250px;"
-        >
+        <div class="tabela-container"
+             style="max-height:250px;">
 
             <table>
 
@@ -1008,7 +743,7 @@
                     <tr>
                         <th>Item</th>
                         <th>Quantidade Atual</th>
-                        <th>Ação (ADM)</th>
+                        <th>Ação ADM</th>
                     </tr>
 
                 </thead>
@@ -1021,144 +756,24 @@
 
     </div>
 
-    <!-- =====================================================
-         ABA ADMINISTRADORES - SOMENTE MASTER
-    ===================================================== -->
-
-    <div
-        id="abaAdministradores"
-        style="display:none;"
-    >
-
-        <div class="master-box">
-
-            <div class="master-title">
-                🔐 Área MASTER
-            </div>
-
-            <div style="
-                font-size:12px;
-                color:#475569;
-            ">
-                Esta área é exclusiva do usuário MASTER.
-                Aqui você pode cadastrar e excluir administradores
-                do sistema.
-            </div>
-
-        </div>
-
-        <div
-            class="relatorio-card"
-            style="border-left:4px solid #7c3aed;"
-        >
-
-            <h4 style="
-                margin:0 0 10px 0;
-                font-size:14px;
-                color:#6d28d9;
-            ">
-                Cadastrar Novo Administrador
-            </h4>
-
-            <form
-                id="adminForm"
-                onsubmit="cadastrarAdministrador(event)"
-            >
-
-                <div style="
-                    display:grid;
-                    grid-template-columns:1fr 1fr;
-                    gap:10px;
-                ">
-
-                    <div class="form-group">
-
-                        <label for="novoAdminNome">
-                            Nome do Administrador:
-                        </label>
-
-                        <input
-                            type="text"
-                            id="novoAdminNome"
-                            placeholder="Ex: Sgt João"
-                            required
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="novoAdminSenha">
-                            Senha:
-                        </label>
-
-                        <input
-                            type="password"
-                            id="novoAdminSenha"
-                            placeholder="Digite a senha"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-                <button
-                    type="submit"
-                    style="
-                        background:#7c3aed;
-                        width:100%;
-                    "
-                >
-                    + Cadastrar Administrador
-                </button>
-
-            </form>
-
-        </div>
-
-        <div class="relatorio-card">
-
-            <h4 style="
-                margin:0 0 10px 0;
-                font-size:14px;
-            ">
-                Administradores Cadastrados
-            </h4>
-
-            <div id="listaAdministradores"></div>
-
-        </div>
-
-    </div>
-
 </div>
 
-<!-- =========================================================
-     MODAL NOVA SOLICITAÇÃO
-========================================================= -->
 
-<div
-    class="modal-overlay"
-    id="modalSolicitacao"
->
+<!-- MODAL NOVA SOLICITAÇÃO -->
+
+<div class="modal-overlay"
+     id="modalSolicitacao">
 
     <div class="modal-content">
 
         <div class="modal-header">
 
-            <h3 style="
-                margin:0;
-                color:#1e293b;
-                font-size:17px;
-            ">
+            <h3 style="margin:0;color:#1e293b;font-size:17px;">
                 Nova Solicitação de Material
             </h3>
 
-            <button
-                class="modal-close"
-                onclick="fecharModalSolicitacao()"
-            >
+            <button class="modal-close"
+                    onclick="fecharModalSolicitacao()">
                 &times;
             </button>
 
@@ -1166,11 +781,7 @@
 
         <form id="solicitacaoForm">
 
-            <div style="
-                display:grid;
-                grid-template-columns:1fr 1fr;
-                gap:12px;
-            ">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
 
                 <div class="form-group">
 
@@ -1178,16 +789,12 @@
                         Seção/Unidade:
                     </label>
 
-                    <select
-                        id="solicitanteBase"
-                        required
-                    >
+                    <select id="solicitanteBase"
+                            required>
 
-                        <option
-                            value=""
-                            disabled
-                            selected
-                        >
+                        <option value=""
+                                disabled
+                                selected>
                             Selecione
                         </option>
 
@@ -1201,12 +808,10 @@
                         RE do Policial:
                     </label>
 
-                    <input
-                        type="text"
-                        id="solicitanteRE"
-                        placeholder="Ex: 123456-7"
-                        required
-                    >
+                    <input type="text"
+                           id="solicitanteRE"
+                           placeholder="Ex: 123456-7"
+                           required>
 
                 </div>
 
@@ -1218,119 +823,72 @@
                     Data da Solicitação:
                 </label>
 
-                <input
-                    type="date"
-                    id="data"
-                    required
-                >
+                <input type="date"
+                       id="data"
+                       required>
 
             </div>
 
-            <div style="
-                background:#f8fafc;
-                padding:12px;
-                border-radius:6px;
-                border:1px solid #e2e8f0;
-                margin-bottom:12px;
-            ">
+            <div style="background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:12px;">
 
-                <h5 style="
-                    margin:0 0 10px 0;
-                    color:#334155;
-                    font-size:13px;
-                ">
+                <h5 style="margin:0 0 10px 0;color:#334155;font-size:13px;">
                     Adicionar Itens
                 </h5>
 
-                <div style="
-                    display:grid;
-                    grid-template-columns:1fr 100px;
-                    gap:8px;
-                ">
+                <div style="display:grid;grid-template-columns:1fr 100px;gap:8px;">
 
-                    <div
-                        class="form-group"
-                        style="margin-bottom:0;"
-                    >
+                    <div class="form-group"
+                         style="margin-bottom:0;">
 
                         <label for="item">
                             Item Solicitado:
                         </label>
 
-                        <select
-                            id="item"
-                            onchange="
-                                atualizarEstoqueDisponivelView();
-                                alternarItemPersonalizado();
-                            "
-                        >
-                            <option
-                                value=""
-                                disabled
-                                selected
-                            >
+                        <select id="item"
+                                onchange="atualizarEstoqueDisponivelView();alternarItemPersonalizado();">
+
+                            <option value=""
+                                    disabled
+                                    selected>
                                 Selecione um item
                             </option>
+
                         </select>
 
-                        <input
-                            type="text"
-                            id="itemPersonalizado"
-                            placeholder="Digite o nome do item"
-                            style="
-                                display:none;
-                                margin-top:6px;
-                            "
-                        >
+                        <input type="text"
+                               id="itemPersonalizado"
+                               placeholder="Digite o nome do item"
+                               style="display:none;margin-top:6px;">
 
                     </div>
 
-                    <div
-                        class="form-group"
-                        style="margin-bottom:0;"
-                    >
+                    <div class="form-group"
+                         style="margin-bottom:0;">
 
                         <label for="quantidade">
                             Qtd:
                         </label>
 
-                        <input
-                            type="number"
-                            id="quantidade"
-                            min="1"
-                            value="1"
-                        >
+                        <input type="number"
+                               id="quantidade"
+                               min="1"
+                               value="1">
 
                     </div>
 
                 </div>
 
-                <div style="
-                    display:flex;
-                    justify-content:space-between;
-                    align-items:center;
-                    margin-top:6px;
-                ">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
 
-                    <small
-                        id="estoqueDisponivelInfo"
-                        style="
-                            color:#64748b;
-                            font-size:11px;
-                        "
-                    >
+                    <small id="estoqueDisponivelInfo"
+                           style="color:#64748b;font-size:11px;">
                         Estoque: -
                     </small>
 
-                    <button
-                        type="button"
-                        class="btn-alt"
-                        onclick="adicionarItemTemporario()"
-                        style="
-                            font-size:12px;
-                            padding:6px 12px;
-                        "
-                    >
+                    <button type="button"
+                            class="btn-alt"
+                            onclick="adicionarItemTemporario()"
+                            style="font-size:12px;padding:6px 12px;">
                         + Adicionar à Lista
                     </button>
 
@@ -1338,57 +896,29 @@
 
             </div>
 
-            <div
-                id="areaListaTemporaria"
-                style="
-                    display:none;
-                    margin-bottom:16px;
-                    background:#f1f5f9;
-                    padding:10px;
-                    border-radius:6px;
-                    border:1px dashed #cbd5e1;
-                "
-            >
+            <div id="areaListaTemporaria"
+                 style="display:none;margin-bottom:16px;background:#f1f5f9;padding:10px;border-radius:6px;border:1px dashed #cbd5e1;">
 
-                <strong style="
-                    font-size:12px;
-                    color:#334155;
-                ">
+                <strong style="font-size:12px;color:#334155;">
                     Lista de Itens Selecionados:
                 </strong>
 
-                <ul
-                    id="listaItensTemporarios"
-                    style="
-                        margin:6px 0 10px 0;
-                        padding-left:20px;
-                        font-size:13px;
-                    "
-                ></ul>
+                <ul id="listaItensTemporarios"
+                    style="margin:6px 0 10px 0;padding-left:20px;font-size:13px;">
+                </ul>
 
             </div>
 
-            <div style="
-                display:flex;
-                gap:8px;
-                justify-content:flex-end;
-            ">
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
 
-                <button
-                    type="button"
-                    onclick="fecharModalSolicitacao()"
-                    style="background-color:#64748b;"
-                >
+                <button type="button"
+                        onclick="fecharModalSolicitacao()"
+                        style="background:#64748b;">
                     Cancelar
                 </button>
 
-                <button
-                    type="submit"
-                    style="
-                        background-color:#16a34a;
-                        padding:10px 18px;
-                    "
-                >
+                <button type="submit"
+                        style="background:#16a34a;padding:10px 18px;">
                     Finalizar e Cadastrar
                 </button>
 
@@ -1400,1616 +930,2221 @@
 
 </div>
 
-<!-- =========================================================
-     FIREBASE
-========================================================= -->
+
+<!-- MODAL ADMINISTRADORES -->
+
+<div class="modal-overlay"
+     id="modalAdmins">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 style="margin:0;color:#1e293b;">
+                Gerenciamento de Administradores
+            </h3>
+
+            <button class="modal-close"
+                    onclick="fecharModalAdmins()">
+                &times;
+            </button>
+
+        </div>
+
+        <div class="aviso-master">
+
+            <strong>Área Master</strong><br>
+
+            Somente a senha Master
+            <strong>3BPRvC</strong>
+            permite cadastrar ou excluir outros administradores.
+
+        </div>
+
+        <form id="formNovoAdmin"
+              onsubmit="cadastrarAdministrador(event)">
+
+            <div class="form-group">
+
+                <label for="nomeNovoAdmin">
+                    Nome do Administrador:
+                </label>
+
+                <input type="text"
+                       id="nomeNovoAdmin"
+                       placeholder="Ex: Sd. João"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="senhaNovoAdmin">
+                    Senha do Administrador:
+                </label>
+
+                <input type="password"
+                       id="senhaNovoAdmin"
+                       placeholder="Digite uma senha"
+                       required>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-master"
+                    style="width:100%;">
+                + Cadastrar Administrador
+            </button>
+
+        </form>
+
+        <hr style="margin:18px 0;border:0;border-top:1px solid #e2e8f0;">
+
+        <h4 style="font-size:14px;">
+            Administradores cadastrados
+        </h4>
+
+        <div id="listaAdministradores"></div>
+
+    </div>
+
+</div>
+
 
 <script type="module">
 
-    import {
-        initializeApp
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    push,
+    onValue,
+    update,
+    remove,
+    set,
+    get
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
+
+    authDomain: "bprv-2c760.firebaseapp.com",
+
+    projectId: "bprv-2c760",
+
+    storageBucket: "bprv-2c760.firebasestorage.app",
+
+    messagingSenderId: "940006401979",
+
+    appId: "1:940006401979:web:bf678dc236f2fd2332469e",
+
+    databaseURL:
+        "https://bprv-2c760-default-rtdb.firebaseio.com"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+
+/* =========================================================
+   REFERÊNCIAS
+========================================================= */
+
+const solicitacoesRef =
+    ref(db, 'solicitacoes');
+
+const estoqueRef =
+    ref(db, 'estoque');
+
+const solicitantesRef =
+    ref(db, 'solicitantes');
+
+const administradoresRef =
+    ref(db, 'administradores');
+
+
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
+
+window.SENHA_MASTER = "3BPRvC";
+
+window.isAdmin = false;
+
+window.isMaster = false;
+
+window.adminAtual = null;
+
+window.itensCarrinho = [];
+
+window.solicitacoes = [];
+
+window.estoque = [];
+
+window.solicitantesCadastrados = [];
+
+window.administradores = [];
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+document.getElementById('data').value =
+    new Date().toISOString().split('T')[0];
+
+document.getElementById('filtroMesAno').value =
+    new Date().toISOString().slice(0,7);
+
+
+/* =========================================================
+   FIREBASE - SOLICITAÇÕES
+========================================================= */
+
+onValue(solicitacoesRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    window.solicitacoes =
+        data
+        ? Object.keys(data).map(key => ({
+            idFirebase:key,
+            ...data[key]
+        }))
+        : [];
+
+    atualizarTabela();
+
+    gerarRelatorio();
+
+});
+
+
+/* =========================================================
+   FIREBASE - ESTOQUE
+========================================================= */
+
+onValue(estoqueRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    window.estoque =
+        data
+        ? Object.keys(data).map(key => ({
+            idFirebase:key,
+            ...data[key]
+        }))
+        : [];
+
+    atualizarTabelaEstoque();
+
+    popularSelectItens();
+
+});
+
+
+/* =========================================================
+   FIREBASE - SOLICITANTES
+========================================================= */
+
+onValue(solicitantesRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    if (data) {
+
+        window.solicitantesCadastrados =
+            Object.values(data);
+
+    } else {
+
+        window.solicitantesCadastrados = [
+            'Bop/1',
+            'Bop/2',
+            'Bop/3',
+            'P1',
+            'P2',
+            'P3',
+            'P4'
+        ];
+
+        set(
+            solicitantesRef,
+            window.solicitantesCadastrados
+        );
+
     }
-    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-    import {
-        getDatabase,
-        ref,
-        push,
-        onValue,
-        update,
-        remove,
-        set
+    atualizarSelectSolicitantes();
+
+    popularFiltroSolicitantes();
+
+    renderizarListaSolicitantesGerenciamento();
+
+});
+
+
+/* =========================================================
+   FIREBASE - ADMINISTRADORES
+========================================================= */
+
+onValue(administradoresRef, (snapshot) => {
+
+    const data = snapshot.val();
+
+    window.administradores =
+        data
+        ? Object.keys(data).map(key => ({
+            idFirebase:key,
+            ...data[key]
+        }))
+        : [];
+
+    renderizarAdministradores();
+
+});
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+window.alternarLogin = async function() {
+
+    if (window.isAdmin) {
+
+        window.isAdmin = false;
+        window.isMaster = false;
+        window.adminAtual = null;
+
+        atualizarInterfaceLogin();
+
+        return;
     }
-    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 
-    /* =====================================================
-       CONFIGURAÇÃO FIREBASE
-    ===================================================== */
+    const senha =
+        prompt("Digite a senha do ADM ou a senha MASTER:");
 
-    const firebaseConfig = {
+    if (senha === null) return;
 
-        apiKey:
-            "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
 
-        authDomain:
-            "bprv-2c760.firebaseapp.com",
+    /* MASTER */
 
-        projectId:
-            "bprv-2c760",
+    if (senha === window.SENHA_MASTER) {
 
-        storageBucket:
-            "bprv-2c760.firebasestorage.app",
+        window.isAdmin = true;
 
-        messagingSenderId:
-            "940006401979",
+        window.isMaster = true;
 
-        appId:
-            "1:940006401979:web:bf678dc236f2fd2332469e",
+        window.adminAtual = {
+            nome: "Administrador MASTER"
+        };
 
-        databaseURL:
-            "https://bprv-2c760-default-rtdb.firebaseio.com"
+        atualizarInterfaceLogin();
 
-    };
+        alert(
+            "Acesso MASTER autorizado!"
+        );
 
+        return;
+    }
 
-    const app = initializeApp(firebaseConfig);
 
-    const db = getDatabase(app);
+    /* ADM CADASTRADO */
 
+    const encontrado =
+        window.administradores.find(
+            adm => adm.senha === senha
+        );
 
-    /* =====================================================
-       REFERÊNCIAS
-    ===================================================== */
+    if (encontrado) {
 
-    const solicitacoesRef =
-        ref(db, 'solicitacoes');
+        window.isAdmin = true;
 
-    const estoqueRef =
-        ref(db, 'estoque');
+        window.isMaster = false;
 
-    const solicitantesRef =
-        ref(db, 'solicitantes');
+        window.adminAtual = encontrado;
 
-    const administradoresRef =
-        ref(db, 'administradores');
+        atualizarInterfaceLogin();
 
+        alert(
+            "Login autorizado: " +
+            encontrado.nome
+        );
 
-    /* =====================================================
-       CONFIGURAÇÃO DE ACESSO
-    ===================================================== */
+    } else {
 
-    // SENHA MASTER SOLICITADA
-    window.SENHA_MASTER = "3BPRv";
+        alert("Senha incorreta!");
 
+    }
 
-    window.isAdmin = false;
+};
 
-    window.isMaster = false;
 
-    window.usuarioLogado = "";
+/* =========================================================
+   INTERFACE LOGIN
+========================================================= */
 
-    window.itensCarrinho = [];
+function atualizarInterfaceLogin() {
 
-    window.solicitacoes = [];
+    const nome =
+        document.getElementById('usuarioNome');
 
-    window.estoque = [];
+    const botao =
+        document.getElementById('btnLoginLogout');
 
-    window.solicitantesCadastrados = [];
+    const cardSolicitante =
+        document.getElementById(
+            'cadSolicitanteFormCard'
+        );
 
-    window.administradores = [];
+    const cardEstoque =
+        document.getElementById(
+            'estoqueFormCard'
+        );
 
+    const botaoAdmins =
+        document.getElementById(
+            'btnGerenciarAdmins'
+        );
 
-    /* =====================================================
-       DATAS INICIAIS
-    ===================================================== */
 
-    document.getElementById('data').value =
-        new Date().toISOString().split('T')[0];
+    if (window.isAdmin) {
 
-    document.getElementById('filtroMesAno').value =
-        new Date().toISOString().slice(0, 7);
+        nome.innerText =
+            window.adminAtual
+                ? window.adminAtual.nome
+                : "Administrador";
 
+        nome.style.color = "#4ade80";
 
-    /* =====================================================
-       SOLICITAÇÕES
-    ===================================================== */
+        botao.innerText =
+            "Sair do ADM";
 
-    onValue(
-        solicitacoesRef,
-        (snapshot) => {
+        botao.className =
+            "btn-logout";
 
-            const data = snapshot.val();
+        cardSolicitante.style.display =
+            "block";
 
-            window.solicitacoes =
-                data
-                    ? Object.keys(data).map(
-                        key => ({
-                            idFirebase: key,
-                            ...data[key]
-                        })
-                    )
-                    : [];
-
-            atualizarTabela();
-
-            gerarRelatorio();
-        }
-    );
-
-
-    /* =====================================================
-       ESTOQUE
-    ===================================================== */
-
-    onValue(
-        estoqueRef,
-        (snapshot) => {
-
-            const data = snapshot.val();
-
-            window.estoque =
-                data
-                    ? Object.keys(data).map(
-                        key => ({
-                            idFirebase: key,
-                            ...data[key]
-                        })
-                    )
-                    : [];
-
-            atualizarTabelaEstoque();
-
-            popularSelectItens();
-        }
-    );
-
-
-    /* =====================================================
-       SOLICITANTES
-    ===================================================== */
-
-    onValue(
-        solicitantesRef,
-        (snapshot) => {
-
-            const data = snapshot.val();
-
-            if (data) {
-
-                window.solicitantesCadastrados =
-                    Object.values(data);
-
-            } else {
-
-                window.solicitantesCadastrados = [
-                    'Bop/1',
-                    'Bop/2',
-                    'Bop/3',
-                    'P1',
-                    'P2',
-                    'P3',
-                    'P4'
-                ];
-
-                set(
-                    solicitantesRef,
-                    window.solicitantesCadastrados
-                );
-            }
-
-            atualizarSelectSolicitantes();
-
-            popularFiltroSolicitantes();
-
-            renderizarListaSolicitantesGerenciamento();
-        }
-    );
-
-
-    /* =====================================================
-       ADMINISTRADORES
-    ===================================================== */
-
-    onValue(
-        administradoresRef,
-        (snapshot) => {
-
-            const data = snapshot.val();
-
-            if (data) {
-
-                window.administradores =
-                    Object.keys(data).map(
-                        key => ({
-                            idFirebase: key,
-                            ...data[key]
-                        })
-                    );
-
-            } else {
-
-                window.administradores = [];
-            }
-
-            renderizarListaAdministradores();
-        }
-    );
-
-
-    /* =====================================================
-       LOGIN
-    ===================================================== */
-
-    window.alternarLogin = async function() {
-
-        if (!window.isAdmin) {
-
-            const senha =
-                prompt(
-                    "Digite a senha do ADM ou a senha MASTER:"
-                );
-
-
-            if (senha === null) {
-                return;
-            }
-
-
-            /* =============================================
-               LOGIN MASTER
-            ============================================= */
-
-            if (senha === window.SENHA_MASTER) {
-
-                window.isAdmin = true;
-
-                window.isMaster = true;
-
-                window.usuarioLogado = "MASTER";
-
-                atualizarInterfaceLogin();
-
-                alert(
-                    "Acesso MASTER autorizado!"
-                );
-
-                return;
-            }
-
-
-            /* =============================================
-               LOGIN ADMINISTRADOR
-            ============================================= */
-
-            const administrador =
-                window.administradores.find(
-                    adm => adm.senha === senha
-                );
-
-
-            if (administrador) {
-
-                window.isAdmin = true;
-
-                window.isMaster = false;
-
-                window.usuarioLogado =
-                    administrador.nome;
-
-                atualizarInterfaceLogin();
-
-                alert(
-                    "Login realizado com sucesso!"
-                );
-
-            } else {
-
-                alert(
-                    "Senha incorreta!"
-                );
-            }
-
-        } else {
-
-            /* =============================================
-               SAIR
-            ============================================= */
-
-            window.isAdmin = false;
-
-            window.isMaster = false;
-
-            window.usuarioLogado = "";
-
-            atualizarInterfaceLogin();
-
-            mudarAba('solicitacoes');
-        }
-    };
-
-
-    /* =====================================================
-       ATUALIZAR INTERFACE DO LOGIN
-    ===================================================== */
-
-    function atualizarInterfaceLogin() {
-
-        const nome =
-            document.getElementById('usuarioNome');
-
-        const botao =
-            document.getElementById('btnLoginLogout');
+        cardEstoque.style.display =
+            "block";
 
 
         if (window.isMaster) {
 
-            nome.innerText =
-                "MASTER";
-
-            nome.style.color =
-                "#c084fc";
-
-            botao.innerText =
-                "Sair do MASTER";
-
-            botao.className =
-                "btn-logout";
-
-        } else if (window.isAdmin) {
-
-            nome.innerText =
-                "ADM - " + window.usuarioLogado;
-
-            nome.style.color =
-                "#4ade80";
-
-            botao.innerText =
-                "Sair do ADM";
-
-            botao.className =
-                "btn-logout";
+            botaoAdmins.style.display =
+                "inline-block";
 
         } else {
 
-            nome.innerText =
-                "Usuário Comum";
+            botaoAdmins.style.display =
+                "none";
 
-            nome.style.color =
-                "#60a5fa";
-
-            botao.innerText =
-                "Entrar como ADM";
-
-            botao.className =
-                "btn-alt";
         }
 
+    } else {
 
-        /* =============================================
-           FORMULÁRIOS ADM
-        ============================================= */
+        nome.innerText =
+            "Usuário Comum";
 
+        nome.style.color =
+            "#60a5fa";
+
+        botao.innerText =
+            "Entrar como ADM";
+
+        botao.className =
+            "btn-alt";
+
+        cardSolicitante.style.display =
+            "none";
+
+        cardEstoque.style.display =
+            "none";
+
+        botaoAdmins.style.display =
+            "none";
+
+    }
+
+    atualizarTabela();
+
+    atualizarTabelaEstoque();
+
+    renderizarListaSolicitantesGerenciamento();
+
+}
+
+
+/* =========================================================
+   MODAL ADMINISTRADORES
+========================================================= */
+
+window.abrirModalAdmins = function() {
+
+    if (!window.isMaster) {
+
+        alert(
+            "Somente o Administrador MASTER pode acessar esta área."
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        'modalAdmins'
+    ).style.display = 'flex';
+
+    renderizarAdministradores();
+
+};
+
+
+window.fecharModalAdmins = function() {
+
+    document.getElementById(
+        'modalAdmins'
+    ).style.display = 'none';
+
+};
+
+
+/* =========================================================
+   CADASTRAR ADMINISTRADOR
+========================================================= */
+
+window.cadastrarAdministrador =
+async function(e) {
+
+    e.preventDefault();
+
+    if (!window.isMaster) {
+
+        alert(
+            "Somente a senha MASTER pode cadastrar administradores."
+        );
+
+        return;
+    }
+
+    const nome =
         document.getElementById(
-            'cadSolicitanteFormCard'
-        ).style.display =
-            window.isAdmin
-                ? 'block'
-                : 'none';
+            'nomeNovoAdmin'
+        ).value.trim();
 
-
+    const senha =
         document.getElementById(
-            'estoqueFormCard'
-        ).style.display =
-            window.isAdmin
-                ? 'block'
-                : 'none';
+            'senhaNovoAdmin'
+        ).value.trim();
 
 
-        /* =============================================
-           ABA ADMINISTRADORES
-           SOMENTE MASTER
-        ============================================= */
+    if (!nome || !senha) {
 
+        alert(
+            "Preencha nome e senha."
+        );
+
+        return;
+    }
+
+
+    if (senha === window.SENHA_MASTER) {
+
+        alert(
+            "Essa senha é reservada para o MASTER."
+        );
+
+        return;
+    }
+
+
+    const senhaExiste =
+        window.administradores.some(
+            adm => adm.senha === senha
+        );
+
+    if (senhaExiste) {
+
+        alert(
+            "Essa senha já está sendo utilizada."
+        );
+
+        return;
+    }
+
+
+    await push(
+        administradoresRef,
+        {
+            nome: nome,
+            senha: senha,
+            criadoEm: Date.now()
+        }
+    );
+
+
+    document.getElementById(
+        'formNovoAdmin'
+    ).reset();
+
+
+    alert(
+        "Administrador cadastrado com sucesso!"
+    );
+
+};
+
+
+/* =========================================================
+   EXCLUIR ADMINISTRADOR
+========================================================= */
+
+window.removerAdministrador =
+async function(idFirebase) {
+
+    if (!window.isMaster) {
+
+        alert(
+            "Somente o MASTER pode excluir administradores."
+        );
+
+        return;
+    }
+
+
+    const adm =
+        window.administradores.find(
+            a => a.idFirebase === idFirebase
+        );
+
+    if (!adm) return;
+
+
+    if (
+        !confirm(
+            `Deseja excluir o administrador "${adm.nome}"?`
+        )
+    ) return;
+
+
+    await remove(
+        ref(
+            db,
+            `administradores/${idFirebase}`
+        )
+    );
+
+
+    alert(
+        "Administrador excluído."
+    );
+
+};
+
+
+/* =========================================================
+   LISTA DE ADM
+========================================================= */
+
+function renderizarAdministradores() {
+
+    const div =
         document.getElementById(
-            'tabAdministradores'
-        ).style.display =
-            window.isMaster
-                ? 'inline-block'
-                : 'none';
+            'listaAdministradores'
+        );
+
+    if (!div) return;
 
 
-        atualizarTabela();
+    if (
+        window.administradores.length === 0
+    ) {
+
+        div.innerHTML =
+            "<em>Nenhum administrador cadastrado.</em>";
+
+        return;
+    }
+
+
+    div.innerHTML = "";
+
+
+    window.administradores.forEach(
+        adm => {
+
+            div.innerHTML += `
+
+                <div class="admin-item">
+
+                    <div>
+                        <strong>
+                            ${esc(adm.nome)}
+                        </strong>
+
+                        <br>
+
+                        <small style="color:#64748b;">
+                            Administrador
+                        </small>
+                    </div>
+
+                    <button
+                        onclick="removerAdministrador('${adm.idFirebase}')"
+                        style="background:#dc2626;padding:5px 8px;font-size:11px;">
+                        Excluir
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SOLICITAÇÃO
+========================================================= */
+
+window.abrirModalSolicitacao =
+function() {
+
+    document.getElementById(
+        'modalSolicitacao'
+    ).style.display = 'flex';
+
+    atualizarSelectSolicitantes();
+
+    popularSelectItens();
+
+};
+
+
+window.fecharModalSolicitacao =
+function() {
+
+    document.getElementById(
+        'modalSolicitacao'
+    ).style.display = 'none';
+
+    window.itensCarrinho = [];
+
+    renderizarListaTemporaria();
+
+    document.getElementById(
+        'solicitacaoForm'
+    ).reset();
+
+    document.getElementById(
+        'data'
+    ).value =
+        new Date()
+            .toISOString()
+            .split('T')[0];
+
+    alternarItemPersonalizado();
+
+};
+
+
+/* =========================================================
+   ABAS
+========================================================= */
+
+window.mudarAba =
+function(aba) {
+
+    const abas = {
+
+        solicitacoes:
+            document.getElementById(
+                'abaSolicitacoes'
+            ),
+
+        relatorio:
+            document.getElementById(
+                'abaRelatorio'
+            ),
+
+        estoque:
+            document.getElementById(
+                'abaEstoque'
+            )
+
+    };
+
+
+    Object.keys(abas).forEach(
+        nome => {
+
+            abas[nome].style.display =
+                nome === aba
+                    ? 'block'
+                    : 'none';
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(
+            '.tab-btn:not(.btn-nova-solicitation):not(.btn-master)'
+        )
+        .forEach(btn => {
+
+            btn.classList.remove(
+                'active'
+            );
+
+        });
+
+
+    const mapa = {
+        solicitacoes:0,
+        relatorio:1,
+        estoque:2
+    };
+
+
+    const botoes =
+        document.querySelectorAll(
+            '.tab-btn:not(.btn-nova-solicitation):not(.btn-master)'
+        );
+
+
+    if (botoes[mapa[aba]]) {
+
+        botoes[mapa[aba]]
+            .classList.add('active');
+
+    }
+
+
+    if (aba === 'relatorio') {
+
+        popularFiltroSolicitantes();
+
+        gerarRelatorio();
+
+    }
+
+
+    if (aba === 'estoque') {
 
         atualizarTabelaEstoque();
 
         renderizarListaSolicitantesGerenciamento();
 
-        renderizarListaAdministradores();
+    }
 
-        gerarRelatorio();
+};
+
+
+/* =========================================================
+   SOLICITANTES
+========================================================= */
+
+window.cadastrarNovoSolicitante =
+function(e) {
+
+    e.preventDefault();
+
+    if (!window.isAdmin) return;
+
+    const nome =
+        document.getElementById(
+            'novoSolicitanteNome'
+        ).value.trim();
+
+
+    if (
+        nome &&
+        !window.solicitantesCadastrados.includes(nome)
+    ) {
+
+        push(
+            solicitantesRef,
+            nome
+        );
+
+        document.getElementById(
+            'novoSolicitanteNome'
+        ).value = '';
+
+        alert(
+            'Solicitante/Seção cadastrada com sucesso!'
+        );
+
+    } else {
+
+        alert(
+            'Este solicitante já está cadastrado!'
+        );
+
+    }
+
+};
+
+
+window.removerSolicitanteCadastrado =
+function(nome) {
+
+    if (!window.isAdmin) return;
+
+    if (
+        confirm(
+            `Remover "${nome}" da lista de solicitantes?`
+        )
+    ) {
+
+        const novos =
+            window.solicitantesCadastrados
+                .filter(
+                    s => s !== nome
+                );
+
+        set(
+            solicitantesRef,
+            novos
+        );
+
+    }
+
+};
+
+
+function renderizarListaSolicitantesGerenciamento() {
+
+    const div =
+        document.getElementById(
+            'listaSolicitantesCadastrados'
+        );
+
+    if (!div) return;
+
+
+    if (
+        window.solicitantesCadastrados.length === 0
+    ) {
+
+        div.innerHTML =
+            "<em>Nenhum solicitante cadastrado.</em>";
+
+        return;
+
     }
 
 
-    /* =====================================================
-       ABAS
-    ===================================================== */
+    let html =
+        "<strong>Cadastrados:</strong> ";
+
+
+    html +=
+        window.solicitantesCadastrados
+            .map(
+                s => `
+
+                <span style="
+                    background:#e2e8f0;
+                    padding:2px 6px;
+                    border-radius:4px;
+                    margin-right:4px;
+                    display:inline-block;
+                    margin-top:4px;">
+
+                    ${esc(s)}
+
+                    ${
+                        window.isAdmin
+                        ? `
+                        <a href="#"
+                           onclick="removerSolicitanteCadastrado('${escAttr(s)}');return false;"
+                           style="color:#dc2626;font-weight:bold;margin-left:4px;">
+                           &times;
+                        </a>
+                        `
+                        : ''
+                    }
+
+                </span>
 
-    window.mudarAba = function(aba) {
-
-        const botoes =
-            document.querySelectorAll(
-                '.tab-btn:not(.btn-nova-solicitation)'
-            );
-
-
-        const abas = {
-
-            solicitacoes:
-                document.getElementById(
-                    'abaSolicitacoes'
-                ),
-
-            relatorio:
-                document.getElementById(
-                    'abaRelatorio'
-                ),
-
-            estoque:
-                document.getElementById(
-                    'abaEstoque'
-                ),
-
-            administradores:
-                document.getElementById(
-                    'abaAdministradores'
-                )
-        };
-
-
-        Object.keys(abas).forEach(
-            nome => {
-
-                abas[nome].style.display =
-                    nome === aba
-                        ? 'block'
-                        : 'none';
-            }
-        );
-
-
-        botoes.forEach(
-            botao => {
-                botao.classList.remove('active');
-            }
-        );
-
-
-        const mapaBotoes = {
-
-            solicitacoes: 0,
-
-            relatorio: 1,
-
-            estoque: 2,
-
-            administradores: 3
-        };
-
-
-        if (
-            botoes[mapaBotoes[aba]] &&
-            (
-                aba !== 'administradores' ||
-                window.isMaster
-            )
-        ) {
-
-            botoes[
-                mapaBotoes[aba]
-            ].classList.add('active');
-        }
-
-
-        /* Segurança da aba MASTER */
-
-        if (
-            aba === 'administradores' &&
-            !window.isMaster
-        ) {
-
-            alert(
-                "Acesso permitido somente ao MASTER."
-            );
-
-            mudarAba('solicitacoes');
-
-            return;
-        }
-
-
-        if (aba === 'relatorio') {
-
-            popularFiltroSolicitantes();
-
-            gerarRelatorio();
-
-        } else if (aba === 'estoque') {
-
-            atualizarTabelaEstoque();
-
-            renderizarListaSolicitantesGerenciamento();
-
-        } else if (aba === 'administradores') {
-
-            renderizarListaAdministradores();
-        }
-    };
-
-
-    /* =====================================================
-       MODAL SOLICITAÇÃO
-    ===================================================== */
-
-    window.abrirModalSolicitacao = function() {
-
-        document.getElementById(
-            'modalSolicitacao'
-        ).style.display = 'flex';
-
-        atualizarSelectSolicitantes();
-
-        popularSelectItens();
-    };
-
-
-    window.fecharModalSolicitacao = function() {
-
-        document.getElementById(
-            'modalSolicitacao'
-        ).style.display = 'none';
-
-        window.itensCarrinho = [];
-
-        renderizarListaTemporaria();
-
-        document.getElementById(
-            'solicitacaoForm'
-        ).reset();
-
-        document.getElementById(
-            'data'
-        ).value =
-            new Date().toISOString().split('T')[0];
-
-        alternarItemPersonalizado();
-    };
-
-
-    /* =====================================================
-       SOLICITANTES
-    ===================================================== */
-
-    window.cadastrarNovoSolicitante =
-        function(e) {
-
-            e.preventDefault();
-
-            if (!window.isAdmin) {
-
-                alert(
-                    "É necessário estar logado como ADM."
-                );
-
-                return;
-            }
-
-
-            const nome =
-                document.getElementById(
-                    'novoSolicitanteNome'
-                ).value.trim();
-
-
-            if (
-                nome &&
-                !window.solicitantesCadastrados
-                    .some(
-                        s =>
-                            s.toLowerCase() ===
-                            nome.toLowerCase()
-                    )
-            ) {
-
-                push(
-                    solicitantesRef,
-                    nome
-                );
-
-                document.getElementById(
-                    'novoSolicitanteNome'
-                ).value = '';
-
-                alert(
-                    'Solicitante/Seção cadastrada com sucesso!'
-                );
-
-            } else {
-
-                alert(
-                    'Este solicitante já está cadastrado!'
-                );
-            }
-        };
-
-
-    window.removerSolicitanteCadastrado =
-        function(nome) {
-
-            if (!window.isAdmin) return;
-
-
-            if (
-                confirm(
-                    `Remover "${nome}" da lista de solicitantes?`
-                )
-            ) {
-
-                const novos =
-                    window.solicitantesCadastrados
-                        .filter(
-                            s => s !== nome
-                        );
-
-                set(
-                    solicitantesRef,
-                    novos
-                );
-            }
-        };
-
-
-    function renderizarListaSolicitantesGerenciamento() {
-
-        const div =
-            document.getElementById(
-                'listaSolicitantesCadastrados'
-            );
-
-
-        if (!div) return;
-
-
-        if (
-            window.solicitantesCadastrados.length === 0
-        ) {
-
-            div.innerHTML =
-                "<em>Nenhum solicitante cadastrado.</em>";
-
-            return;
-        }
-
-
-        let html =
-            "<strong>Cadastrados:</strong> ";
-
-
-        html +=
-            window.solicitantesCadastrados
-                .map(
-                    s => `
-
-                    <span style="
-                        background:#e2e8f0;
-                        padding:2px 6px;
-                        border-radius:4px;
-                        margin-right:4px;
-                        display:inline-block;
-                        margin-top:4px;
-                    ">
-
-                        ${s}
-
-                        ${
-                            window.isAdmin
-                            ?
-                            `<a
-                                href="#"
-                                onclick="removerSolicitanteCadastrado(${JSON.stringify(s)});return false;"
-                                style="
-                                    color:#dc2626;
-                                    font-weight:bold;
-                                    margin-left:4px;
-                                "
-                            >
-                                &times;
-                            </a>`
-                            :
-                            ''
-                        }
-
-                    </span>
                 `
-                )
-                .join('');
+            )
+            .join('');
 
 
-        div.innerHTML = html;
-    }
+    div.innerHTML = html;
+
+}
 
 
-    function atualizarSelectSolicitantes() {
+function atualizarSelectSolicitantes() {
 
-        const select =
-            document.getElementById(
-                'solicitanteBase'
-            );
+    const select =
+        document.getElementById(
+            'solicitanteBase'
+        );
 
-
-        const valorAtual =
-            select.value;
+    if (!select) return;
 
 
-        select.innerHTML =
-            '<option value="" disabled selected>Selecione</option>' +
-
-            window.solicitantesCadastrados
-                .map(
-                    s =>
-                        `<option value="${s}">
-                            ${s}
-                        </option>`
-                )
-                .join('');
+    const valorAtual =
+        select.value;
 
 
-        if (
-            window.solicitantesCadastrados
-                .includes(valorAtual)
-        ) {
+    select.innerHTML =
+        '<option value="" disabled selected>Selecione</option>' +
 
-            select.value =
-                valorAtual;
-        }
-    }
-
-
-    function popularFiltroSolicitantes() {
-
-        const select =
-            document.getElementById(
-                'filtroSolicitante'
-            );
+        window.solicitantesCadastrados
+            .map(
+                s =>
+                    `<option value="${escAttr(s)}">${esc(s)}</option>`
+            )
+            .join('');
 
 
-        const valorAtual =
-            select.value;
-
-
-        select.innerHTML =
-            '<option value="todos">Todos os Solicitantes</option>' +
-
-            window.solicitantesCadastrados
-                .map(
-                    s =>
-                        `<option value="${s}">
-                            ${s}
-                        </option>`
-                )
-                .join('');
-
+    if (
+        window.solicitantesCadastrados
+            .includes(valorAtual)
+    ) {
 
         select.value =
-            valorAtual || 'todos';
+            valorAtual;
+
+    }
+
+}
+
+
+function popularFiltroSolicitantes() {
+
+    const select =
+        document.getElementById(
+            'filtroSolicitante'
+        );
+
+    if (!select) return;
+
+
+    const valorAtual =
+        select.value;
+
+
+    select.innerHTML =
+        '<option value="todos">Todos os Solicitantes</option>' +
+
+        window.solicitantesCadastrados
+            .map(
+                s =>
+                    `<option value="${escAttr(s)}">${esc(s)}</option>`
+            )
+            .join('');
+
+
+    select.value =
+        valorAtual || 'todos';
+
+}
+
+
+/* =========================================================
+   ESTOQUE
+========================================================= */
+
+window.adicionarItemEstoque =
+function(e) {
+
+    e.preventDefault();
+
+    if (!window.isAdmin) return;
+
+    const itemNome =
+        document.getElementById(
+            'estoqueItem'
+        ).value.trim();
+
+    const qtd =
+        parseInt(
+            document.getElementById(
+                'estoqueQtd'
+            ).value,
+            10
+        ) || 1;
+
+
+    const existente =
+        window.estoque.find(
+            e =>
+                e.item.toLowerCase()
+                ===
+                itemNome.toLowerCase()
+        );
+
+
+    if (existente) {
+
+        update(
+            ref(
+                db,
+                `estoque/${existente.idFirebase}`
+            ),
+            {
+                quantidade:
+                    existente.quantidade + qtd
+            }
+        );
+
+    } else {
+
+        push(
+            estoqueRef,
+            {
+                item:itemNome,
+                quantidade:qtd
+            }
+        );
+
     }
 
 
-    /* =====================================================
-       ESTOQUE
-    ===================================================== */
+    document.getElementById(
+        'estoqueForm'
+    ).reset();
 
-    window.adicionarItemEstoque =
+};
+
+
+window.removerItemEstoque =
+function(idFirebase) {
+
+    if (!window.isAdmin) return;
+
+
+    if (
+        confirm(
+            "Deseja realmente remover este item do estoque?"
+        )
+    ) {
+
+        remove(
+            ref(
+                db,
+                `estoque/${idFirebase}`
+            )
+        );
+
+    }
+
+};
+
+
+function atualizarTabelaEstoque() {
+
+    const corpo =
+        document.getElementById(
+            'tabelaEstoque'
+        );
+
+    if (!corpo) return;
+
+
+    corpo.innerHTML = "";
+
+
+    if (
+        window.estoque.length === 0
+    ) {
+
+        corpo.innerHTML =
+            `<tr>
+                <td colspan="3"
+                    style="text-align:center;">
+                    Nenhum item em estoque.
+                </td>
+            </tr>`;
+
+        return;
+
+    }
+
+
+    window.estoque.forEach(
+        e => {
+
+            const acao =
+                window.isAdmin
+                ?
+                `
+                <button
+                    onclick="removerItemEstoque('${e.idFirebase}')"
+                    style="background:#dc2626;padding:2px 6px;font-size:10px;">
+                    Excluir
+                </button>
+                `
+                :
+                '-';
+
+
+            corpo.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${esc(e.item)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${e.quantidade}
+                    </td>
+
+                    <td>
+                        ${acao}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+}
+
+
+function popularSelectItens() {
+
+    const select =
+        document.getElementById(
+            'item'
+        );
+
+    if (!select) return;
+
+
+    let html =
+        '<option value="" disabled selected>Selecione um item</option>';
+
+
+    window.estoque.forEach(
+        e => {
+
+            html +=
+                `<option value="${escAttr(e.item)}">
+                    ${esc(e.item)} (Estoque: ${e.quantidade})
+                </option>`;
+
+        }
+    );
+
+
+    html +=
+        '<option value="Outro">Outro (Digitar manualmente)</option>';
+
+
+    select.innerHTML =
+        html;
+
+}
+
+
+window.alternarItemPersonalizado =
+function() {
+
+    const select =
+        document.getElementById('item');
+
+    const input =
+        document.getElementById(
+            'itemPersonalizado'
+        );
+
+
+    input.style.display =
+        select.value === 'Outro'
+            ? 'block'
+            : 'none';
+
+};
+
+
+function obterItemSolicitado() {
+
+    const select =
+        document.getElementById(
+            'item'
+        );
+
+
+    return select.value === 'Outro'
+        ?
+        document.getElementById(
+            'itemPersonalizado'
+        ).value.trim()
+        :
+        select.value;
+
+}
+
+
+window.atualizarEstoqueDisponivelView =
+function() {
+
+    const info =
+        document.getElementById(
+            'estoqueDisponivelInfo'
+        );
+
+    const item =
+        obterItemSolicitado()
+            .trim()
+            .toLowerCase();
+
+
+    if (!item) {
+
+        info.innerText =
+            'Estoque: -';
+
+        info.style.color =
+            '#64748b';
+
+        return;
+
+    }
+
+
+    const entrada =
+        window.estoque.find(
+            e =>
+                e.item
+                .trim()
+                .toLowerCase()
+                === item
+        );
+
+
+    if (entrada) {
+
+        info.innerText =
+            `Estoque: ${entrada.quantidade}`;
+
+        info.style.color =
+            entrada.quantidade <= 2
+                ? '#d97706'
+                : '#16a34a';
+
+    } else {
+
+        info.innerText =
+            'Não controlado';
+
+        info.style.color =
+            '#94a3b8';
+
+    }
+
+};
+
+
+/* =========================================================
+   CARRINHO
+========================================================= */
+
+window.adicionarItemTemporario =
+function() {
+
+    const itemNome =
+        obterItemSolicitado();
+
+    const quantidade =
+        parseInt(
+            document.getElementById(
+                'quantidade'
+            ).value,
+            10
+        ) || 1;
+
+
+    if (!itemNome) {
+
+        alert(
+            'Selecione ou digite um item válido.'
+        );
+
+        return;
+
+    }
+
+
+    window.itensCarrinho.push({
+        item:itemNome,
+        quantidade:quantidade
+    });
+
+
+    document.getElementById(
+        'item'
+    ).value = '';
+
+
+    document.getElementById(
+        'quantidade'
+    ).value = 1;
+
+
+    alternarItemPersonalizado();
+
+    atualizarEstoqueDisponivelView();
+
+    renderizarListaTemporaria();
+
+};
+
+
+function renderizarListaTemporaria() {
+
+    const container =
+        document.getElementById(
+            'areaListaTemporaria'
+        );
+
+    const ul =
+        document.getElementById(
+            'listaItensTemporarios'
+        );
+
+
+    ul.innerHTML = '';
+
+
+    if (
+        window.itensCarrinho.length === 0
+    ) {
+
+        container.style.display =
+            'none';
+
+        return;
+
+    }
+
+
+    container.style.display =
+        'block';
+
+
+    window.itensCarrinho.forEach(
+        (it,index) => {
+
+            ul.innerHTML += `
+
+                <li style="margin-bottom:2px;">
+
+                    <strong>
+                        ${esc(it.item)}
+                    </strong>
+
+                    — Qtd: ${it.quantidade}
+
+                    <a href="#"
+                       onclick="removerItemCarrinho(${index});return false;"
+                       style="color:#dc2626;margin-left:8px;font-size:11px;">
+                        [remover]
+                    </a>
+
+                </li>
+
+            `;
+
+        }
+    );
+
+}
+
+
+window.removerItemCarrinho =
+function(index) {
+
+    window.itensCarrinho.splice(
+        index,
+        1
+    );
+
+    renderizarListaTemporaria();
+
+};
+
+
+/* =========================================================
+   CADASTRAR SOLICITAÇÃO
+========================================================= */
+
+document
+    .getElementById('solicitacaoForm')
+    .addEventListener(
+        'submit',
         function(e) {
 
             e.preventDefault();
 
-            if (!window.isAdmin) return;
 
-
-            const itemNome =
+            const base =
                 document.getElementById(
-                    'estoqueItem'
+                    'solicitanteBase'
+                ).value;
+
+
+            const re =
+                document.getElementById(
+                    'solicitanteRE'
                 ).value.trim();
 
 
-            const qtd =
-                parseInt(
-                    document.getElementById(
-                        'estoqueQtd'
-                    ).value,
-                    10
-                ) || 1;
-
-
-            const itemExistente =
-                window.estoque.find(
-                    e =>
-                        e.item.toLowerCase() ===
-                        itemNome.toLowerCase()
-                );
-
-
-            if (itemExistente) {
-
-                update(
-                    ref(
-                        db,
-                        `estoque/${itemExistente.idFirebase}`
-                    ),
-                    {
-                        quantidade:
-                            itemExistente.quantidade + qtd
-                    }
-                );
-
-            } else {
-
-                push(
-                    estoqueRef,
-                    {
-                        item: itemNome,
-                        quantidade: qtd
-                    }
-                );
-            }
-
-
-            document.getElementById(
-                'estoqueForm'
-            ).reset();
-        };
-
-
-    window.removerItemEstoque =
-        function(idFirebase) {
-
-            if (!window.isAdmin) return;
-
-
             if (
-                confirm(
-                    "Deseja realmente remover este item do estoque?"
-                )
+                !base ||
+                window.itensCarrinho.length === 0
             ) {
 
-                remove(
-                    ref(
-                        db,
-                        `estoque/${idFirebase}`
-                    )
-                );
-            }
-        };
-
-
-    function atualizarTabelaEstoque() {
-
-        const corpo =
-            document.getElementById(
-                'tabelaEstoque'
-            );
-
-
-        corpo.innerHTML = "";
-
-
-        if (window.estoque.length === 0) {
-
-            corpo.innerHTML = `
-                <tr>
-                    <td colspan="3" style="text-align:center;">
-                        Nenhum item em estoque.
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        window.estoque.forEach(
-            e => {
-
-                const acao =
-                    window.isAdmin
-                    ?
-                    `
-                    <button
-                        onclick="removerItemEstoque('${e.idFirebase}')"
-                        style="
-                            background:#dc2626;
-                            padding:2px 6px;
-                            font-size:10px;
-                        "
-                    >
-                        Excluir
-                    </button>
-                    `
-                    :
-                    '-';
-
-
-                corpo.innerHTML += `
-
-                    <tr>
-
-                        <td>
-                            <strong>
-                                ${e.item}
-                            </strong>
-                        </td>
-
-                        <td>
-                            ${e.quantidade}
-                        </td>
-
-                        <td>
-                            ${acao}
-                        </td>
-
-                    </tr>
-                `;
-            }
-        );
-    }
-
-
-    function popularSelectItens() {
-
-        const select =
-            document.getElementById(
-                'item'
-            );
-
-
-        let html =
-            '<option value="" disabled selected>Selecione um item</option>';
-
-
-        window.estoque.forEach(
-            e => {
-
-                html += `
-                    <option value="${e.item}">
-                        ${e.item} (Estoque: ${e.quantidade})
-                    </option>
-                `;
-            }
-        );
-
-
-        html += `
-            <option value="Outro">
-                Outro (Digitar manualmente)
-            </option>
-        `;
-
-
-        select.innerHTML = html;
-    }
-
-
-    window.alternarItemPersonalizado =
-        function() {
-
-            const select =
-                document.getElementById(
-                    'item'
-                );
-
-            const inputCustom =
-                document.getElementById(
-                    'itemPersonalizado'
-                );
-
-
-            inputCustom.style.display =
-                select.value === 'Outro'
-                    ? 'block'
-                    : 'none';
-        };
-
-
-    function obterItemSolicitado() {
-
-        const select =
-            document.getElementById(
-                'item'
-            );
-
-
-        return select.value === 'Outro'
-            ?
-            document.getElementById(
-                'itemPersonalizado'
-            ).value.trim()
-            :
-            select.value;
-    }
-
-
-    window.atualizarEstoqueDisponivelView =
-        function() {
-
-            const info =
-                document.getElementById(
-                    'estoqueDisponivelInfo'
-                );
-
-
-            const itemVal =
-                obterItemSolicitado()
-                    .trim()
-                    .toLowerCase();
-
-
-            if (!itemVal) {
-
-                info.innerText =
-                    'Estoque: -';
-
-                info.style.color =
-                    '#64748b';
-
-                return;
-            }
-
-
-            const entrada =
-                window.estoque.find(
-                    e =>
-                        e.item
-                            .trim()
-                            .toLowerCase() ===
-                        itemVal
-                );
-
-
-            if (entrada) {
-
-                info.innerText =
-                    `Estoque: ${entrada.quantidade}`;
-
-                info.style.color =
-                    entrada.quantidade <= 2
-                        ? '#d97706'
-                        : '#16a34a';
-
-            } else {
-
-                info.innerText =
-                    'Não controlado';
-
-                info.style.color =
-                    '#94a3b8';
-            }
-        };
-
-
-    /* =====================================================
-       CARRINHO DE ITENS
-    ===================================================== */
-
-    window.adicionarItemTemporario =
-        function() {
-
-            const itemNome =
-                obterItemSolicitado();
-
-
-            const quantidade =
-                parseInt(
-                    document.getElementById(
-                        'quantidade'
-                    ).value,
-                    10
-                ) || 1;
-
-
-            if (!itemNome) {
-
                 alert(
-                    'Selecione ou digite um item válido.'
+                    'Preencha os dados e adicione ao menos um item.'
                 );
 
                 return;
+
             }
 
 
-            window.itensCarrinho.push({
+            const novaSolicitacao = {
+
+                solicitanteBase:
+                    base,
+
+                solicitanteRE:
+                    re,
+
+                solicitante:
+                    `${base} - RE ${re}`,
 
                 item:
-                    itemNome,
+                    window.itensCarrinho
+                        .map(
+                            i =>
+                                `${i.item} (x${i.quantidade})`
+                        )
+                        .join(', '),
 
                 quantidade:
-                    quantidade
-            });
-
-
-            document.getElementById(
-                'item'
-            ).value = '';
-
-
-            document.getElementById(
-                'quantidade'
-            ).value = 1;
-
-
-            alternarItemPersonalizado();
-
-            atualizarEstoqueDisponivelView();
-
-            renderizarListaTemporaria();
-        };
-
-
-    function renderizarListaTemporaria() {
-
-        const container =
-            document.getElementById(
-                'areaListaTemporaria'
-            );
-
-
-        const ul =
-            document.getElementById(
-                'listaItensTemporarios'
-            );
-
-
-        ul.innerHTML = '';
-
-
-        if (
-            window.itensCarrinho.length === 0
-        ) {
-
-            container.style.display =
-                'none';
-
-            return;
-        }
-
-
-        container.style.display =
-            'block';
-
-
-        window.itensCarrinho.forEach(
-            (it, index) => {
-
-                ul.innerHTML += `
-
-                    <li style="margin-bottom:2px;">
-
-                        <strong>
-                            ${it.item}
-                        </strong>
-
-                        — Qtd:
-                        ${it.quantidade}
-
-                        <a
-                            href="#"
-                            onclick="
-                                removerItemCarrinho(${index});
-                                return false;
-                            "
-                            style="
-                                color:#dc2626;
-                                margin-left:8px;
-                                font-size:11px;
-                            "
-                        >
-                            [remover]
-                        </a>
-
-                    </li>
-                `;
-            }
-        );
-    }
-
-
-    window.removerItemCarrinho =
-        function(index) {
-
-            window.itensCarrinho.splice(
-                index,
-                1
-            );
-
-            renderizarListaTemporaria();
-        };
-
-
-    /* =====================================================
-       SALVAR SOLICITAÇÃO
-    ===================================================== */
-
-    document
-        .getElementById('solicitacaoForm')
-        .addEventListener(
-            'submit',
-            function(e) {
-
-                e.preventDefault();
-
-
-                const base =
-                    document.getElementById(
-                        'solicitanteBase'
-                    ).value;
-
-
-                const re =
-                    document.getElementById(
-                        'solicitanteRE'
-                    ).value.trim();
-
-
-                if (
-                    !base ||
-                    window.itensCarrinho.length === 0
-                ) {
-
-                    alert(
-                        'Preencha os dados e adicione ao menos um item.'
-                    );
-
-                    return;
-                }
-
-
-                const novaSolicitacao = {
-
-                    solicitanteBase:
-                        base,
-
-                    solicitanteRE:
-                        re,
-
-                    solicitante:
-                        `${base} - RE ${re}`,
-
-                    item:
-                        window.itensCarrinho
-                            .map(
-                                i =>
-                                    `${i.item} (x${i.quantidade})`
-                            )
-                            .join(', '),
-
-                    /* Guarda os itens individualmente
-                       para permitir recuperação do estoque
-                       caso o MASTER exclua a solicitação. */
-
-                    itensDetalhados:
-                        window.itensCarrinho,
-
-                    quantidade:
-                        window.itensCarrinho.reduce(
-                            (acc, curr) =>
+                    window.itensCarrinho
+                        .reduce(
+                            (acc,curr) =>
                                 acc + curr.quantidade,
                             0
                         ),
 
-                    data:
-                        document.getElementById(
-                            'data'
-                        ).value,
+                data:
+                    document.getElementById(
+                        'data'
+                    ).value,
 
-                    status:
-                        "Pendente",
+                status:
+                    "Pendente",
 
-                    timestamp:
-                        Date.now()
-                };
+                timestamp:
+                    Date.now()
+
+            };
 
 
-                /* =========================================
-                   BAIXA DO ESTOQUE
-                ========================================= */
+            /* BAIXA DO ESTOQUE */
 
-                window.itensCarrinho.forEach(
-                    carrinhoItem => {
+            window.itensCarrinho.forEach(
+                carrinhoItem => {
 
-                        const itemEstoque =
-                            window.estoque.find(
-                                e =>
-                                    e.item
-                                        .toLowerCase() ===
-                                    carrinhoItem.item
-                                        .toLowerCase()
+                    const itemEstoque =
+                        window.estoque.find(
+                            e =>
+                                e.item.toLowerCase()
+                                ===
+                                carrinhoItem.item.toLowerCase()
+                        );
+
+
+                    if (itemEstoque) {
+
+                        const novaQtd =
+                            Math.max(
+                                0,
+                                itemEstoque.quantidade
+                                -
+                                carrinhoItem.quantidade
                             );
 
 
-                        if (itemEstoque) {
+                        update(
+                            ref(
+                                db,
+                                `estoque/${itemEstoque.idFirebase}`
+                            ),
+                            {
+                                quantidade:novaQtd
+                            }
+                        );
 
-                            const novaQtd =
-                                Math.max(
-                                    0,
-                                    itemEstoque.quantidade -
-                                    carrinhoItem.quantidade
-                                );
-
-
-                            update(
-                                ref(
-                                    db,
-                                    `estoque/${itemEstoque.idFirebase}`
-                                ),
-                                {
-                                    quantidade:
-                                        novaQtd
-                                }
-                            );
-                        }
                     }
-                );
 
-
-                push(
-                    solicitacoesRef,
-                    novaSolicitacao
-                );
-
-
-                fecharModalSolicitacao();
-            }
-        );
-
-
-    /* =====================================================
-       ALTERAR STATUS
-    ===================================================== */
-
-    window.alterarStatus =
-        function(idFirebase) {
-
-            if (!window.isAdmin) return;
-
-
-            const item =
-                window.solicitacoes.find(
-                    s =>
-                        s.idFirebase ===
-                        idFirebase
-                );
-
-
-            if (item) {
-
-                const novoStatus =
-                    item.status === "Pendente"
-                        ? "Entregue"
-                        : "Pendente";
-
-
-                update(
-                    ref(
-                        db,
-                        `solicitacoes/${idFirebase}`
-                    ),
-                    {
-                        status:
-                            novoStatus
-                    }
-                );
-            }
-        };
-
-
-    /* =====================================================
-       EXCLUIR SOLICITAÇÃO
-       SOMENTE MASTER
-    ===================================================== */
-
-    window.excluirSolicitacao =
-        async function(idFirebase) {
-
-            if (!window.isMaster) {
-
-                alert(
-                    "Somente o MASTER pode excluir solicitações."
-                );
-
-                return;
-            }
-
-
-            const solicitacao =
-                window.solicitacoes.find(
-                    s =>
-                        s.idFirebase ===
-                        idFirebase
-                );
-
-
-            if (!solicitacao) return;
-
-
-            const confirmar =
-                confirm(
-                    "ATENÇÃO!\n\n" +
-                    "Deseja realmente excluir esta solicitação?\n\n" +
-                    "Solicitante: " +
-                    solicitacao.solicitante +
-                    "\n\n" +
-                    "Essa operação não poderá ser desfeita."
-                );
-
-
-            if (!confirmar) return;
-
-
-            /* =========================================
-               EXCLUIR
-            ========================================= */
-
-            await remove(
-                ref(
-                    db,
-                    `solicitacoes/${idFirebase}`
-                )
+                }
             );
 
 
-            /*
-               Se a solicitação nova possui os itens
-               detalhados, o estoque é devolvido.
-
-               Isso evita perder material caso uma
-               solicitação seja excluída por engano.
-            */
-
-            if (
-                solicitacao.itensDetalhados &&
-                Array.isArray(
-                    solicitacao.itensDetalhados
-                )
-            ) {
-
-                solicitacao.itensDetalhados
-                    .forEach(
-                        itemSolicitado => {
-
-                            const itemEstoque =
-                                window.estoque.find(
-                                    e =>
-                                        e.item
-                                            .toLowerCase() ===
-                                        itemSolicitado.item
-                                            .toLowerCase()
-                                );
+            push(
+                solicitacoesRef,
+                novaSolicitacao
+            );
 
 
-                            if (itemEstoque) {
-
-                                update(
-                                    ref(
-                                        db,
-                                        `estoque/${itemEstoque.idFirebase}`
-                                    ),
-                                    {
-                                        quantidade:
-                                            itemEstoque.quantidade +
-                                            itemSolicitado.quantidade
-                                    }
-                                );
-                            }
-                        }
-                    );
-            }
+            fecharModalSolicitacao();
 
 
             alert(
-                "Solicitação excluída com sucesso."
-            );
-        };
-
-
-    /* =====================================================
-       TABELA DE SOLICITAÇÕES
-    ===================================================== */
-
-    function atualizarTabela() {
-
-        const corpo =
-            document.getElementById(
-                'tabelaCorpo'
+                "Solicitação cadastrada com sucesso!"
             );
 
+        }
+    );
 
-        corpo.innerHTML = "";
+
+/* =========================================================
+   ALTERAR STATUS
+========================================================= */
+
+window.alterarStatus =
+function(idFirebase) {
+
+    if (!window.isAdmin) {
+
+        alert(
+            "Acesso restrito ao ADM."
+        );
+
+        return;
+
+    }
 
 
-        if (
-            window.solicitacoes.length === 0
-        ) {
+    const item =
+        window.solicitacoes.find(
+            s =>
+                s.idFirebase === idFirebase
+        );
 
-            corpo.innerHTML = `
-                <tr>
-                    <td
-                        colspan="6"
-                        style="text-align:center;"
-                    >
-                        Nenhuma solicitação encontrada.
-                    </td>
-                </tr>
+
+    if (item) {
+
+        const novoStatus =
+            item.status === "Pendente"
+                ? "Entregue"
+                : "Pendente";
+
+
+        update(
+            ref(
+                db,
+                `solicitacoes/${idFirebase}`
+            ),
+            {
+                status:novoStatus
+            }
+        );
+
+    }
+
+};
+
+
+/* =========================================================
+   CANCELAR SOLICITAÇÃO
+========================================================= */
+
+window.cancelarSolicitacao =
+function(idFirebase) {
+
+    if (!window.isAdmin) {
+
+        alert(
+            "Acesso restrito ao ADM."
+        );
+
+        return;
+
+    }
+
+
+    const item =
+        window.solicitacoes.find(
+            s =>
+                s.idFirebase === idFirebase
+        );
+
+
+    if (!item) return;
+
+
+    const confirma =
+        confirm(
+            "ATENÇÃO!\n\n" +
+            "Deseja realmente CANCELAR esta solicitação?\n\n" +
+            item.solicitante +
+            "\n" +
+            item.item
+        );
+
+
+    if (!confirma) return;
+
+
+    update(
+        ref(
+            db,
+            `solicitacoes/${idFirebase}`
+        ),
+        {
+            status:"Cancelado",
+            canceladoEm:Date.now(),
+            canceladoPor:
+                window.adminAtual
+                    ? window.adminAtual.nome
+                    : "Administrador"
+        }
+    );
+
+
+    alert(
+        "Solicitação cancelada."
+    );
+
+};
+
+
+/* =========================================================
+   EXCLUIR DEFINITIVAMENTE
+========================================================= */
+
+window.excluirSolicitacao =
+function(idFirebase) {
+
+    if (!window.isMaster) {
+
+        alert(
+            "Somente o MASTER pode excluir definitivamente uma solicitação."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        confirm(
+            "Excluir definitivamente esta solicitação do banco de dados?"
+        )
+    ) {
+
+        remove(
+            ref(
+                db,
+                `solicitacoes/${idFirebase}`
+            )
+        );
+
+    }
+
+};
+
+
+/* =========================================================
+   TABELA SOLICITAÇÕES
+========================================================= */
+
+function atualizarTabela() {
+
+    const corpo =
+        document.getElementById(
+            'tabelaCorpo'
+        );
+
+
+    if (!corpo) return;
+
+
+    corpo.innerHTML = "";
+
+
+    if (
+        window.solicitacoes.length === 0
+    ) {
+
+        corpo.innerHTML =
+            `
+            <tr>
+                <td colspan="6"
+                    style="text-align:center;">
+                    Nenhuma solicitação encontrada.
+                </td>
+            </tr>
             `;
 
-            return;
-        }
+        return;
+
+    }
 
 
-        window.solicitacoes
+    /* MAIS RECENTES PRIMEIRO */
+
+    const lista =
+        [...window.solicitacoes]
             .sort(
                 (a,b) =>
-                    (b.timestamp || 0) -
+                    (b.timestamp || 0)
+                    -
                     (a.timestamp || 0)
             );
 
 
-        window.solicitacoes.forEach(
-            s => {
+    lista.forEach(
+        s => {
 
-                const dataFmt =
-                    s.data
-                        ? s.data
-                            .split('-')
-                            .reverse()
-                            .join('/')
-                        : '-';
-
-
-                const badgeClass =
-                    s.status === "Entregue"
-                        ? "bg-entregue"
-                        : "bg-pendente";
+            const dataFmt =
+                s.data
+                ?
+                s.data
+                    .split('-')
+                    .reverse()
+                    .join('/')
+                :
+                '-';
 
 
-                let acaoHtml = '';
+            let badgeClass =
+                'bg-pendente';
 
 
-                if (window.isAdmin) {
+            if (
+                s.status === 'Entregue'
+            ) {
 
-                    acaoHtml += `
+                badgeClass =
+                    'bg-entregue';
+
+            }
+
+
+            if (
+                s.status === 'Cancelado'
+            ) {
+
+                badgeClass =
+                    'bg-cancelado';
+
+            }
+
+
+            let acaoHtml = '-';
+
+
+            if (window.isAdmin) {
+
+                if (
+                    s.status !== 'Cancelado'
+                ) {
+
+                    acaoHtml = `
 
                         <button
                             class="btn-status"
-                            onclick="
-                                alterarStatus('${s.idFirebase}')
-                            "
-                        >
-                            Marcar
+                            onclick="alterarStatus('${s.idFirebase}')">
+
                             ${
                                 s.status === 'Pendente'
-                                ? 'Entregue'
-                                : 'Pendente'
+                                ? 'Marcar Entregue'
+                                : 'Marcar Pendente'
                             }
+
                         </button>
+
+                        <br>
+
+                        <button
+                            class="btn-delete"
+                            onclick="cancelarSolicitacao('${s.idFirebase}')">
+
+                            Cancelar Solicitação
+
+                        </button>
+
                     `;
+
                 } else {
 
-                    acaoHtml += `
-                        <span style="
-                            color:#94a3b8;
-                            font-size:10px;
-                        ">
-                            Requer ADM
+                    acaoHtml = `
+                        <span style="color:#dc2626;font-weight:bold;font-size:11px;">
+                            Cancelada
                         </span>
                     `;
+
                 }
+
+
+                if (window.isMaster) {
+
+                    acaoHtml += `
+
+                        <br>
+
+                        <button
+                            class="btn-delete"
+                            onclick="excluirSolicitacao('${s.idFirebase}')">
+
+                            Excluir Definitivamente
+
+                        </button>
+
+                    `;
+
+                }
+
+            } else {
+
+                acaoHtml =
+                    `<span style="color:#94a3b8;font-size:10px;">
+                        Requer ADM
+                    </span>`;
+
+            }
+
+
+            corpo.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${dataFmt}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${esc(s.solicitante)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${esc(s.item)}
+                    </td>
+
+                    <td>
+                        ${s.quantidade || 1}
+                    </td>
+
+                    <td>
+
+                        <span class="badge ${badgeClass}">
+                            ${esc(s.status)}
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${acaoHtml}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RELATÓRIO
+========================================================= */
+
+window.gerarRelatorio =
+function() {
+
+    const mesAno =
+        document.getElementById(
+            'filtroMesAno'
+        ).value;
+
+
+    const filtroSolicitante =
+        document.getElementById(
+            'filtroSolicitante'
+        ).value;
+
+
+    const filtrados =
+        window.solicitacoes.filter(
+            s => {
+
+                const bateMes =
+                    s.data &&
+                    s.data.startsWith(
+                        mesAno
+                    );
+
+
+                const bateSolicitante =
+                    filtroSolicitante === 'todos'
+                    ||
+                    s.solicitanteBase ===
+                    filtroSolicitante;
+
+
+                return (
+                    bateMes &&
+                    bateSolicitante
+                );
+
+            }
+        );
+
+
+    document.getElementById(
+        'statTotal'
+    ).innerText =
+        filtrados.length;
+
+
+    document.getElementById(
+        'statEntregue'
+    ).innerText =
+        filtrados.filter(
+            s =>
+                s.status === 'Entregue'
+        ).length;
+
+
+    document.getElementById(
+        'statPendente'
+    ).innerText =
+        filtrados.filter(
+            s =>
+                s.status === 'Pendente'
+        ).length;
+
+
+    const consolidados = {};
+
+
+    filtrados.forEach(
+        s => {
+
+            if (
+                s.status === 'Cancelado'
+            ) return;
+
+
+            const itensArr =
+                s.item.split(', ');
+
+
+            itensArr.forEach(
+                iStr => {
+
+                    const match =
+                        iStr.match(
+                            /(.+) \(x(\d+)\)/
+                        );
+
+
+                    if (match) {
+
+                        const nome =
+                            match[1];
+
+                        const qtd =
+                            parseInt(
+                                match[2],
+                                10
+                            );
+
+
+                        consolidados[nome] =
+                            (
+                                consolidados[nome]
+                                ||
+                                0
+                            )
+                            +
+                            qtd;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    const tbody =
+        document.getElementById(
+            'tabelaRelatorio'
+        );
+
+
+    tbody.innerHTML = '';
+
+
+    Object.keys(
+        consolidados
+    ).forEach(
+        item => {
+
+            tbody.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${esc(item)}
+                    </td>
+
+                    <td>
+                        ${consolidados[item]}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+};
+
+
+/* =========================================================
+   PDF
+========================================================= */
+
+window.exportarRelatorioPDF =
+function() {
+
+    const { jsPDF } =
+        window.jspdf;
+
+
+    const doc =
+        new jsPDF();
+
+
+    doc.text(
+        "Relatório Mensal de Solicitações - P4 3º BPRv",
+        14,
+        15
+    );
+
+
+    const rows = [];
+
+
+    document
+        .querySelectorAll(
+            "#tabelaRelatorio tr"
+        )
+        .forEach(
+            tr => {
+
+                const cols =
+                    tr.querySelectorAll(
+                        "td"
+                    );
+
+
+                if (cols.length) {
+
+                    rows.push([
+                        cols[0].innerText,
+                        cols[1].innerText
+                    ]);
+
+                }
+
+            }
+        );
+
+
+    doc.autoTable({
+
+        head:[
+            [
+                'Item',
+                'Quantidade Solicitada'
+            ]
+        ],
+
+        body:rows,
+
+        startY:25
+
+    });
+
+
+    doc.save(
+        `relatorio_${document.getElementById('filtroMesAno').value}.pdf`
+    );
+
+};
+
+
+/* =========================================================
+   SEGURANÇA DE EXIBIÇÃO
+========================================================= */
+
+function esc(valor) {
+
+    return String(valor ?? '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
+
+}
+
+
+function escAttr(valor) {
+
+    return String(valor ?? '')
+        .replaceAll('\\','\\\\')
+        .replaceAll("'","\\'")
+        .replaceAll('"','&quot;');
+
+}
+
+</script>
+
+</body>
+</html>
+```
