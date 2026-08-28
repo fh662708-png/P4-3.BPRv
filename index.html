@@ -1,26 +1,40 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>P4 - 3º BPRv</title>
 
-    <!-- BRASÃO -->
-    <link rel="icon" type="image/jpeg" href="brasao.jpg">
-    <link rel="apple-touch-icon" href="brasao.jpg">
+    <!-- =====================================================
+         IMAGEM / BRASÃO
+         O arquivo deve estar na mesma pasta deste HTML
+         ===================================================== -->
 
-    <!-- PWA -->
+    <link rel="icon" type="image/jpeg" href="brasao.jfif">
+    <link rel="apple-touch-icon" href="brasao.jfif">
+
+    <!-- =====================================================
+         PWA
+         ===================================================== -->
+
     <link rel="manifest" href="data:application/manifest+json,{
         &quot;name&quot;:&quot;P4 - 3º BPRv&quot;,
         &quot;short_name&quot;:&quot;P4 3BPRv&quot;,
         &quot;start_url&quot;:&quot;.&quot;,
         &quot;display&quot;:&quot;standalone&quot;,
         &quot;background_color&quot;:&quot;#0f172a&quot;,
-        &quot;theme_color&quot;:&quot;#0f172a&quot;
+        &quot;theme_color&quot;:&quot;#0f172a&quot;,
+        &quot;icons&quot;:[{
+            &quot;src&quot;:&quot;brasao.jfif&quot;,
+            &quot;sizes&quot;:&quot;512x512&quot;,
+            &quot;type&quot;:&quot;image/jpeg&quot;
+        }]
     }">
 
     <style>
+
         * {
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,6 +50,10 @@
             position: relative;
         }
 
+        /* =====================================================
+           MARCA D'ÁGUA
+           ===================================================== */
+
         body::before {
             content: "";
             position: fixed;
@@ -44,9 +62,12 @@
             transform: translate(-50%, -50%);
             width: 500px;
             height: 500px;
-            background: url('brasao.jpg') no-repeat center center;
+
+            background: url('brasao.jfif') no-repeat center center;
+
             background-size: contain;
             opacity: 0.18;
+
             pointer-events: none;
             z-index: 0;
         }
@@ -54,19 +75,31 @@
         .container {
             position: relative;
             z-index: 1;
+
             width: 100%;
             max-width: 900px;
+
             background: rgba(255, 255, 255, 0.96);
+
             padding: 16px 20px;
+
             border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+
+            box-shadow:
+                0 4px 16px rgba(0,0,0,0.4);
         }
+
+        /* =====================================================
+           CABEÇALHO
+           ===================================================== */
 
         .header-logo {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             border-bottom: 2px solid #b91c1c;
+
             padding-bottom: 6px;
             margin-bottom: 10px;
         }
@@ -80,20 +113,35 @@
         .logo-img {
             width: 55px;
             height: 55px;
+
             object-fit: contain;
         }
+
+        /* =====================================================
+           LOGIN
+           ===================================================== */
 
         .header-login {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             background: #1e293b;
+
             color: white;
+
             padding: 8px 12px;
+
             border-radius: 5px;
+
             margin-bottom: 12px;
+
             font-size: 13px;
         }
+
+        /* =====================================================
+           FORMULÁRIOS
+           ===================================================== */
 
         .form-group {
             margin-bottom: 12px;
@@ -101,28 +149,48 @@
 
         label {
             display: block;
+
             margin-bottom: 4px;
+
             font-weight: bold;
+
             color: #334155;
+
             font-size: 13px;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
+
             padding: 8px 10px;
+
             border: 1px solid #cbd5e1;
+
             border-radius: 5px;
+
             font-size: 13px;
         }
+
+        /* =====================================================
+           BOTÕES
+           ===================================================== */
 
         button {
             background-color: #16a34a;
+
             color: white;
+
             border: none;
+
             padding: 8px 12px;
+
             font-weight: bold;
+
             border-radius: 5px;
+
             cursor: pointer;
+
             font-size: 13px;
         }
 
@@ -140,24 +208,35 @@
 
         .btn-status {
             background-color: #d97706;
+
             color: white;
+
             padding: 4px 8px;
+
             font-size: 11px;
+
             border-radius: 3px;
         }
 
         .btn-delete {
             background-color: #dc2626;
+
             color: white;
+
             padding: 4px 8px;
+
             font-size: 11px;
+
             border-radius: 3px;
+
             margin-top: 4px;
         }
 
         .btn-relatorio {
             background-color: #0284c7;
+
             padding: 6px 12px;
+
             font-size: 12px;
         }
 
@@ -165,43 +244,72 @@
             background-color: #7c3aed;
         }
 
+        /* =====================================================
+           TABELAS
+           ===================================================== */
+
         .tabela-container {
             max-height: 380px;
+
             overflow-y: auto;
+
             border: 1px solid #cbd5e1;
+
             border-radius: 6px;
+
             margin-top: 8px;
+
             background: white;
         }
 
         table {
             width: 100%;
+
             border-collapse: collapse;
+
             background: white;
+
             font-size: 12px;
         }
 
-        th, td {
+        th,
+        td {
             text-align: left;
+
             padding: 8px 10px;
+
             border-bottom: 1px solid #e2e8f0;
         }
 
         th {
             background-color: #1e293b;
+
             color: white;
+
             font-weight: 600;
+
             font-size: 12px;
+
             position: sticky;
+
             top: 0;
+
             z-index: 2;
         }
 
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
         .badge {
             padding: 3px 8px;
+
             border-radius: 8px;
+
             font-size: 11px;
+
             font-weight: bold;
+
             color: white;
         }
 
@@ -217,101 +325,169 @@
             background-color: #dc2626;
         }
 
+        /* =====================================================
+           ABAS
+           ===================================================== */
+
         .tabs {
             display: flex;
+
             gap: 8px;
+
             margin-bottom: 12px;
+
             flex-wrap: wrap;
         }
 
         .tab-btn {
             background: #e2e8f0;
+
             color: #334155;
+
             border: none;
+
             padding: 8px 14px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             border-radius: 5px;
+
             font-size: 13px;
         }
 
         .tab-btn.active {
             background: #1e293b;
+
             color: white;
         }
 
         .btn-nova-solicitation {
             background-color: #16a34a;
+
             color: white;
+
             margin-left: auto;
         }
 
+        /* =====================================================
+           RELATÓRIO
+           ===================================================== */
+
         .relatorio-card {
             background: #f8fafc;
+
             border: 1px solid #e2e8f0;
+
             padding: 12px;
+
             border-radius: 6px;
+
             margin-bottom: 12px;
         }
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 10px;
+
             margin-bottom: 10px;
         }
 
         .card-stat {
             background: white;
+
             padding: 10px;
+
             border-radius: 6px;
+
             border-left: 4px solid #2563eb;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.05);
         }
+
+        /* =====================================================
+           MODAIS
+           ===================================================== */
 
         .modal-overlay {
             display: none;
+
             position: fixed;
+
             top: 0;
             left: 0;
+
             width: 100vw;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.75);
+
+            background:
+                rgba(15, 23, 42, 0.75);
+
             backdrop-filter: blur(3px);
+
             z-index: 999;
+
             justify-content: center;
+
             align-items: center;
+
             padding: 15px;
         }
 
         .modal-content {
             background: #ffffff;
+
             width: 100%;
+
             max-width: 650px;
+
             max-height: 90vh;
+
             overflow-y: auto;
+
             border-radius: 10px;
+
             padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.3);
+
             position: relative;
         }
 
         .modal-header {
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             border-bottom: 2px solid #e2e8f0;
+
             padding-bottom: 10px;
+
             margin-bottom: 16px;
         }
 
         .modal-close {
             background: transparent;
+
             color: #64748b;
+
             border: none;
+
             font-size: 22px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             padding: 0 8px;
         }
 
@@ -319,27 +495,48 @@
             color: #dc2626;
         }
 
+        /* =====================================================
+           ADMINISTRADORES
+           ===================================================== */
+
         .admin-item {
             background: white;
+
             border: 1px solid #e2e8f0;
+
             border-radius: 6px;
+
             padding: 8px;
+
             margin-bottom: 6px;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
 
         .aviso-master {
             background: #ede9fe;
+
             border-left: 4px solid #7c3aed;
+
             padding: 10px;
+
             border-radius: 5px;
+
             margin-bottom: 12px;
+
             font-size: 12px;
         }
 
+        /* =====================================================
+           CELULAR
+           ===================================================== */
+
         @media(max-width:700px) {
+
             .cards-grid {
                 grid-template-columns: 1fr;
             }
@@ -352,12 +549,19 @@
                 font-size: 11px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 6px;
             }
+
         }
 
+        /* =====================================================
+           IMPRESSÃO
+           ===================================================== */
+
         @media print {
+
             body::before {
                 opacity: 0.05;
             }
@@ -372,107 +576,185 @@
 
             .container {
                 box-shadow: none;
+
                 border: none;
+
                 width: 100%;
+
                 padding: 0;
             }
 
             .tabela-container {
                 max-height: none;
+
                 overflow: visible;
+
                 border: none;
             }
+
         }
+
     </style>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <!-- PDF -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js">
+    </script>
+
 </head>
 
 <body>
 
 <div class="container">
 
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
     <div class="header-logo">
+
         <div class="logo-box">
-            <img src="brasao.jpg"
-                 alt="Brasão Policiamento Rodoviário"
-                 class="logo-img">
+
+            <img
+                src="brasao.jfif"
+                alt="Brasão Policiamento Rodoviário"
+                class="logo-img">
 
             <div>
-                <h3 style="margin:0;color:#1e293b;font-size:20px;">
+
+                <h3
+                    style="
+                    margin:0;
+                    color:#1e293b;
+                    font-size:20px;">
                     P4 - 3º BPRv
                 </h3>
 
-                <small style="color:#64748b;font-size:12px;">
+                <small
+                    style="
+                    color:#64748b;
+                    font-size:12px;">
                     Policiamento Rodoviário - São Paulo
                 </small>
+
             </div>
+
         </div>
+
     </div>
+
+
+    <!-- =====================================================
+         LOGIN
+         ===================================================== -->
 
     <div class="header-login">
 
         <div>
+
             Sessão:
-            <span id="usuarioNome"
-                  style="color:#60a5fa;font-weight:bold;">
+
+            <span
+                id="usuarioNome"
+                style="
+                color:#60a5fa;
+                font-weight:bold;">
                 Usuário Comum
             </span>
+
         </div>
 
-        <div style="display:flex;gap:5px;">
-            <button id="btnLoginLogout"
-                    class="btn-alt"
-                    onclick="alternarLogin()">
-                Entrar como ADM
-            </button>
-        </div>
+
+        <button
+            id="btnLoginLogout"
+            class="btn-alt"
+            onclick="alternarLogin()">
+
+            Entrar como ADM
+
+        </button>
 
     </div>
+
+
+    <!-- =====================================================
+         ABAS
+         ===================================================== -->
 
     <div class="tabs">
 
-        <button class="tab-btn active"
-                onclick="mudarAba('solicitacoes')">
+        <button
+            class="tab-btn active"
+            onclick="mudarAba('solicitacoes')">
+
             Solicitações Registradas
+
         </button>
 
-        <button class="tab-btn"
-                onclick="mudarAba('relatorio')">
+
+        <button
+            class="tab-btn"
+            onclick="mudarAba('relatorio')">
+
             Relatório Mensal
+
         </button>
 
-        <button class="tab-btn"
-                onclick="mudarAba('estoque')">
+
+        <button
+            class="tab-btn"
+            onclick="mudarAba('estoque')">
+
             Estoque / Cadastros
+
         </button>
 
-        <button id="btnGerenciarAdmins"
-                class="tab-btn btn-master"
-                style="display:none;"
-                onclick="abrirModalAdmins()">
+
+        <!-- SOMENTE MASTER -->
+
+        <button
+            id="btnGerenciarAdmins"
+            class="tab-btn btn-master"
+            style="display:none;"
+            onclick="abrirModalAdmins()">
+
             Administradores
+
         </button>
 
-        <button class="tab-btn btn-nova-solicitation"
-                onclick="abrirModalSolicitacao()">
+
+        <button
+            class="tab-btn btn-nova-solicitation"
+            onclick="abrirModalSolicitacao()">
+
             + Nova Solicitação
+
         </button>
 
     </div>
 
-    <!-- SOLICITAÇÕES -->
+
+    <!-- =====================================================
+         ABA SOLICITAÇÕES
+         ===================================================== -->
 
     <div id="abaSolicitacoes">
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <h4
+            style="
+            margin:0 0 8px 0;
+            font-size:15px;
+            color:#1e293b;">
 
-            <h4 style="margin:0;font-size:15px;color:#1e293b;">
-                Histórico de Solicitações
-            </h4>
+            Histórico de Solicitações
 
-        </div>
+        </h4>
+
 
         <div class="tabela-container">
 
@@ -481,15 +763,23 @@
                 <thead>
 
                     <tr>
+
                         <th>Data</th>
+
                         <th>Solicitante</th>
+
                         <th>Item(ns)</th>
+
                         <th>Qtd</th>
+
                         <th>Status</th>
+
                         <th>Ação ADM</th>
+
                     </tr>
 
                 </thead>
+
 
                 <tbody id="tabelaCorpo"></tbody>
 
@@ -499,58 +789,103 @@
 
     </div>
 
-    <!-- RELATÓRIO -->
 
-    <div id="abaRelatorio" style="display:none;">
+    <!-- =====================================================
+         ABA RELATÓRIO
+         ===================================================== -->
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <div
+        id="abaRelatorio"
+        style="display:none;">
 
-            <h4 style="margin:0;font-size:15px;">
+        <div
+            style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:12px;">
+
+            <h4
+                style="
+                margin:0;
+                font-size:15px;">
+
                 Relatório Mensal
+
             </h4>
 
-            <div style="display:flex;gap:6px;">
 
-                <button class="btn-relatorio btn-print"
-                        onclick="window.print()">
+            <div
+                style="
+                display:flex;
+                gap:6px;">
+
+                <button
+                    class="btn-relatorio btn-print"
+                    onclick="window.print()">
+
                     Imprimir
+
                 </button>
 
-                <button class="btn-relatorio btn-print"
-                        style="background:#b91c1c;"
-                        onclick="exportarRelatorioPDF()">
+
+                <button
+                    class="btn-relatorio btn-print"
+                    style="background-color:#b91c1c;"
+                    onclick="exportarRelatorioPDF()">
+
                     Exportar PDF
+
                 </button>
 
             </div>
 
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
 
-            <div class="relatorio-card" style="margin-bottom:0;">
+        <div
+            style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-bottom:12px;">
+
+            <div
+                class="relatorio-card"
+                style="margin-bottom:0;">
 
                 <label for="filtroMesAno">
+
                     Filtrar por Mês/Ano:
+
                 </label>
 
-                <input type="month"
-                       id="filtroMesAno"
-                       onchange="gerarRelatorio()">
+                <input
+                    type="month"
+                    id="filtroMesAno"
+                    onchange="gerarRelatorio()">
 
             </div>
 
-            <div class="relatorio-card" style="margin-bottom:0;">
+
+            <div
+                class="relatorio-card"
+                style="margin-bottom:0;">
 
                 <label for="filtroSolicitante">
+
                     Filtrar por Solicitante/Seção:
+
                 </label>
 
-                <select id="filtroSolicitante"
-                        onchange="gerarRelatorio()">
+                <select
+                    id="filtroSolicitante"
+                    onchange="gerarRelatorio()">
 
                     <option value="todos">
+
                         Todos os Solicitantes
+
                     </option>
 
                 </select>
@@ -559,69 +894,123 @@
 
         </div>
 
+
         <div class="cards-grid">
 
-            <div class="card-stat"
-                 style="border-color:#2563eb;">
+            <div
+                class="card-stat"
+                style="border-color:#2563eb;">
 
-                <small style="color:#64748b;font-size:11px;">
+                <small
+                    style="
+                    color:#64748b;
+                    font-size:11px;">
+
                     Total Mês
+
                 </small>
 
-                <h3 id="statTotal"
-                    style="margin:0;font-size:18px;">
+                <h3
+                    id="statTotal"
+                    style="
+                    margin:0;
+                    font-size:18px;">
+
                     0
+
                 </h3>
 
             </div>
 
-            <div class="card-stat"
-                 style="border-color:#16a34a;">
 
-                <small style="color:#64748b;font-size:11px;">
+            <div
+                class="card-stat"
+                style="border-color:#16a34a;">
+
+                <small
+                    style="
+                    color:#64748b;
+                    font-size:11px;">
+
                     Entregues
+
                 </small>
 
-                <h3 id="statEntregue"
-                    style="margin:0;font-size:18px;color:#16a34a;">
+                <h3
+                    id="statEntregue"
+                    style="
+                    margin:0;
+                    font-size:18px;
+                    color:#16a34a;">
+
                     0
+
                 </h3>
 
             </div>
 
-            <div class="card-stat"
-                 style="border-color:#d97706;">
 
-                <small style="color:#64748b;font-size:11px;">
+            <div
+                class="card-stat"
+                style="border-color:#d97706;">
+
+                <small
+                    style="
+                    color:#64748b;
+                    font-size:11px;">
+
                     Pendentes
+
                 </small>
 
-                <h3 id="statPendente"
-                    style="margin:0;font-size:18px;color:#d97706;">
+                <h3
+                    id="statPendente"
+                    style="
+                    margin:0;
+                    font-size:18px;
+                    color:#d97706;">
+
                     0
+
                 </h3>
 
             </div>
 
         </div>
 
-        <h4 style="margin:12px 0 6px 0;font-size:14px;">
+
+        <h4
+            style="
+            margin:12px 0 6px 0;
+            font-size:14px;">
+
             Consolidado do Mês
+
         </h4>
 
-        <div class="tabela-container"
-             style="max-height:220px;">
+
+        <div
+            class="tabela-container"
+            style="max-height:220px;">
 
             <table>
 
                 <thead>
+
                     <tr>
+
                         <th>Item</th>
+
                         <th>Quantidade Solicitada</th>
+
                     </tr>
+
                 </thead>
 
-                <tbody id="tabelaRelatorio"></tbody>
+
+                <tbody
+                    id="tabelaRelatorio">
+                </tbody>
 
             </table>
 
@@ -629,126 +1018,206 @@
 
     </div>
 
-    <!-- ESTOQUE -->
 
-    <div id="abaEstoque"
-         style="display:none;">
+    <!-- =====================================================
+         ABA ESTOQUE
+         ===================================================== -->
 
-        <div id="cadSolicitanteFormCard"
-             class="relatorio-card"
-             style="display:none;border-left:4px solid #2563eb;">
+    <div
+        id="abaEstoque"
+        style="display:none;">
 
-            <h4 style="margin:0 0 8px 0;font-size:14px;">
+        <!-- CADASTRO DE SEÇÃO -->
+
+        <div
+            class="relatorio-card"
+            id="cadSolicitanteFormCard"
+            style="
+            display:none;
+            border-left:4px solid #2563eb;">
+
+            <h4
+                style="
+                margin:0 0 8px 0;
+                font-size:14px;">
+
                 Cadastrar Solicitante / Seção
+
             </h4>
 
-            <form id="cadSolicitanteForm"
-                  onsubmit="cadastrarNovoSolicitante(event)">
 
-                <div style="display:grid;grid-template-columns:1fr 110px;gap:8px;">
+            <form
+                id="cadSolicitanteForm"
+                onsubmit="cadastrarNovoSolicitante(event)">
 
-                    <div class="form-group"
-                         style="margin-bottom:0;">
+                <div
+                    style="
+                    display:grid;
+                    grid-template-columns:1fr 110px;
+                    gap:8px;">
 
-                        <label for="novoSolicitanteNome">
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;">
+
+                        <label
+                            for="novoSolicitanteNome">
+
                             Nome da Seção/Unidade:
+
                         </label>
 
-                        <input type="text"
-                               id="novoSolicitanteNome"
-                               placeholder="Ex: Bop/2, Cia/1, P1"
-                               required>
+                        <input
+                            type="text"
+                            id="novoSolicitanteNome"
+                            placeholder="Ex: Bop/2, Cia/1, P1"
+                            required>
 
                     </div>
 
-                    <button type="submit"
-                            style="margin-top:20px;height:35px;">
+
+                    <button
+                        type="submit"
+                        style="
+                        margin-top:20px;
+                        height:35px;">
+
                         Cadastrar
+
                     </button>
 
                 </div>
 
             </form>
 
-            <div id="listaSolicitantesCadastrados"
-                 style="margin-top:10px;font-size:12px;">
+
+            <div
+                id="listaSolicitantesCadastrados"
+                style="
+                margin-top:10px;
+                font-size:12px;">
             </div>
 
         </div>
 
-        <div id="estoqueFormCard"
-             class="relatorio-card"
-             style="display:none;">
 
-            <h4 style="margin:0 0 8px 0;font-size:14px;">
+        <!-- ESTOQUE -->
+
+        <div
+            class="relatorio-card"
+            id="estoqueFormCard"
+            style="display:none;">
+
+            <h4
+                style="
+                margin:0 0 8px 0;
+                font-size:14px;">
+
                 Adicionar / Repor Item no Estoque
+
             </h4>
 
-            <form id="estoqueForm"
-                  onsubmit="adicionarItemEstoque(event)">
 
-                <div style="display:grid;grid-template-columns:1fr 100px;gap:8px;">
+            <form
+                id="estoqueForm"
+                onsubmit="adicionarItemEstoque(event)">
 
-                    <div class="form-group"
-                         style="margin-bottom:0;">
+                <div
+                    style="
+                    display:grid;
+                    grid-template-columns:1fr 100px;
+                    gap:8px;">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;">
 
                         <label for="estoqueItem">
+
                             Nome do Item:
+
                         </label>
 
-                        <input type="text"
-                               id="estoqueItem"
-                               placeholder="Ex: Papel A4"
-                               required>
+                        <input
+                            type="text"
+                            id="estoqueItem"
+                            placeholder="Ex: Papel A4"
+                            required>
 
                     </div>
 
-                    <div class="form-group"
-                         style="margin-bottom:0;">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;">
 
                         <label for="estoqueQtd">
+
                             Qtd:
+
                         </label>
 
-                        <input type="number"
-                               id="estoqueQtd"
-                               min="1"
-                               value="1"
-                               required>
+                        <input
+                            type="number"
+                            id="estoqueQtd"
+                            min="1"
+                            value="1"
+                            required>
 
                     </div>
 
                 </div>
 
-                <button type="submit"
-                        style="margin-top:8px;width:100%;">
+
+                <button
+                    type="submit"
+                    style="
+                    margin-top:8px;
+                    width:100%;">
+
                     Adicionar ao Estoque
+
                 </button>
 
             </form>
 
         </div>
 
-        <h4 style="margin:12px 0 6px 0;font-size:14px;">
+
+        <h4
+            style="
+            margin:12px 0 6px 0;
+            font-size:14px;">
+
             Itens em Estoque
+
         </h4>
 
-        <div class="tabela-container"
-             style="max-height:250px;">
+
+        <div
+            class="tabela-container"
+            style="max-height:250px;">
 
             <table>
 
                 <thead>
 
                     <tr>
+
                         <th>Item</th>
+
                         <th>Quantidade Atual</th>
+
                         <th>Ação ADM</th>
+
                     </tr>
 
                 </thead>
 
-                <tbody id="tabelaEstoque"></tbody>
+
+                <tbody
+                    id="tabelaEstoque">
+                </tbody>
 
             </table>
 
@@ -759,167 +1228,285 @@
 </div>
 
 
-<!-- MODAL NOVA SOLICITAÇÃO -->
+<!-- =========================================================
+     MODAL NOVA SOLICITAÇÃO
+     ========================================================= -->
 
-<div class="modal-overlay"
-     id="modalSolicitacao">
+<div
+    class="modal-overlay"
+    id="modalSolicitacao">
 
     <div class="modal-content">
 
         <div class="modal-header">
 
-            <h3 style="margin:0;color:#1e293b;font-size:17px;">
+            <h3
+                style="
+                margin:0;
+                color:#1e293b;
+                font-size:17px;">
+
                 Nova Solicitação de Material
+
             </h3>
 
-            <button class="modal-close"
-                    onclick="fecharModalSolicitacao()">
+
+            <button
+                class="modal-close"
+                onclick="fecharModalSolicitacao()">
+
                 &times;
+
             </button>
 
         </div>
 
+
         <form id="solicitacaoForm">
 
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div
+                style="
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:12px;">
 
                 <div class="form-group">
 
                     <label for="solicitanteBase">
+
                         Seção/Unidade:
+
                     </label>
 
-                    <select id="solicitanteBase"
-                            required>
+                    <select
+                        id="solicitanteBase"
+                        required>
 
-                        <option value=""
-                                disabled
-                                selected>
+                        <option
+                            value=""
+                            disabled
+                            selected>
+
                             Selecione
+
                         </option>
 
                     </select>
 
                 </div>
 
+
                 <div class="form-group">
 
                     <label for="solicitanteRE">
+
                         RE do Policial:
+
                     </label>
 
-                    <input type="text"
-                           id="solicitanteRE"
-                           placeholder="Ex: 123456-7"
-                           required>
+                    <input
+                        type="text"
+                        id="solicitanteRE"
+                        placeholder="Ex: 123456-7"
+                        required>
 
                 </div>
 
             </div>
+
 
             <div class="form-group">
 
                 <label for="data">
+
                     Data da Solicitação:
+
                 </label>
 
-                <input type="date"
-                       id="data"
-                       required>
+                <input
+                    type="date"
+                    id="data"
+                    required>
 
             </div>
 
-            <div style="background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:12px;">
 
-                <h5 style="margin:0 0 10px 0;color:#334155;font-size:13px;">
+            <div
+                style="
+                background:#f8fafc;
+                padding:12px;
+                border-radius:6px;
+                border:1px solid #e2e8f0;
+                margin-bottom:12px;">
+
+                <h5
+                    style="
+                    margin:0 0 10px 0;
+                    color:#334155;
+                    font-size:13px;">
+
                     Adicionar Itens
+
                 </h5>
 
-                <div style="display:grid;grid-template-columns:1fr 100px;gap:8px;">
 
-                    <div class="form-group"
-                         style="margin-bottom:0;">
+                <div
+                    style="
+                    display:grid;
+                    grid-template-columns:1fr 100px;
+                    gap:8px;">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;">
 
                         <label for="item">
+
                             Item Solicitado:
+
                         </label>
 
-                        <select id="item"
-                                onchange="atualizarEstoqueDisponivelView();alternarItemPersonalizado();">
+                        <select
+                            id="item"
+                            onchange="
+                            atualizarEstoqueDisponivelView();
+                            alternarItemPersonalizado();">
 
-                            <option value=""
-                                    disabled
-                                    selected>
+                            <option
+                                value=""
+                                disabled
+                                selected>
+
                                 Selecione um item
+
                             </option>
 
                         </select>
 
-                        <input type="text"
-                               id="itemPersonalizado"
-                               placeholder="Digite o nome do item"
-                               style="display:none;margin-top:6px;">
+
+                        <input
+                            type="text"
+                            id="itemPersonalizado"
+                            placeholder="Digite o nome do item"
+                            style="
+                            display:none;
+                            margin-top:6px;">
 
                     </div>
 
-                    <div class="form-group"
-                         style="margin-bottom:0;">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;">
 
                         <label for="quantidade">
+
                             Qtd:
+
                         </label>
 
-                        <input type="number"
-                               id="quantidade"
-                               min="1"
-                               value="1">
+                        <input
+                            type="number"
+                            id="quantidade"
+                            min="1"
+                            value="1">
 
                     </div>
 
                 </div>
 
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
 
-                    <small id="estoqueDisponivelInfo"
-                           style="color:#64748b;font-size:11px;">
+                <div
+                    style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-top:6px;">
+
+                    <small
+                        id="estoqueDisponivelInfo"
+                        style="
+                        color:#64748b;
+                        font-size:11px;">
+
                         Estoque: -
+
                     </small>
 
-                    <button type="button"
-                            class="btn-alt"
-                            onclick="adicionarItemTemporario()"
-                            style="font-size:12px;padding:6px 12px;">
+
+                    <button
+                        type="button"
+                        class="btn-alt"
+                        onclick="adicionarItemTemporario()"
+                        style="
+                        font-size:12px;
+                        padding:6px 12px;">
+
                         + Adicionar à Lista
+
                     </button>
 
                 </div>
 
             </div>
 
-            <div id="areaListaTemporaria"
-                 style="display:none;margin-bottom:16px;background:#f1f5f9;padding:10px;border-radius:6px;border:1px dashed #cbd5e1;">
 
-                <strong style="font-size:12px;color:#334155;">
+            <div
+                id="areaListaTemporaria"
+                style="
+                display:none;
+                margin-bottom:16px;
+                background:#f1f5f9;
+                padding:10px;
+                border-radius:6px;
+                border:1px dashed #cbd5e1;">
+
+                <strong
+                    style="
+                    font-size:12px;
+                    color:#334155;">
+
                     Lista de Itens Selecionados:
+
                 </strong>
 
-                <ul id="listaItensTemporarios"
-                    style="margin:6px 0 10px 0;padding-left:20px;font-size:13px;">
+
+                <ul
+                    id="listaItensTemporarios"
+                    style="
+                    margin:6px 0 10px 0;
+                    padding-left:20px;
+                    font-size:13px;">
                 </ul>
 
             </div>
 
-            <div style="display:flex;gap:8px;justify-content:flex-end;">
 
-                <button type="button"
-                        onclick="fecharModalSolicitacao()"
-                        style="background:#64748b;">
+            <div
+                style="
+                display:flex;
+                gap:8px;
+                justify-content:flex-end;">
+
+                <button
+                    type="button"
+                    onclick="fecharModalSolicitacao()"
+                    style="
+                    background-color:#64748b;">
+
                     Cancelar
+
                 </button>
 
-                <button type="submit"
-                        style="background:#16a34a;padding:10px 18px;">
+
+                <button
+                    type="submit"
+                    style="
+                    background-color:#16a34a;
+                    padding:10px 18px;">
+
                     Finalizar e Cadastrar
+
                 </button>
 
             </div>
@@ -931,91 +1518,141 @@
 </div>
 
 
-<!-- MODAL ADMINISTRADORES -->
+<!-- =========================================================
+     MODAL ADMINISTRADORES
+     ========================================================= -->
 
-<div class="modal-overlay"
-     id="modalAdmins">
+<div
+    class="modal-overlay"
+    id="modalAdmins">
 
     <div class="modal-content">
 
         <div class="modal-header">
 
-            <h3 style="margin:0;color:#1e293b;">
+            <h3
+                style="
+                margin:0;
+                color:#1e293b;">
+
                 Gerenciamento de Administradores
+
             </h3>
 
-            <button class="modal-close"
-                    onclick="fecharModalAdmins()">
+
+            <button
+                class="modal-close"
+                onclick="fecharModalAdmins()">
+
                 &times;
+
             </button>
 
         </div>
 
+
         <div class="aviso-master">
 
-            <strong>Área Master</strong><br>
+            <strong>Área MASTER</strong>
 
-            Somente a senha Master
+            <br>
+
+            Senha MASTER:
+
             <strong>3BPRvC</strong>
-            permite cadastrar ou excluir outros administradores.
+
+            <br><br>
+
+            Somente o MASTER pode cadastrar ou excluir outros administradores.
 
         </div>
 
-        <form id="formNovoAdmin"
-              onsubmit="cadastrarAdministrador(event)">
+
+        <form
+            id="formNovoAdmin"
+            onsubmit="cadastrarAdministrador(event)">
 
             <div class="form-group">
 
                 <label for="nomeNovoAdmin">
+
                     Nome do Administrador:
+
                 </label>
 
-                <input type="text"
-                       id="nomeNovoAdmin"
-                       placeholder="Ex: Sd. João"
-                       required>
+                <input
+                    type="text"
+                    id="nomeNovoAdmin"
+                    placeholder="Ex: Sd. João"
+                    required>
 
             </div>
+
 
             <div class="form-group">
 
                 <label for="senhaNovoAdmin">
+
                     Senha do Administrador:
+
                 </label>
 
-                <input type="password"
-                       id="senhaNovoAdmin"
-                       placeholder="Digite uma senha"
-                       required>
+                <input
+                    type="password"
+                    id="senhaNovoAdmin"
+                    placeholder="Digite uma senha"
+                    required>
 
             </div>
 
-            <button type="submit"
-                    class="btn-master"
-                    style="width:100%;">
+
+            <button
+                type="submit"
+                class="btn-master"
+                style="width:100%;">
+
                 + Cadastrar Administrador
+
             </button>
 
         </form>
 
-        <hr style="margin:18px 0;border:0;border-top:1px solid #e2e8f0;">
+
+        <hr
+            style="
+            margin:18px 0;
+            border:0;
+            border-top:1px solid #e2e8f0;">
+
 
         <h4 style="font-size:14px;">
+
             Administradores cadastrados
+
         </h4>
 
-        <div id="listaAdministradores"></div>
+
+        <div
+            id="listaAdministradores">
+        </div>
 
     </div>
 
 </div>
 
 
+<!-- =========================================================
+     FIREBASE
+     ========================================================= -->
+
 <script type="module">
 
 import {
     initializeApp
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
 
 import {
     getDatabase,
@@ -1024,269 +1661,393 @@ import {
     onValue,
     update,
     remove,
-    set,
-    get
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    set
+}
+from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 
 /* =========================================================
-   FIREBASE
-========================================================= */
+   CONFIGURAÇÃO FIREBASE
+   ========================================================= */
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
+    apiKey:
+        "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
 
-    authDomain: "bprv-2c760.firebaseapp.com",
+    authDomain:
+        "bprv-2c760.firebaseapp.com",
 
-    projectId: "bprv-2c760",
+    projectId:
+        "bprv-2c760",
 
-    storageBucket: "bprv-2c760.firebasestorage.app",
+    storageBucket:
+        "bprv-2c760.firebasestorage.app",
 
-    messagingSenderId: "940006401979",
+    messagingSenderId:
+        "940006401979",
 
-    appId: "1:940006401979:web:bf678dc236f2fd2332469e",
+    appId:
+        "1:940006401979:web:bf678dc236f2fd2332469e",
 
     databaseURL:
         "https://bprv-2c760-default-rtdb.firebaseio.com"
 
 };
 
-const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getDatabase(app);
 
 
 /* =========================================================
    REFERÊNCIAS
-========================================================= */
+   ========================================================= */
 
 const solicitacoesRef =
     ref(db, 'solicitacoes');
 
+
 const estoqueRef =
     ref(db, 'estoque');
 
+
 const solicitantesRef =
     ref(db, 'solicitantes');
+
 
 const administradoresRef =
     ref(db, 'administradores');
 
 
 /* =========================================================
-   CONFIGURAÇÕES
-========================================================= */
+   VARIÁVEIS
+   ========================================================= */
 
-window.SENHA_MASTER = "3BPRvC";
-
-window.isAdmin = false;
-
-window.isMaster = false;
-
-window.adminAtual = null;
-
-window.itensCarrinho = [];
-
-window.solicitacoes = [];
-
-window.estoque = [];
-
-window.solicitantesCadastrados = [];
-
-window.administradores = [];
+window.SENHA_MASTER =
+    "3BPRvC";
 
 
-/* =========================================================
-   DATA
-========================================================= */
-
-document.getElementById('data').value =
-    new Date().toISOString().split('T')[0];
-
-document.getElementById('filtroMesAno').value =
-    new Date().toISOString().slice(0,7);
+window.isAdmin =
+    false;
 
 
-/* =========================================================
-   FIREBASE - SOLICITAÇÕES
-========================================================= */
+window.isMaster =
+    false;
 
-onValue(solicitacoesRef, (snapshot) => {
 
-    const data = snapshot.val();
+window.adminAtual =
+    null;
 
-    window.solicitacoes =
-        data
-        ? Object.keys(data).map(key => ({
-            idFirebase:key,
-            ...data[key]
-        }))
-        : [];
 
-    atualizarTabela();
+window.itensCarrinho =
+    [];
 
-    gerarRelatorio();
 
-});
+window.solicitacoes =
+    [];
+
+
+window.estoque =
+    [];
+
+
+window.solicitantesCadastrados =
+    [];
+
+
+window.administradores =
+    [];
 
 
 /* =========================================================
-   FIREBASE - ESTOQUE
-========================================================= */
+   DATAS
+   ========================================================= */
 
-onValue(estoqueRef, (snapshot) => {
+document.getElementById(
+    'data'
+).value =
+    new Date()
+        .toISOString()
+        .split('T')[0];
 
-    const data = snapshot.val();
 
-    window.estoque =
-        data
-        ? Object.keys(data).map(key => ({
-            idFirebase:key,
-            ...data[key]
-        }))
-        : [];
-
-    atualizarTabelaEstoque();
-
-    popularSelectItens();
-
-});
+document.getElementById(
+    'filtroMesAno'
+).value =
+    new Date()
+        .toISOString()
+        .slice(0,7);
 
 
 /* =========================================================
-   FIREBASE - SOLICITANTES
-========================================================= */
+   SOLICITAÇÕES - TEMPO REAL
+   ========================================================= */
 
-onValue(solicitantesRef, (snapshot) => {
+onValue(
+    solicitacoesRef,
+    snapshot => {
 
-    const data = snapshot.val();
+        const data =
+            snapshot.val();
 
-    if (data) {
 
-        window.solicitantesCadastrados =
-            Object.values(data);
+        window.solicitacoes =
+            data
+            ?
+            Object.keys(data).map(
+                key => ({
+                    idFirebase:key,
+                    ...data[key]
+                })
+            )
+            :
+            [];
 
-    } else {
 
-        window.solicitantesCadastrados = [
-            'Bop/1',
-            'Bop/2',
-            'Bop/3',
-            'P1',
-            'P2',
-            'P3',
-            'P4'
-        ];
+        atualizarTabela();
 
-        set(
-            solicitantesRef,
-            window.solicitantesCadastrados
-        );
+        gerarRelatorio();
 
     }
-
-    atualizarSelectSolicitantes();
-
-    popularFiltroSolicitantes();
-
-    renderizarListaSolicitantesGerenciamento();
-
-});
+);
 
 
 /* =========================================================
-   FIREBASE - ADMINISTRADORES
-========================================================= */
+   ESTOQUE - TEMPO REAL
+   ========================================================= */
 
-onValue(administradoresRef, (snapshot) => {
+onValue(
+    estoqueRef,
+    snapshot => {
 
-    const data = snapshot.val();
+        const data =
+            snapshot.val();
 
-    window.administradores =
-        data
-        ? Object.keys(data).map(key => ({
-            idFirebase:key,
-            ...data[key]
-        }))
-        : [];
 
-    renderizarAdministradores();
+        window.estoque =
+            data
+            ?
+            Object.keys(data).map(
+                key => ({
+                    idFirebase:key,
+                    ...data[key]
+                })
+            )
+            :
+            [];
 
-});
+
+        atualizarTabelaEstoque();
+
+        popularSelectItens();
+
+    }
+);
+
+
+/* =========================================================
+   SOLICITANTES - TEMPO REAL
+   ========================================================= */
+
+onValue(
+    solicitantesRef,
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+
+        if (data) {
+
+            window.solicitantesCadastrados =
+                Object.values(data);
+
+        }
+
+        else {
+
+            window.solicitantesCadastrados = [
+
+                'Bop/1',
+                'Bop/2',
+                'Bop/3',
+                'P1',
+                'P2',
+                'P3',
+                'P4'
+
+            ];
+
+
+            set(
+                solicitantesRef,
+                window.solicitantesCadastrados
+            );
+
+        }
+
+
+        atualizarSelectSolicitantes();
+
+        popularFiltroSolicitantes();
+
+        renderizarListaSolicitantesGerenciamento();
+
+    }
+);
+
+
+/* =========================================================
+   ADMINISTRADORES - TEMPO REAL
+   ========================================================= */
+
+onValue(
+    administradoresRef,
+    snapshot => {
+
+        const data =
+            snapshot.val();
+
+
+        window.administradores =
+            data
+            ?
+            Object.keys(data).map(
+                key => ({
+                    idFirebase:key,
+                    ...data[key]
+                })
+            )
+            :
+            [];
+
+
+        renderizarAdministradores();
+
+    }
+);
 
 
 /* =========================================================
    LOGIN
-========================================================= */
+   ========================================================= */
 
-window.alternarLogin = async function() {
+window.alternarLogin =
+async function() {
+
+
+    /* SAIR */
 
     if (window.isAdmin) {
 
-        window.isAdmin = false;
-        window.isMaster = false;
-        window.adminAtual = null;
+        window.isAdmin =
+            false;
+
+        window.isMaster =
+            false;
+
+        window.adminAtual =
+            null;
+
 
         atualizarInterfaceLogin();
 
         return;
+
     }
 
 
     const senha =
-        prompt("Digite a senha do ADM ou a senha MASTER:");
+        prompt(
+            "Digite a senha do ADM ou a senha MASTER:"
+        );
 
-    if (senha === null) return;
+
+    if (senha === null)
+        return;
 
 
-    /* MASTER */
+    /* =====================================================
+       LOGIN MASTER
+       ===================================================== */
 
-    if (senha === window.SENHA_MASTER) {
+    if (
+        senha ===
+        window.SENHA_MASTER
+    ) {
 
-        window.isAdmin = true;
+        window.isAdmin =
+            true;
 
-        window.isMaster = true;
+        window.isMaster =
+            true;
+
 
         window.adminAtual = {
-            nome: "Administrador MASTER"
+
+            nome:
+                "Administrador MASTER"
+
         };
 
+
         atualizarInterfaceLogin();
+
 
         alert(
             "Acesso MASTER autorizado!"
         );
 
+
         return;
+
     }
 
 
-    /* ADM CADASTRADO */
+    /* =====================================================
+       LOGIN ADMINISTRADOR
+       ===================================================== */
 
     const encontrado =
         window.administradores.find(
-            adm => adm.senha === senha
+            adm =>
+                adm.senha === senha
         );
+
 
     if (encontrado) {
 
-        window.isAdmin = true;
+        window.isAdmin =
+            true;
 
-        window.isMaster = false;
+        window.isMaster =
+            false;
 
-        window.adminAtual = encontrado;
+        window.adminAtual =
+            encontrado;
+
 
         atualizarInterfaceLogin();
+
 
         alert(
             "Login autorizado: " +
             encontrado.nome
         );
 
-    } else {
+    }
 
-        alert("Senha incorreta!");
+    else {
+
+        alert(
+            "Senha incorreta!"
+        );
 
     }
 
@@ -1294,26 +2055,34 @@ window.alternarLogin = async function() {
 
 
 /* =========================================================
-   INTERFACE LOGIN
-========================================================= */
+   ATUALIZAR INTERFACE
+   ========================================================= */
 
 function atualizarInterfaceLogin() {
 
     const nome =
-        document.getElementById('usuarioNome');
+        document.getElementById(
+            'usuarioNome'
+        );
+
 
     const botao =
-        document.getElementById('btnLoginLogout');
+        document.getElementById(
+            'btnLoginLogout'
+        );
+
 
     const cardSolicitante =
         document.getElementById(
             'cadSolicitanteFormCard'
         );
 
+
     const cardEstoque =
         document.getElementById(
             'estoqueFormCard'
         );
+
 
     const botaoAdmins =
         document.getElementById(
@@ -1325,19 +2094,27 @@ function atualizarInterfaceLogin() {
 
         nome.innerText =
             window.adminAtual
-                ? window.adminAtual.nome
-                : "Administrador";
+                ?
+                window.adminAtual.nome
+                :
+                "Administrador";
 
-        nome.style.color = "#4ade80";
+
+        nome.style.color =
+            "#4ade80";
+
 
         botao.innerText =
             "Sair do ADM";
 
+
         botao.className =
             "btn-logout";
 
+
         cardSolicitante.style.display =
             "block";
+
 
         cardEstoque.style.display =
             "block";
@@ -1348,37 +2125,48 @@ function atualizarInterfaceLogin() {
             botaoAdmins.style.display =
                 "inline-block";
 
-        } else {
+        }
+
+        else {
 
             botaoAdmins.style.display =
                 "none";
 
         }
 
-    } else {
+    }
+
+    else {
 
         nome.innerText =
             "Usuário Comum";
 
+
         nome.style.color =
             "#60a5fa";
+
 
         botao.innerText =
             "Entrar como ADM";
 
+
         botao.className =
             "btn-alt";
+
 
         cardSolicitante.style.display =
             "none";
 
+
         cardEstoque.style.display =
             "none";
+
 
         botaoAdmins.style.display =
             "none";
 
     }
+
 
     atualizarTabela();
 
@@ -1391,9 +2179,10 @@ function atualizarInterfaceLogin() {
 
 /* =========================================================
    MODAL ADMINISTRADORES
-========================================================= */
+   ========================================================= */
 
-window.abrirModalAdmins = function() {
+window.abrirModalAdmins =
+function() {
 
     if (!window.isMaster) {
 
@@ -1402,48 +2191,58 @@ window.abrirModalAdmins = function() {
         );
 
         return;
+
     }
+
 
     document.getElementById(
         'modalAdmins'
-    ).style.display = 'flex';
+    ).style.display =
+        'flex';
+
 
     renderizarAdministradores();
 
 };
 
 
-window.fecharModalAdmins = function() {
+window.fecharModalAdmins =
+function() {
 
     document.getElementById(
         'modalAdmins'
-    ).style.display = 'none';
+    ).style.display =
+        'none';
 
 };
 
 
 /* =========================================================
-   CADASTRAR ADMINISTRADOR
-========================================================= */
+   CADASTRAR ADMIN
+   ========================================================= */
 
 window.cadastrarAdministrador =
 async function(e) {
 
     e.preventDefault();
 
+
     if (!window.isMaster) {
 
         alert(
-            "Somente a senha MASTER pode cadastrar administradores."
+            "Somente o MASTER pode cadastrar administradores."
         );
 
         return;
+
     }
+
 
     const nome =
         document.getElementById(
             'nomeNovoAdmin'
         ).value.trim();
+
 
     const senha =
         document.getElementById(
@@ -1458,23 +2257,30 @@ async function(e) {
         );
 
         return;
+
     }
 
 
-    if (senha === window.SENHA_MASTER) {
+    if (
+        senha ===
+        window.SENHA_MASTER
+    ) {
 
         alert(
             "Essa senha é reservada para o MASTER."
         );
 
         return;
+
     }
 
 
     const senhaExiste =
         window.administradores.some(
-            adm => adm.senha === senha
+            adm =>
+                adm.senha === senha
         );
+
 
     if (senhaExiste) {
 
@@ -1483,15 +2289,23 @@ async function(e) {
         );
 
         return;
+
     }
 
 
     await push(
         administradoresRef,
         {
-            nome: nome,
-            senha: senha,
-            criadoEm: Date.now()
+
+            nome:
+                nome,
+
+            senha:
+                senha,
+
+            criadoEm:
+                Date.now()
+
         }
     );
 
@@ -1509,8 +2323,8 @@ async function(e) {
 
 
 /* =========================================================
-   EXCLUIR ADMINISTRADOR
-========================================================= */
+   EXCLUIR ADMIN
+   ========================================================= */
 
 window.removerAdministrador =
 async function(idFirebase) {
@@ -1522,22 +2336,27 @@ async function(idFirebase) {
         );
 
         return;
+
     }
 
 
     const adm =
         window.administradores.find(
-            a => a.idFirebase === idFirebase
+            a =>
+                a.idFirebase === idFirebase
         );
 
-    if (!adm) return;
+
+    if (!adm)
+        return;
 
 
     if (
         !confirm(
             `Deseja excluir o administrador "${adm.nome}"?`
         )
-    ) return;
+    )
+        return;
 
 
     await remove(
@@ -1556,8 +2375,8 @@ async function(idFirebase) {
 
 
 /* =========================================================
-   LISTA DE ADM
-========================================================= */
+   LISTA DE ADMINISTRADORES
+   ========================================================= */
 
 function renderizarAdministradores() {
 
@@ -1566,7 +2385,9 @@ function renderizarAdministradores() {
             'listaAdministradores'
         );
 
-    if (!div) return;
+
+    if (!div)
+        return;
 
 
     if (
@@ -1577,6 +2398,7 @@ function renderizarAdministradores() {
             "<em>Nenhum administrador cadastrado.</em>";
 
         return;
+
     }
 
 
@@ -1591,21 +2413,35 @@ function renderizarAdministradores() {
                 <div class="admin-item">
 
                     <div>
+
                         <strong>
                             ${esc(adm.nome)}
                         </strong>
 
                         <br>
 
-                        <small style="color:#64748b;">
+                        <small
+                            style="color:#64748b;">
+
                             Administrador
+
                         </small>
+
                     </div>
 
+
                     <button
-                        onclick="removerAdministrador('${adm.idFirebase}')"
-                        style="background:#dc2626;padding:5px 8px;font-size:11px;">
+                        onclick="
+                        removerAdministrador(
+                            '${adm.idFirebase}'
+                        )"
+                        style="
+                        background:#dc2626;
+                        padding:5px 8px;
+                        font-size:11px;">
+
                         Excluir
+
                     </button>
 
                 </div>
@@ -1619,15 +2455,17 @@ function renderizarAdministradores() {
 
 
 /* =========================================================
-   SOLICITAÇÃO
-========================================================= */
+   MODAL SOLICITAÇÃO
+   ========================================================= */
 
 window.abrirModalSolicitacao =
 function() {
 
     document.getElementById(
         'modalSolicitacao'
-    ).style.display = 'flex';
+    ).style.display =
+        'flex';
+
 
     atualizarSelectSolicitantes();
 
@@ -1641,15 +2479,21 @@ function() {
 
     document.getElementById(
         'modalSolicitacao'
-    ).style.display = 'none';
+    ).style.display =
+        'none';
 
-    window.itensCarrinho = [];
+
+    window.itensCarrinho =
+        [];
+
 
     renderizarListaTemporaria();
+
 
     document.getElementById(
         'solicitacaoForm'
     ).reset();
+
 
     document.getElementById(
         'data'
@@ -1658,6 +2502,7 @@ function() {
             .toISOString()
             .split('T')[0];
 
+
     alternarItemPersonalizado();
 
 };
@@ -1665,7 +2510,7 @@ function() {
 
 /* =========================================================
    ABAS
-========================================================= */
+   ========================================================= */
 
 window.mudarAba =
 function(aba) {
@@ -1695,31 +2540,13 @@ function(aba) {
 
             abas[nome].style.display =
                 nome === aba
-                    ? 'block'
-                    : 'none';
+                    ?
+                    'block'
+                    :
+                    'none';
 
         }
     );
-
-
-    document
-        .querySelectorAll(
-            '.tab-btn:not(.btn-nova-solicitation):not(.btn-master)'
-        )
-        .forEach(btn => {
-
-            btn.classList.remove(
-                'active'
-            );
-
-        });
-
-
-    const mapa = {
-        solicitacoes:0,
-        relatorio:1,
-        estoque:2
-    };
 
 
     const botoes =
@@ -1728,15 +2555,40 @@ function(aba) {
         );
 
 
-    if (botoes[mapa[aba]]) {
+    botoes.forEach(
+        b =>
+            b.classList.remove(
+                'active'
+            )
+    );
 
-        botoes[mapa[aba]]
-            .classList.add('active');
+
+    const indices = {
+
+        solicitacoes:0,
+        relatorio:1,
+        estoque:2
+
+    };
+
+
+    if (
+        botoes[indices[aba]]
+    ) {
+
+        botoes[
+            indices[aba]
+        ].classList.add(
+            'active'
+        );
 
     }
 
 
-    if (aba === 'relatorio') {
+    if (
+        aba ===
+        'relatorio'
+    ) {
 
         popularFiltroSolicitantes();
 
@@ -1745,7 +2597,10 @@ function(aba) {
     }
 
 
-    if (aba === 'estoque') {
+    if (
+        aba ===
+        'estoque'
+    ) {
 
         atualizarTabelaEstoque();
 
@@ -1757,15 +2612,18 @@ function(aba) {
 
 
 /* =========================================================
-   SOLICITANTES
-========================================================= */
+   CADASTRAR SOLICITANTE
+   ========================================================= */
 
 window.cadastrarNovoSolicitante =
 function(e) {
 
     e.preventDefault();
 
-    if (!window.isAdmin) return;
+
+    if (!window.isAdmin)
+        return;
+
 
     const nome =
         document.getElementById(
@@ -1775,7 +2633,9 @@ function(e) {
 
     if (
         nome &&
-        !window.solicitantesCadastrados.includes(nome)
+        !window.solicitantesCadastrados.includes(
+            nome
+        )
     ) {
 
         push(
@@ -1783,15 +2643,20 @@ function(e) {
             nome
         );
 
+
         document.getElementById(
             'novoSolicitanteNome'
-        ).value = '';
+        ).value =
+            '';
+
 
         alert(
             'Solicitante/Seção cadastrada com sucesso!'
         );
 
-    } else {
+    }
+
+    else {
 
         alert(
             'Este solicitante já está cadastrado!'
@@ -1802,10 +2667,16 @@ function(e) {
 };
 
 
+/* =========================================================
+   REMOVER SOLICITANTE
+   ========================================================= */
+
 window.removerSolicitanteCadastrado =
 function(nome) {
 
-    if (!window.isAdmin) return;
+    if (!window.isAdmin)
+        return;
+
 
     if (
         confirm(
@@ -1816,8 +2687,10 @@ function(nome) {
         const novos =
             window.solicitantesCadastrados
                 .filter(
-                    s => s !== nome
+                    s =>
+                        s !== nome
                 );
+
 
         set(
             solicitantesRef,
@@ -1829,6 +2702,10 @@ function(nome) {
 };
 
 
+/* =========================================================
+   LISTA SOLICITANTES
+   ========================================================= */
+
 function renderizarListaSolicitantesGerenciamento() {
 
     const div =
@@ -1836,7 +2713,9 @@ function renderizarListaSolicitantesGerenciamento() {
             'listaSolicitantesCadastrados'
         );
 
-    if (!div) return;
+
+    if (!div)
+        return;
 
 
     if (
@@ -1860,7 +2739,8 @@ function renderizarListaSolicitantesGerenciamento() {
             .map(
                 s => `
 
-                <span style="
+                <span
+                    style="
                     background:#e2e8f0;
                     padding:2px 6px;
                     border-radius:4px;
@@ -1872,14 +2752,26 @@ function renderizarListaSolicitantesGerenciamento() {
 
                     ${
                         window.isAdmin
-                        ? `
-                        <a href="#"
-                           onclick="removerSolicitanteCadastrado('${escAttr(s)}');return false;"
-                           style="color:#dc2626;font-weight:bold;margin-left:4px;">
-                           &times;
+                        ?
+                        `
+                        <a
+                            href="#"
+                            onclick="
+                            removerSolicitanteCadastrado(
+                                '${escAttr(s)}'
+                            );
+                            return false;"
+                            style="
+                            color:#dc2626;
+                            font-weight:bold;
+                            margin-left:4px;">
+
+                            &times;
+
                         </a>
                         `
-                        : ''
+                        :
+                        ''
                     }
 
                 </span>
@@ -1889,10 +2781,15 @@ function renderizarListaSolicitantesGerenciamento() {
             .join('');
 
 
-    div.innerHTML = html;
+    div.innerHTML =
+        html;
 
 }
 
+
+/* =========================================================
+   SELECT SOLICITANTES
+   ========================================================= */
 
 function atualizarSelectSolicitantes() {
 
@@ -1901,7 +2798,9 @@ function atualizarSelectSolicitantes() {
             'solicitanteBase'
         );
 
-    if (!select) return;
+
+    if (!select)
+        return;
 
 
     const valorAtual =
@@ -1909,19 +2808,40 @@ function atualizarSelectSolicitantes() {
 
 
     select.innerHTML =
-        '<option value="" disabled selected>Selecione</option>' +
+        `
+        <option
+            value=""
+            disabled
+            selected>
 
-        window.solicitantesCadastrados
-            .map(
-                s =>
-                    `<option value="${escAttr(s)}">${esc(s)}</option>`
-            )
-            .join('');
+            Selecione
+
+        </option>
+        `;
+
+
+    window.solicitantesCadastrados.forEach(
+        s => {
+
+            select.innerHTML += `
+
+                <option
+                    value="${escAttr(s)}">
+
+                    ${esc(s)}
+
+                </option>
+
+            `;
+
+        }
+    );
 
 
     if (
-        window.solicitantesCadastrados
-            .includes(valorAtual)
+        window.solicitantesCadastrados.includes(
+            valorAtual
+        )
     ) {
 
         select.value =
@@ -1932,6 +2852,10 @@ function atualizarSelectSolicitantes() {
 }
 
 
+/* =========================================================
+   FILTRO SOLICITANTES
+   ========================================================= */
+
 function popularFiltroSolicitantes() {
 
     const select =
@@ -1939,7 +2863,9 @@ function popularFiltroSolicitantes() {
             'filtroSolicitante'
         );
 
-    if (!select) return;
+
+    if (!select)
+        return;
 
 
     const valorAtual =
@@ -1947,14 +2873,31 @@ function popularFiltroSolicitantes() {
 
 
     select.innerHTML =
-        '<option value="todos">Todos os Solicitantes</option>' +
+        `
+        <option value="todos">
 
-        window.solicitantesCadastrados
-            .map(
-                s =>
-                    `<option value="${escAttr(s)}">${esc(s)}</option>`
-            )
-            .join('');
+            Todos os Solicitantes
+
+        </option>
+        `;
+
+
+    window.solicitantesCadastrados.forEach(
+        s => {
+
+            select.innerHTML += `
+
+                <option
+                    value="${escAttr(s)}">
+
+                    ${esc(s)}
+
+                </option>
+
+            `;
+
+        }
+    );
 
 
     select.value =
@@ -1965,19 +2908,23 @@ function popularFiltroSolicitantes() {
 
 /* =========================================================
    ESTOQUE
-========================================================= */
+   ========================================================= */
 
 window.adicionarItemEstoque =
 function(e) {
 
     e.preventDefault();
 
-    if (!window.isAdmin) return;
+
+    if (!window.isAdmin)
+        return;
+
 
     const itemNome =
         document.getElementById(
             'estoqueItem'
         ).value.trim();
+
 
     const qtd =
         parseInt(
@@ -2004,19 +2951,30 @@ function(e) {
                 db,
                 `estoque/${existente.idFirebase}`
             ),
+
             {
+
                 quantidade:
                     existente.quantidade + qtd
+
             }
         );
 
-    } else {
+    }
+
+    else {
 
         push(
             estoqueRef,
+
             {
-                item:itemNome,
-                quantidade:qtd
+
+                item:
+                    itemNome,
+
+                quantidade:
+                    qtd
+
             }
         );
 
@@ -2030,10 +2988,15 @@ function(e) {
 };
 
 
+/* =========================================================
+   REMOVER ITEM ESTOQUE
+   ========================================================= */
+
 window.removerItemEstoque =
 function(idFirebase) {
 
-    if (!window.isAdmin) return;
+    if (!window.isAdmin)
+        return;
 
 
     if (
@@ -2054,6 +3017,10 @@ function(idFirebase) {
 };
 
 
+/* =========================================================
+   TABELA ESTOQUE
+   ========================================================= */
+
 function atualizarTabelaEstoque() {
 
     const corpo =
@@ -2061,10 +3028,13 @@ function atualizarTabelaEstoque() {
             'tabelaEstoque'
         );
 
-    if (!corpo) return;
+
+    if (!corpo)
+        return;
 
 
-    corpo.innerHTML = "";
+    corpo.innerHTML =
+        '';
 
 
     if (
@@ -2072,12 +3042,20 @@ function atualizarTabelaEstoque() {
     ) {
 
         corpo.innerHTML =
-            `<tr>
-                <td colspan="3"
-                    style="text-align:center;">
+            `
+            <tr>
+
+                <td
+                    colspan="3"
+                    style="
+                    text-align:center;">
+
                     Nenhum item em estoque.
+
                 </td>
-            </tr>`;
+
+            </tr>
+            `;
 
         return;
 
@@ -2092,9 +3070,17 @@ function atualizarTabelaEstoque() {
                 ?
                 `
                 <button
-                    onclick="removerItemEstoque('${e.idFirebase}')"
-                    style="background:#dc2626;padding:2px 6px;font-size:10px;">
+                    onclick="
+                    removerItemEstoque(
+                        '${e.idFirebase}'
+                    )"
+                    style="
+                    background:#dc2626;
+                    padding:2px 6px;
+                    font-size:10px;">
+
                     Excluir
+
                 </button>
                 `
                 :
@@ -2106,14 +3092,18 @@ function atualizarTabelaEstoque() {
                 <tr>
 
                     <td>
+
                         <strong>
                             ${esc(e.item)}
                         </strong>
+
                     </td>
+
 
                     <td>
                         ${e.quantidade}
                     </td>
+
 
                     <td>
                         ${acao}
@@ -2129,6 +3119,10 @@ function atualizarTabelaEstoque() {
 }
 
 
+/* =========================================================
+   SELECT ITENS
+   ========================================================= */
+
 function popularSelectItens() {
 
     const select =
@@ -2136,27 +3130,51 @@ function popularSelectItens() {
             'item'
         );
 
-    if (!select) return;
+
+    if (!select)
+        return;
 
 
     let html =
-        '<option value="" disabled selected>Selecione um item</option>';
+        `
+        <option
+            value=""
+            disabled
+            selected>
+
+            Selecione um item
+
+        </option>
+        `;
 
 
     window.estoque.forEach(
         e => {
 
-            html +=
-                `<option value="${escAttr(e.item)}">
-                    ${esc(e.item)} (Estoque: ${e.quantidade})
-                </option>`;
+            html += `
+
+                <option
+                    value="${escAttr(e.item)}">
+
+                    ${esc(e.item)}
+                    (Estoque: ${e.quantidade})
+
+                </option>
+
+            `;
 
         }
     );
 
 
     html +=
-        '<option value="Outro">Outro (Digitar manualmente)</option>';
+        `
+        <option value="Outro">
+
+            Outro (Digitar manualmente)
+
+        </option>
+        `;
 
 
     select.innerHTML =
@@ -2165,11 +3183,18 @@ function popularSelectItens() {
 }
 
 
+/* =========================================================
+   ITEM PERSONALIZADO
+   ========================================================= */
+
 window.alternarItemPersonalizado =
 function() {
 
     const select =
-        document.getElementById('item');
+        document.getElementById(
+            'item'
+        );
+
 
     const input =
         document.getElementById(
@@ -2179,11 +3204,17 @@ function() {
 
     input.style.display =
         select.value === 'Outro'
-            ? 'block'
-            : 'none';
+            ?
+            'block'
+            :
+            'none';
 
 };
 
+
+/* =========================================================
+   OBTER ITEM
+   ========================================================= */
 
 function obterItemSolicitado() {
 
@@ -2193,16 +3224,29 @@ function obterItemSolicitado() {
         );
 
 
-    return select.value === 'Outro'
-        ?
-        document.getElementById(
-            'itemPersonalizado'
-        ).value.trim()
-        :
-        select.value;
+    if (
+        select.value ===
+        'Outro'
+    ) {
+
+        return document
+            .getElementById(
+                'itemPersonalizado'
+            )
+            .value
+            .trim();
+
+    }
+
+
+    return select.value;
 
 }
 
+
+/* =========================================================
+   ESTOQUE DISPONÍVEL
+   ========================================================= */
 
 window.atualizarEstoqueDisponivelView =
 function() {
@@ -2211,6 +3255,7 @@ function() {
         document.getElementById(
             'estoqueDisponivelInfo'
         );
+
 
     const item =
         obterItemSolicitado()
@@ -2235,9 +3280,10 @@ function() {
         window.estoque.find(
             e =>
                 e.item
-                .trim()
-                .toLowerCase()
-                === item
+                    .trim()
+                    .toLowerCase()
+                ===
+                item
         );
 
 
@@ -2246,12 +3292,17 @@ function() {
         info.innerText =
             `Estoque: ${entrada.quantidade}`;
 
+
         info.style.color =
             entrada.quantidade <= 2
-                ? '#d97706'
-                : '#16a34a';
+                ?
+                '#d97706'
+                :
+                '#16a34a';
 
-    } else {
+    }
+
+    else {
 
         info.innerText =
             'Não controlado';
@@ -2265,14 +3316,15 @@ function() {
 
 
 /* =========================================================
-   CARRINHO
-========================================================= */
+   ADICIONAR ITEM TEMPORÁRIO
+   ========================================================= */
 
 window.adicionarItemTemporario =
 function() {
 
     const itemNome =
         obterItemSolicitado();
+
 
     const quantidade =
         parseInt(
@@ -2295,19 +3347,26 @@ function() {
 
 
     window.itensCarrinho.push({
-        item:itemNome,
-        quantidade:quantidade
+
+        item:
+            itemNome,
+
+        quantidade:
+            quantidade
+
     });
 
 
     document.getElementById(
         'item'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'quantidade'
-    ).value = 1;
+    ).value =
+        1;
 
 
     alternarItemPersonalizado();
@@ -2319,6 +3378,10 @@ function() {
 };
 
 
+/* =========================================================
+   LISTA TEMPORÁRIA
+   ========================================================= */
+
 function renderizarListaTemporaria() {
 
     const container =
@@ -2326,13 +3389,15 @@ function renderizarListaTemporaria() {
             'areaListaTemporaria'
         );
 
+
     const ul =
         document.getElementById(
             'listaItensTemporarios'
         );
 
 
-    ul.innerHTML = '';
+    ul.innerHTML =
+        '';
 
 
     if (
@@ -2356,18 +3421,29 @@ function renderizarListaTemporaria() {
 
             ul.innerHTML += `
 
-                <li style="margin-bottom:2px;">
+                <li>
 
                     <strong>
                         ${esc(it.item)}
                     </strong>
 
-                    — Qtd: ${it.quantidade}
+                    — Qtd:
+                    ${it.quantidade}
 
-                    <a href="#"
-                       onclick="removerItemCarrinho(${index});return false;"
-                       style="color:#dc2626;margin-left:8px;font-size:11px;">
+                    <a
+                        href="#"
+                        onclick="
+                        removerItemCarrinho(
+                            ${index}
+                        );
+                        return false;"
+                        style="
+                        color:#dc2626;
+                        margin-left:8px;
+                        font-size:11px;">
+
                         [remover]
+
                     </a>
 
                 </li>
@@ -2380,6 +3456,10 @@ function renderizarListaTemporaria() {
 }
 
 
+/* =========================================================
+   REMOVER ITEM DO CARRINHO
+   ========================================================= */
+
 window.removerItemCarrinho =
 function(index) {
 
@@ -2388,6 +3468,7 @@ function(index) {
         1
     );
 
+
     renderizarListaTemporaria();
 
 };
@@ -2395,10 +3476,12 @@ function(index) {
 
 /* =========================================================
    CADASTRAR SOLICITAÇÃO
-========================================================= */
+   ========================================================= */
 
 document
-    .getElementById('solicitacaoForm')
+    .getElementById(
+        'solicitacaoForm'
+    )
     .addEventListener(
         'submit',
         function(e) {
@@ -2455,7 +3538,8 @@ document
                     window.itensCarrinho
                         .reduce(
                             (acc,curr) =>
-                                acc + curr.quantidade,
+                                acc +
+                                curr.quantidade,
                             0
                         ),
 
@@ -2473,7 +3557,9 @@ document
             };
 
 
-            /* BAIXA DO ESTOQUE */
+            /* =================================================
+               BAIXA DO ESTOQUE
+               ================================================= */
 
             window.itensCarrinho.forEach(
                 carrinhoItem => {
@@ -2481,9 +3567,11 @@ document
                     const itemEstoque =
                         window.estoque.find(
                             e =>
-                                e.item.toLowerCase()
+                                e.item
+                                    .toLowerCase()
                                 ===
-                                carrinhoItem.item.toLowerCase()
+                                carrinhoItem.item
+                                    .toLowerCase()
                         );
 
 
@@ -2492,6 +3580,7 @@ document
                         const novaQtd =
                             Math.max(
                                 0,
+
                                 itemEstoque.quantidade
                                 -
                                 carrinhoItem.quantidade
@@ -2503,8 +3592,12 @@ document
                                 db,
                                 `estoque/${itemEstoque.idFirebase}`
                             ),
+
                             {
-                                quantidade:novaQtd
+
+                                quantidade:
+                                    novaQtd
+
                             }
                         );
 
@@ -2533,7 +3626,7 @@ document
 
 /* =========================================================
    ALTERAR STATUS
-========================================================= */
+   ========================================================= */
 
 window.alterarStatus =
 function(idFirebase) {
@@ -2556,32 +3649,38 @@ function(idFirebase) {
         );
 
 
-    if (item) {
-
-        const novoStatus =
-            item.status === "Pendente"
-                ? "Entregue"
-                : "Pendente";
+    if (!item)
+        return;
 
 
-        update(
-            ref(
-                db,
-                `solicitacoes/${idFirebase}`
-            ),
-            {
-                status:novoStatus
-            }
-        );
+    const novoStatus =
+        item.status === "Pendente"
+            ?
+            "Entregue"
+            :
+            "Pendente";
 
-    }
+
+    update(
+        ref(
+            db,
+            `solicitacoes/${idFirebase}`
+        ),
+
+        {
+
+            status:
+                novoStatus
+
+        }
+    );
 
 };
 
 
 /* =========================================================
    CANCELAR SOLICITAÇÃO
-========================================================= */
+   ========================================================= */
 
 window.cancelarSolicitacao =
 function(idFirebase) {
@@ -2604,35 +3703,54 @@ function(idFirebase) {
         );
 
 
-    if (!item) return;
+    if (!item)
+        return;
 
 
     const confirma =
         confirm(
+
             "ATENÇÃO!\n\n" +
+
             "Deseja realmente CANCELAR esta solicitação?\n\n" +
+
             item.solicitante +
+
             "\n" +
+
             item.item
+
         );
 
 
-    if (!confirma) return;
+    if (!confirma)
+        return;
 
 
     update(
+
         ref(
             db,
             `solicitacoes/${idFirebase}`
         ),
+
         {
-            status:"Cancelado",
-            canceladoEm:Date.now(),
+
+            status:
+                "Cancelado",
+
+            canceladoEm:
+                Date.now(),
+
             canceladoPor:
                 window.adminAtual
-                    ? window.adminAtual.nome
-                    : "Administrador"
+                    ?
+                    window.adminAtual.nome
+                    :
+                    "Administrador"
+
         }
+
     );
 
 
@@ -2645,7 +3763,8 @@ function(idFirebase) {
 
 /* =========================================================
    EXCLUIR DEFINITIVAMENTE
-========================================================= */
+   SOMENTE MASTER
+   ========================================================= */
 
 window.excluirSolicitacao =
 function(idFirebase) {
@@ -2681,7 +3800,7 @@ function(idFirebase) {
 
 /* =========================================================
    TABELA SOLICITAÇÕES
-========================================================= */
+   ========================================================= */
 
 function atualizarTabela() {
 
@@ -2691,10 +3810,12 @@ function atualizarTabela() {
         );
 
 
-    if (!corpo) return;
+    if (!corpo)
+        return;
 
 
-    corpo.innerHTML = "";
+    corpo.innerHTML =
+        '';
 
 
     if (
@@ -2704,10 +3825,16 @@ function atualizarTabela() {
         corpo.innerHTML =
             `
             <tr>
-                <td colspan="6"
-                    style="text-align:center;">
+
+                <td
+                    colspan="6"
+                    style="
+                    text-align:center;">
+
                     Nenhuma solicitação encontrada.
+
                 </td>
+
             </tr>
             `;
 
@@ -2715,8 +3842,6 @@ function atualizarTabela() {
 
     }
 
-
-    /* MAIS RECENTES PRIMEIRO */
 
     const lista =
         [...window.solicitacoes]
@@ -2733,13 +3858,13 @@ function atualizarTabela() {
 
             const dataFmt =
                 s.data
-                ?
-                s.data
-                    .split('-')
-                    .reverse()
-                    .join('/')
-                :
-                '-';
+                    ?
+                    s.data
+                        .split('-')
+                        .reverse()
+                        .join('/')
+                    :
+                    '-';
 
 
             let badgeClass =
@@ -2747,7 +3872,8 @@ function atualizarTabela() {
 
 
             if (
-                s.status === 'Entregue'
+                s.status ===
+                'Entregue'
             ) {
 
                 badgeClass =
@@ -2757,7 +3883,8 @@ function atualizarTabela() {
 
 
             if (
-                s.status === 'Cancelado'
+                s.status ===
+                'Cancelado'
             ) {
 
                 badgeClass =
@@ -2766,34 +3893,46 @@ function atualizarTabela() {
             }
 
 
-            let acaoHtml = '-';
+            let acaoHtml =
+                '-';
 
 
             if (window.isAdmin) {
 
                 if (
-                    s.status !== 'Cancelado'
+                    s.status !==
+                    'Cancelado'
                 ) {
 
                     acaoHtml = `
 
                         <button
                             class="btn-status"
-                            onclick="alterarStatus('${s.idFirebase}')">
+                            onclick="
+                            alterarStatus(
+                                '${s.idFirebase}'
+                            )">
 
                             ${
                                 s.status === 'Pendente'
-                                ? 'Marcar Entregue'
-                                : 'Marcar Pendente'
+                                ?
+                                'Marcar Entregue'
+                                :
+                                'Marcar Pendente'
                             }
 
                         </button>
 
+
                         <br>
+
 
                         <button
                             class="btn-delete"
-                            onclick="cancelarSolicitacao('${s.idFirebase}')">
+                            onclick="
+                            cancelarSolicitacao(
+                                '${s.idFirebase}'
+                            )">
 
                             Cancelar Solicitação
 
@@ -2801,12 +3940,22 @@ function atualizarTabela() {
 
                     `;
 
-                } else {
+                }
+
+                else {
 
                     acaoHtml = `
-                        <span style="color:#dc2626;font-weight:bold;font-size:11px;">
+
+                        <span
+                            style="
+                            color:#dc2626;
+                            font-weight:bold;
+                            font-size:11px;">
+
                             Cancelada
+
                         </span>
+
                     `;
 
                 }
@@ -2820,7 +3969,10 @@ function atualizarTabela() {
 
                         <button
                             class="btn-delete"
-                            onclick="excluirSolicitacao('${s.idFirebase}')">
+                            onclick="
+                            excluirSolicitacao(
+                                '${s.idFirebase}'
+                            )">
 
                             Excluir Definitivamente
 
@@ -2830,12 +3982,21 @@ function atualizarTabela() {
 
                 }
 
-            } else {
+            }
+
+            else {
 
                 acaoHtml =
-                    `<span style="color:#94a3b8;font-size:10px;">
+                    `
+                    <span
+                        style="
+                        color:#94a3b8;
+                        font-size:10px;">
+
                         Requer ADM
-                    </span>`;
+
+                    </span>
+                    `;
 
             }
 
@@ -2848,27 +4009,37 @@ function atualizarTabela() {
                         ${dataFmt}
                     </td>
 
+
                     <td>
+
                         <strong>
                             ${esc(s.solicitante)}
                         </strong>
+
                     </td>
+
 
                     <td>
                         ${esc(s.item)}
                     </td>
 
+
                     <td>
                         ${s.quantidade || 1}
                     </td>
 
+
                     <td>
 
-                        <span class="badge ${badgeClass}">
+                        <span
+                            class="badge ${badgeClass}">
+
                             ${esc(s.status)}
+
                         </span>
 
                     </td>
+
 
                     <td>
                         ${acaoHtml}
@@ -2886,7 +4057,7 @@ function atualizarTabela() {
 
 /* =========================================================
    RELATÓRIO
-========================================================= */
+   ========================================================= */
 
 window.gerarRelatorio =
 function() {
@@ -2915,7 +4086,8 @@ function() {
 
 
                 const bateSolicitante =
-                    filtroSolicitante === 'todos'
+                    filtroSolicitante ===
+                    'todos'
                     ||
                     s.solicitanteBase ===
                     filtroSolicitante;
@@ -2941,7 +4113,8 @@ function() {
     ).innerText =
         filtrados.filter(
             s =>
-                s.status === 'Entregue'
+                s.status ===
+                'Entregue'
         ).length;
 
 
@@ -2950,19 +4123,23 @@ function() {
     ).innerText =
         filtrados.filter(
             s =>
-                s.status === 'Pendente'
+                s.status ===
+                'Pendente'
         ).length;
 
 
-    const consolidados = {};
+    const consolidados =
+        {};
 
 
     filtrados.forEach(
         s => {
 
             if (
-                s.status === 'Cancelado'
-            ) return;
+                s.status ===
+                'Cancelado'
+            )
+                return;
 
 
             const itensArr =
@@ -2982,6 +4159,7 @@ function() {
 
                         const nome =
                             match[1];
+
 
                         const qtd =
                             parseInt(
@@ -3014,7 +4192,8 @@ function() {
         );
 
 
-    tbody.innerHTML = '';
+    tbody.innerHTML =
+        '';
 
 
     Object.keys(
@@ -3045,8 +4224,8 @@ function() {
 
 
 /* =========================================================
-   PDF
-========================================================= */
+   EXPORTAR PDF
+   ========================================================= */
 
 window.exportarRelatorioPDF =
 function() {
@@ -3066,7 +4245,8 @@ function() {
     );
 
 
-    const rows = [];
+    const rows =
+        [];
 
 
     document
@@ -3082,11 +4262,16 @@ function() {
                     );
 
 
-                if (cols.length) {
+                if (
+                    cols.length
+                ) {
 
                     rows.push([
+
                         cols[0].innerText,
+
                         cols[1].innerText
+
                     ]);
 
                 }
@@ -3097,49 +4282,94 @@ function() {
 
     doc.autoTable({
 
-        head:[
-            [
-                'Item',
-                'Quantidade Solicitada'
-            ]
-        ],
+        head: [[
 
-        body:rows,
+            'Item',
 
-        startY:25
+            'Quantidade Solicitada'
+
+        ]],
+
+        body:
+            rows,
+
+        startY:
+            25
 
     });
 
 
     doc.save(
-        `relatorio_${document.getElementById('filtroMesAno').value}.pdf`
+
+        `relatorio_${
+            document.getElementById(
+                'filtroMesAno'
+            ).value
+        }.pdf`
+
     );
 
 };
 
 
 /* =========================================================
-   SEGURANÇA DE EXIBIÇÃO
-========================================================= */
+   PROTEÇÃO DE TEXTO HTML
+   ========================================================= */
 
 function esc(valor) {
 
-    return String(valor ?? '')
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#039;");
+    return String(
+        valor ?? ''
+    )
+
+        .replaceAll(
+            '&',
+            '&amp;'
+        )
+
+        .replaceAll(
+            '<',
+            '&lt;'
+        )
+
+        .replaceAll(
+            '>',
+            '&gt;'
+        )
+
+        .replaceAll(
+            '"',
+            '&quot;'
+        )
+
+        .replaceAll(
+            "'",
+            '&#039;'
+        );
 
 }
 
 
 function escAttr(valor) {
 
-    return String(valor ?? '')
-        .replaceAll('\\','\\\\')
-        .replaceAll("'","\\'")
-        .replaceAll('"','&quot;');
+    return String(
+        valor ?? ''
+    )
+
+        .replaceAll(
+            '\\',
+            '\\\\'
+        )
+
+        .replaceAll(
+            "'",
+            "\\'"
+        )
+
+        .replaceAll(
+            '"',
+            '&quot;'
+        );
 
 }
 
