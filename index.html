@@ -1,3 +1,25 @@
+O ChatGPT disse:
+Pensou por 25s
+Sim. A imagem que você enviou pode ser usada como marca d’água no fundo e também no cabeçalho.
+
+Abaixo está o programa completo já atualizado, incluindo:
+
+🖼️ Brasão como fundo/marca d’água.
+🔐 Senha MASTER: 3BPRv.
+👤 Aba Administradores, visível somente para o MASTER.
+➕ MASTER pode cadastrar administradores com usuário e senha.
+🗑️ MASTER pode excluir administradores.
+🗑️ MASTER pode excluir solicitações.
+👮 Administradores comuns podem alterar status, estoque e solicitantes, mas não podem excluir solicitações nem administrar outros administradores.
+Mantive o restante do programa como estava.
+📱 Continua adaptado para celular.
+Importante sobre a imagem
+Coloque a imagem que você me enviou na mesma pasta do arquivo HTML e deixe o nome dela exatamente:
+
+rodoviaria.jfif
+
+Depois é só copiar o código abaixo.
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,11 +27,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P4 - 3º BPRv</title>
 
-    <!-- ÍCONE DO APLICATIVO -->
-    <link rel="icon" type="image/jpeg" href="brasao.jpg">
-    <link rel="apple-touch-icon" href="brasao.jpg">
-    
-    <!-- MANIFEST PARA INSTALAÇÃO COMO APP (PWA) -->
+    <!-- IMAGEM DO BRASÃO -->
+    <link rel="icon" type="image/jpeg" href="rodoviaria.jfif">
+    <link rel="apple-touch-icon" href="rodoviaria.jfif">
+
     <link rel="manifest" href="data:application/manifest+json,{
         &quot;name&quot;: &quot;P4 - 3º BPRv&quot;,
         &quot;short_name&quot;: &quot;P4 3BPRv&quot;,
@@ -18,58 +39,69 @@
         &quot;background_color&quot;: &quot;#0f172a&quot;,
         &quot;theme_color&quot;: &quot;#0f172a&quot;,
         &quot;icons&quot;: [{
-            &quot;src&quot;: &quot;brasao.jpg&quot;,
+            &quot;src&quot;: &quot;rodoviaria.jfif&quot;,
             &quot;sizes&quot;: &quot;512x512&quot;,
             &quot;type&quot;: &quot;image/jpeg&quot;
         }]
     }">
 
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        
-        body { 
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
             background-color: #0f172a;
-            margin: 0; 
-            padding: 10px; 
-            display: flex; 
-            justify-content: center; 
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
             min-height: 100vh;
             position: relative;
         }
 
-        /* MARCA D'ÁGUA DO BRASÃO NO FUNDO DA TELA */
+        /* =====================================================
+           MARCA D'ÁGUA DO BRASÃO
+        ===================================================== */
         body::before {
             content: "";
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
-            background: url('brasao.jpg') no-repeat center center;
+            width: 650px;
+            height: 650px;
+            background-image: url('rodoviaria.jfif');
+            background-repeat: no-repeat;
+            background-position: center;
             background-size: contain;
-            opacity: 0.18;
+            opacity: 0.10;
             pointer-events: none;
             z-index: 0;
         }
 
-        .container { 
+        .container {
             position: relative;
             z-index: 1;
-            width: 100%; 
-            max-width: 800px; 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 16px 20px; 
-            border-radius: 8px; 
+            width: 100%;
+            max-width: 850px;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 16px 20px;
+            border-radius: 8px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
 
         .header-logo {
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 2px solid #b91c1c;
-            padding-bottom: 6px;
+            padding-bottom: 8px;
             margin-bottom: 10px;
         }
 
@@ -80,43 +112,104 @@
         }
 
         .logo-img {
-            width: 50px;
-            height: 50px;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
+            border-radius: 5px;
         }
 
-        .header-login { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: #1e293b; 
+        .header-login {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
             color: white;
-            padding: 8px 12px; 
-            border-radius: 5px; 
-            margin-bottom: 12px; 
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-bottom: 12px;
             font-size: 13px;
         }
 
-        .form-group { margin-bottom: 12px; }
-        label { display: block; margin-bottom: 4px; font-weight: bold; color: #334155; font-size: 13px; }
-        input, select { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 13px; }
+        /* =====================================================
+           FORMULÁRIOS
+        ===================================================== */
 
-        button { 
-            background-color: #16a34a; 
-            color: white; 
-            border: none; 
-            padding: 8px 12px; 
-            font-weight: bold; 
-            border-radius: 5px; 
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+            color: #334155;
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.12);
+        }
+
+        button {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 13px;
         }
-        button:hover { opacity: 0.9; }
 
-        .btn-alt { background-color: #2563eb; }
-        .btn-logout { background-color: #dc2626; }
-        .btn-status { background-color: #d97706; color: white; padding: 4px 8px; font-size: 11px; border-radius: 3px; }
-        .btn-relatorio { background-color: #0284c7; padding: 6px 12px; font-size: 12px; }
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .btn-alt {
+            background-color: #2563eb;
+        }
+
+        .btn-logout {
+            background-color: #dc2626;
+        }
+
+        .btn-status {
+            background-color: #d97706;
+            color: white;
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .btn-excluir {
+            background-color: #dc2626;
+            color: white;
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .btn-relatorio {
+            background-color: #0284c7;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           TABELAS
+        ===================================================== */
 
         .tabela-container {
             max-height: 380px;
@@ -127,27 +220,95 @@
             background: white;
         }
 
-        table { width: 100%; border-collapse: collapse; background: white; font-size: 12px; }
-        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; }
-        
-        th { 
-            background-color: #1e293b; 
-            color: white; 
-            font-weight: 600; 
-            font-size: 12px; 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 12px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #1e293b;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
             position: sticky;
             top: 0;
             z-index: 2;
         }
 
-        .badge { padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: bold; color: white; }
-        .bg-pendente { background-color: #d97706; }
-        .bg-entregue { background-color: #16a34a; }
+        /* =====================================================
+           STATUS
+        ===================================================== */
 
-        .tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .tab-btn { background: #e2e8f0; color: #334155; border: none; padding: 8px 14px; font-weight: bold; cursor: pointer; border-radius: 5px; font-size: 13px; }
-        .tab-btn.active { background: #1e293b; color: white; }
-        .btn-nova-solicitation { background-color: #16a34a; color: white; margin-left: auto; }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .bg-pendente {
+            background-color: #d97706;
+        }
+
+        .bg-entregue {
+            background-color: #16a34a;
+        }
+
+        /* =====================================================
+           ABAS
+        ===================================================== */
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 8px 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .tab-btn.active {
+            background: #1e293b;
+            color: white;
+        }
+
+        .btn-nova-solicitation {
+            background-color: #16a34a;
+            color: white;
+            margin-left: auto;
+        }
+
+        .btn-master-tab {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .btn-master-tab.active {
+            background: #5b21b6;
+        }
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
 
         .relatorio-card {
             background: #f8fafc;
@@ -171,6 +332,10 @@
             border-left: 4px solid #2563eb;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
 
         .modal-overlay {
             display: none;
@@ -217,662 +382,2655 @@
             cursor: pointer;
             padding: 0 8px;
         }
-        .modal-close:hover { color: #dc2626; }
+
+        .modal-close:hover {
+            color: #dc2626;
+        }
+
+        /* =====================================================
+           ADMINISTRADORES
+        ===================================================== */
+
+        .master-box {
+            border: 2px solid #7c3aed;
+            background: #faf5ff;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .master-title {
+            color: #6d28d9;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+
+        .admin-info strong {
+            color: #1e293b;
+        }
+
+        .admin-info small {
+            color: #64748b;
+        }
+
+        .master-badge {
+            background: #7c3aed;
+            color: white;
+            padding: 3px 7px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 650px) {
+            .container {
+                padding: 12px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-logo {
+                align-items: flex-start;
+            }
+
+            .logo-img {
+                width: 52px;
+                height: 52px;
+            }
+
+            .header-logo h3 {
+                font-size: 17px !important;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 7px 9px;
+                font-size: 11px;
+            }
+
+            .btn-nova-solicitation {
+                margin-left: 0;
+            }
+
+            table {
+                min-width: 650px;
+            }
+
+            .tabela-container {
+                overflow-x: auto;
+            }
+
+            .admin-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* =====================================================
+           IMPRESSÃO
+        ===================================================== */
 
         @media print {
-            body::before { opacity: 0.05; }
-            .header-login, .tabs, .modal-overlay, form, .btn-print { display: none !important; }
-            .container { box-shadow: none; border: none; width: 100%; padding: 0; }
-            .tabela-container { max-height: none; overflow: visible; border: none; }
+            body::before {
+                opacity: 0.05;
+            }
+
+            .header-login,
+            .tabs,
+            .modal-overlay,
+            form,
+            .btn-print,
+            #abaAdministradores {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                padding: 0;
+            }
+
+            .tabela-container {
+                max-height: none;
+                overflow: visible;
+                border: none;
+            }
         }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
+
 <body>
 
 <div class="container">
+
+    <!-- =====================================================
+         CABEÇALHO
+    ===================================================== -->
+
     <div class="header-logo">
         <div class="logo-box">
-            <img src="brasao.jpg" alt="Brasão Policiamento Rodoviário" class="logo-img">
+
+            <img
+                src="rodoviaria.jfif"
+                alt="Brasão Policiamento Rodoviário"
+                class="logo-img"
+            >
+
             <div>
-                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">P4 - 3º BPRv</h3>
-                <small style="color: #64748b; font-size: 12px;">Policiamento Rodoviário - São Paulo</small>
+                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">
+                    P4 - 3º BPRv
+                </h3>
+
+                <small style="color: #64748b; font-size: 12px;">
+                    Policiamento Rodoviário - São Paulo
+                </small>
             </div>
         </div>
     </div>
 
+    <!-- =====================================================
+         LOGIN
+    ===================================================== -->
+
     <div class="header-login">
-        <div>Sessão: <span id="usuarioNome" style="color: #60a5fa; font-weight: bold;">Usuário Comum</span></div>
-        <button id="btnLoginLogout" class="btn-alt" onclick="alternarLogin()">Entrar como ADM</button>
+
+        <div>
+            Sessão:
+            <span
+                id="usuarioNome"
+                style="color: #60a5fa; font-weight: bold;"
+            >
+                Usuário Comum
+            </span>
+        </div>
+
+        <button
+            id="btnLoginLogout"
+            class="btn-alt"
+            onclick="alternarLogin()"
+        >
+            Entrar como ADM
+        </button>
+
     </div>
+
+    <!-- =====================================================
+         ABAS
+    ===================================================== -->
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="mudarAba('solicitacoes')">Solicitações Registradas</button>
-        <button class="tab-btn" onclick="mudarAba('relatorio')">Relatório Mensal</button>
-        <button class="tab-btn" onclick="mudarAba('estoque')">Estoque / Cadastros</button>
-        <button class="tab-btn btn-nova-solicitation" onclick="abrirModalSolicitacao()">+ Nova Solicitação</button>
+
+        <button
+            class="tab-btn active"
+            onclick="mudarAba('solicitacoes')"
+        >
+            Solicitações Registradas
+        </button>
+
+        <button
+            class="tab-btn"
+            onclick="mudarAba('relatorio')"
+        >
+            Relatório Mensal
+        </button>
+
+        <button
+            class="tab-btn"
+            onclick="mudarAba('estoque')"
+        >
+            Estoque / Cadastros
+        </button>
+
+        <!-- ABA MASTER -->
+        <button
+            id="tabAdministradores"
+            class="tab-btn btn-master-tab"
+            onclick="mudarAba('administradores')"
+            style="display:none;"
+        >
+            Administradores
+        </button>
+
+        <button
+            class="tab-btn btn-nova-solicitation"
+            onclick="abrirModalSolicitacao()"
+        >
+            + Nova Solicitação
+        </button>
+
     </div>
 
-    <!-- ABA SOLICITAÇÕES REGISTRADAS -->
+    <!-- =====================================================
+         ABA SOLICITAÇÕES
+    ===================================================== -->
+
     <div id="abaSolicitacoes">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <h4 style="margin: 0; font-size: 15px; color: #1e293b;">Histórico de Solicitações</h4>
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:8px;
+        ">
+
+            <h4 style="
+                margin:0;
+                font-size:15px;
+                color:#1e293b;
+            ">
+                Histórico de Solicitações
+            </h4>
+
         </div>
-        
+
         <div class="tabela-container">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Data</th>
                         <th>Solicitante</th>
                         <th>Item(ns)</th>
                         <th>Qtd Total</th>
                         <th>Status</th>
-                        <th>Ação (ADM)</th>
+                        <th>Ação</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="tabelaCorpo"></tbody>
+
             </table>
+
         </div>
+
     </div>
 
-    <!-- ABA RELATÓRIO MENSAL -->
-    <div id="abaRelatorio" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h4 style="margin: 0; font-size: 15px;">Relatório Mensal</h4>
-            <div style="display: flex; gap: 6px;">
-                <button class="btn-relatorio btn-print" onclick="window.print()">Imprimir</button>
-                <button class="btn-relatorio btn-print" style="background-color: #b91c1c;" onclick="exportarRelatorioPDF()">Exportar PDF</button>
+    <!-- =====================================================
+         ABA RELATÓRIO
+    ===================================================== -->
+
+    <div
+        id="abaRelatorio"
+        style="display:none;"
+    >
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:12px;
+        ">
+
+            <h4 style="margin:0;font-size:15px;">
+                Relatório Mensal
+            </h4>
+
+            <div style="display:flex;gap:6px;">
+
+                <button
+                    class="btn-relatorio btn-print"
+                    onclick="window.print()"
+                >
+                    Imprimir
+                </button>
+
+                <button
+                    class="btn-relatorio btn-print"
+                    style="background-color:#b91c1c;"
+                    onclick="exportarRelatorioPDF()"
+                >
+                    Exportar PDF
+                </button>
+
             </div>
+
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
-            <div class="relatorio-card" style="margin-bottom: 0;">
-                <label for="filtroMesAno">Filtrar por Mês/Ano:</label>
-                <input type="month" id="filtroMesAno" onchange="gerarRelatorio()">
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-bottom:12px;
+        ">
+
+            <div
+                class="relatorio-card"
+                style="margin-bottom:0;"
+            >
+
+                <label for="filtroMesAno">
+                    Filtrar por Mês/Ano:
+                </label>
+
+                <input
+                    type="month"
+                    id="filtroMesAno"
+                    onchange="gerarRelatorio()"
+                >
+
             </div>
-            <div class="relatorio-card" style="margin-bottom: 0;">
-                <label for="filtroSolicitante">Filtrar por Solicitante/Seção:</label>
-                <select id="filtroSolicitante" onchange="gerarRelatorio()">
-                    <option value="todos">Todos os Solicitantes</option>
+
+            <div
+                class="relatorio-card"
+                style="margin-bottom:0;"
+            >
+
+                <label for="filtroSolicitante">
+                    Filtrar por Solicitante/Seção:
+                </label>
+
+                <select
+                    id="filtroSolicitante"
+                    onchange="gerarRelatorio()"
+                >
+                    <option value="todos">
+                        Todos os Solicitantes
+                    </option>
                 </select>
+
             </div>
+
         </div>
 
         <div class="cards-grid">
-            <div class="card-stat" style="border-color: #2563eb;">
-                <small style="color: #64748b; font-size: 11px;">Total Mês</small>
-                <h3 id="statTotal" style="margin: 0; font-size: 18px;">0</h3>
+
+            <div
+                class="card-stat"
+                style="border-color:#2563eb;"
+            >
+                <small style="color:#64748b;font-size:11px;">
+                    Total Mês
+                </small>
+
+                <h3
+                    id="statTotal"
+                    style="margin:0;font-size:18px;"
+                >
+                    0
+                </h3>
             </div>
-            <div class="card-stat" style="border-color: #16a34a;">
-                <small style="color: #64748b; font-size: 11px;">Entregues</small>
-                <h3 id="statEntregue" style="margin: 0; font-size: 18px; color: #16a34a;">0</h3>
+
+            <div
+                class="card-stat"
+                style="border-color:#16a34a;"
+            >
+                <small style="color:#64748b;font-size:11px;">
+                    Entregues
+                </small>
+
+                <h3
+                    id="statEntregue"
+                    style="
+                        margin:0;
+                        font-size:18px;
+                        color:#16a34a;
+                    "
+                >
+                    0
+                </h3>
             </div>
-            <div class="card-stat" style="border-color: #d97706;">
-                <small style="color: #64748b; font-size: 11px;">Pendentes</small>
-                <h3 id="statPendente" style="margin: 0; font-size: 18px; color: #d97706;">0</h3>
+
+            <div
+                class="card-stat"
+                style="border-color:#d97706;"
+            >
+                <small style="color:#64748b;font-size:11px;">
+                    Pendentes
+                </small>
+
+                <h3
+                    id="statPendente"
+                    style="
+                        margin:0;
+                        font-size:18px;
+                        color:#d97706;
+                    "
+                >
+                    0
+                </h3>
             </div>
+
         </div>
 
-        <h4 id="tituloConsolidado" style="margin: 12px 0 6px 0; font-size: 14px;">Consolidado do Mês</h4>
-        <div class="tabela-container" style="max-height: 220px;">
+        <h4
+            id="tituloConsolidado"
+            style="margin:12px 0 6px 0;font-size:14px;"
+        >
+            Consolidado do Mês
+        </h4>
+
+        <div
+            class="tabela-container"
+            style="max-height:220px;"
+        >
+
             <table>
+
                 <thead>
                     <tr>
                         <th>Item</th>
                         <th>Quantidade Solicitada</th>
                     </tr>
                 </thead>
+
                 <tbody id="tabelaRelatorio"></tbody>
+
             </table>
+
         </div>
+
     </div>
 
-    <!-- ABA ESTOQUE E CADASTROS -->
-    <div id="abaEstoque" style="display: none;">
-        <div class="relatorio-card" id="cadSolicitanteFormCard" style="display: none; border-left: 4px solid #2563eb;">
-            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Cadastrar Solicitante / Seção (ADM)</h4>
-            <form id="cadSolicitanteForm" onsubmit="cadastrarNovoSolicitante(event)">
-                <div style="display: grid; grid-template-columns: 1fr 110px; gap: 8px;">
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label for="novoSolicitanteNome">Nome da Seção/Unidade:</label>
-                        <input type="text" id="novoSolicitanteNome" placeholder="Ex: Bop/2, Cia/1, P1" required>
+    <!-- =====================================================
+         ABA ESTOQUE
+    ===================================================== -->
+
+    <div
+        id="abaEstoque"
+        style="display:none;"
+    >
+
+        <!-- CADASTRAR SOLICITANTE -->
+
+        <div
+            class="relatorio-card"
+            id="cadSolicitanteFormCard"
+            style="
+                display:none;
+                border-left:4px solid #2563eb;
+            "
+        >
+
+            <h4 style="
+                margin:0 0 8px 0;
+                font-size:14px;
+            ">
+                Cadastrar Solicitante / Seção (ADM)
+            </h4>
+
+            <form
+                id="cadSolicitanteForm"
+                onsubmit="cadastrarNovoSolicitante(event)"
+            >
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 110px;
+                    gap:8px;
+                ">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;"
+                    >
+
+                        <label for="novoSolicitanteNome">
+                            Nome da Seção/Unidade:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="novoSolicitanteNome"
+                            placeholder="Ex: Bop/2, Cia/1, P1"
+                            required
+                        >
+
                     </div>
-                    <button type="submit" style="margin-top: 20px; height: 35px;">Cadastrar</button>
+
+                    <button
+                        type="submit"
+                        style="margin-top:20px;height:35px;"
+                    >
+                        Cadastrar
+                    </button>
+
                 </div>
+
             </form>
-            <div id="listaSolicitantesCadastrados" style="margin-top: 10px; font-size: 12px;"></div>
+
+            <div
+                id="listaSolicitantesCadastrados"
+                style="
+                    margin-top:10px;
+                    font-size:12px;
+                "
+            ></div>
+
         </div>
 
-        <div class="relatorio-card" id="estoqueFormCard" style="display: none;">
-            <h4 style="margin: 0 0 8px 0; font-size: 14px;">Adicionar / Repor Item no Estoque (ADM)</h4>
-            <form id="estoqueForm" onsubmit="adicionarItemEstoque(event)">
-                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label for="estoqueItem">Nome do Item:</label>
-                        <input type="text" id="estoqueItem" placeholder="Ex: Papel A4" required>
+        <!-- ESTOQUE -->
+
+        <div
+            class="relatorio-card"
+            id="estoqueFormCard"
+            style="display:none;"
+        >
+
+            <h4 style="
+                margin:0 0 8px 0;
+                font-size:14px;
+            ">
+                Adicionar / Repor Item no Estoque (ADM)
+            </h4>
+
+            <form
+                id="estoqueForm"
+                onsubmit="adicionarItemEstoque(event)"
+            >
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 100px;
+                    gap:8px;
+                ">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;"
+                    >
+
+                        <label for="estoqueItem">
+                            Nome do Item:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="estoqueItem"
+                            placeholder="Ex: Papel A4"
+                            required
+                        >
+
                     </div>
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label for="estoqueQtd">Qtd:</label>
-                        <input type="number" id="estoqueQtd" min="1" value="1" required>
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;"
+                    >
+
+                        <label for="estoqueQtd">
+                            Qtd:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="estoqueQtd"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
                     </div>
+
                 </div>
-                <button type="submit" style="margin-top: 8px; width: 100%;">Adicionar ao Estoque</button>
+
+                <button
+                    type="submit"
+                    style="margin-top:8px;width:100%;"
+                >
+                    Adicionar ao Estoque
+                </button>
+
             </form>
-            <small style="color: #64748b; font-size: 11px;">Se o item já existir, a quantidade informada será somada ao saldo atual.</small>
+
+            <small style="
+                color:#64748b;
+                font-size:11px;
+            ">
+                Se o item já existir, a quantidade informada
+                será somada ao saldo atual.
+            </small>
+
         </div>
 
-        <h4 style="margin: 12px 0 6px 0; font-size: 14px;">Itens em Estoque</h4>
-        <div class="tabela-container" style="max-height: 250px;">
+        <h4 style="
+            margin:12px 0 6px 0;
+            font-size:14px;
+        ">
+            Itens em Estoque
+        </h4>
+
+        <div
+            class="tabela-container"
+            style="max-height:250px;"
+        >
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Item</th>
                         <th>Quantidade Atual</th>
                         <th>Ação (ADM)</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="tabelaEstoque"></tbody>
+
             </table>
+
         </div>
+
     </div>
+
+    <!-- =====================================================
+         ABA ADMINISTRADORES - SOMENTE MASTER
+    ===================================================== -->
+
+    <div
+        id="abaAdministradores"
+        style="display:none;"
+    >
+
+        <div class="master-box">
+
+            <div class="master-title">
+                🔐 Área MASTER
+            </div>
+
+            <div style="
+                font-size:12px;
+                color:#475569;
+            ">
+                Esta área é exclusiva do usuário MASTER.
+                Aqui você pode cadastrar e excluir administradores
+                do sistema.
+            </div>
+
+        </div>
+
+        <div
+            class="relatorio-card"
+            style="border-left:4px solid #7c3aed;"
+        >
+
+            <h4 style="
+                margin:0 0 10px 0;
+                font-size:14px;
+                color:#6d28d9;
+            ">
+                Cadastrar Novo Administrador
+            </h4>
+
+            <form
+                id="adminForm"
+                onsubmit="cadastrarAdministrador(event)"
+            >
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:10px;
+                ">
+
+                    <div class="form-group">
+
+                        <label for="novoAdminNome">
+                            Nome do Administrador:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="novoAdminNome"
+                            placeholder="Ex: Sgt João"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="novoAdminSenha">
+                            Senha:
+                        </label>
+
+                        <input
+                            type="password"
+                            id="novoAdminSenha"
+                            placeholder="Digite a senha"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    style="
+                        background:#7c3aed;
+                        width:100%;
+                    "
+                >
+                    + Cadastrar Administrador
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="relatorio-card">
+
+            <h4 style="
+                margin:0 0 10px 0;
+                font-size:14px;
+            ">
+                Administradores Cadastrados
+            </h4>
+
+            <div id="listaAdministradores"></div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<!-- MODAL DE SOLICITAÇÃO -->
-<div class="modal-overlay" id="modalSolicitacao">
+<!-- =========================================================
+     MODAL NOVA SOLICITAÇÃO
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="modalSolicitacao"
+>
+
     <div class="modal-content">
+
         <div class="modal-header">
-            <h3 style="margin: 0; color: #1e293b; font-size: 17px;">Nova Solicitação de Material</h3>
-            <button class="modal-close" onclick="fecharModalSolicitacao()">&times;</button>
+
+            <h3 style="
+                margin:0;
+                color:#1e293b;
+                font-size:17px;
+            ">
+                Nova Solicitação de Material
+            </h3>
+
+            <button
+                class="modal-close"
+                onclick="fecharModalSolicitacao()"
+            >
+                &times;
+            </button>
+
         </div>
 
         <form id="solicitacaoForm">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+            <div style="
+                display:grid;
+                grid-template-columns:1fr 1fr;
+                gap:12px;
+            ">
+
                 <div class="form-group">
-                    <label for="solicitanteBase">Seção/Unidade:</label>
-                    <select id="solicitanteBase" required>
-                        <option value="" disabled selected>Selecione</option>
+
+                    <label for="solicitanteBase">
+                        Seção/Unidade:
+                    </label>
+
+                    <select
+                        id="solicitanteBase"
+                        required
+                    >
+
+                        <option
+                            value=""
+                            disabled
+                            selected
+                        >
+                            Selecione
+                        </option>
+
                     </select>
+
                 </div>
+
                 <div class="form-group">
-                    <label for="solicitanteRE">RE do Policial:</label>
-                    <input type="text" id="solicitanteRE" placeholder="Ex: 123456-7" required>
+
+                    <label for="solicitanteRE">
+                        RE do Policial:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="solicitanteRE"
+                        placeholder="Ex: 123456-7"
+                        required
+                    >
+
                 </div>
+
             </div>
 
             <div class="form-group">
-                <label for="data">Data da Solicitação:</label>
-                <input type="date" id="data" required>
+
+                <label for="data">
+                    Data da Solicitação:
+                </label>
+
+                <input
+                    type="date"
+                    id="data"
+                    required
+                >
+
             </div>
 
-            <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
-                <h5 style="margin: 0 0 10px 0; color: #334155; font-size: 13px;">Adicionar Itens</h5>
-                <div style="display: grid; grid-template-columns: 1fr 100px; gap: 8px;">
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label for="item">Item Solicitado:</label>
-                        <select id="item" onchange="atualizarEstoqueDisponivelView(); alternarItemPersonalizado();">
-                            <option value="" disabled selected>Selecione um item</option>
+            <div style="
+                background:#f8fafc;
+                padding:12px;
+                border-radius:6px;
+                border:1px solid #e2e8f0;
+                margin-bottom:12px;
+            ">
+
+                <h5 style="
+                    margin:0 0 10px 0;
+                    color:#334155;
+                    font-size:13px;
+                ">
+                    Adicionar Itens
+                </h5>
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:1fr 100px;
+                    gap:8px;
+                ">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;"
+                    >
+
+                        <label for="item">
+                            Item Solicitado:
+                        </label>
+
+                        <select
+                            id="item"
+                            onchange="
+                                atualizarEstoqueDisponivelView();
+                                alternarItemPersonalizado();
+                            "
+                        >
+                            <option
+                                value=""
+                                disabled
+                                selected
+                            >
+                                Selecione um item
+                            </option>
                         </select>
-                        <input type="text" id="itemPersonalizado" placeholder="Digite o nome do item" style="display: none; margin-top: 6px;">
+
+                        <input
+                            type="text"
+                            id="itemPersonalizado"
+                            placeholder="Digite o nome do item"
+                            style="
+                                display:none;
+                                margin-top:6px;
+                            "
+                        >
+
                     </div>
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label for="quantidade">Qtd:</label>
-                        <input type="number" id="quantidade" min="1" value="1">
+
+                    <div
+                        class="form-group"
+                        style="margin-bottom:0;"
+                    >
+
+                        <label for="quantidade">
+                            Qtd:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantidade"
+                            min="1"
+                            value="1"
+                        >
+
                     </div>
+
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-                    <small id="estoqueDisponivelInfo" style="color: #64748b; font-size: 11px;">Estoque: -</small>
-                    <button type="button" class="btn-alt" onclick="adicionarItemTemporario()" style="font-size: 12px; padding: 6px 12px;">+ Adicionar à Lista</button>
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-top:6px;
+                ">
+
+                    <small
+                        id="estoqueDisponivelInfo"
+                        style="
+                            color:#64748b;
+                            font-size:11px;
+                        "
+                    >
+                        Estoque: -
+                    </small>
+
+                    <button
+                        type="button"
+                        class="btn-alt"
+                        onclick="adicionarItemTemporario()"
+                        style="
+                            font-size:12px;
+                            padding:6px 12px;
+                        "
+                    >
+                        + Adicionar à Lista
+                    </button>
+
                 </div>
+
             </div>
 
-            <div id="areaListaTemporaria" style="display: none; margin-bottom: 16px; background: #f1f5f9; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1;">
-                <strong style="font-size: 12px; color: #334155;">Lista de Itens Selecionados:</strong>
-                <ul id="listaItensTemporarios" style="margin: 6px 0 10px 0; padding-left: 20px; font-size: 13px;"></ul>
+            <div
+                id="areaListaTemporaria"
+                style="
+                    display:none;
+                    margin-bottom:16px;
+                    background:#f1f5f9;
+                    padding:10px;
+                    border-radius:6px;
+                    border:1px dashed #cbd5e1;
+                "
+            >
+
+                <strong style="
+                    font-size:12px;
+                    color:#334155;
+                ">
+                    Lista de Itens Selecionados:
+                </strong>
+
+                <ul
+                    id="listaItensTemporarios"
+                    style="
+                        margin:6px 0 10px 0;
+                        padding-left:20px;
+                        font-size:13px;
+                    "
+                ></ul>
+
             </div>
 
-            <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                <button type="button" onclick="fecharModalSolicitacao()" style="background-color: #64748b;">Cancelar</button>
-                <button type="submit" style="background-color: #16a34a; padding: 10px 18px;">Finalizar e Cadastrar</button>
+            <div style="
+                display:flex;
+                gap:8px;
+                justify-content:flex-end;
+            ">
+
+                <button
+                    type="button"
+                    onclick="fecharModalSolicitacao()"
+                    style="background-color:#64748b;"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    style="
+                        background-color:#16a34a;
+                        padding:10px 18px;
+                    "
+                >
+                    Finalizar e Cadastrar
+                </button>
+
             </div>
+
         </form>
+
     </div>
+
 </div>
 
-<!-- INTEGRAÇÃO COM FIREBASE MODERNO (v10+ SDK MODULES) -->
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, push, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // Suas configurações do Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
-    authDomain: "bprv-2c760.firebaseapp.com",
-    projectId: "bprv-2c760",
-    storageBucket: "bprv-2c760.firebasestorage.app",
-    messagingSenderId: "940006401979",
-    appId: "1:940006401979:web:bf678dc236f2fd2332469e",
-    databaseURL: "https://bprv-2c760-default-rtdb.firebaseio.com"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  const solicitacoesRef = ref(db, 'solicitacoes');
-  const estoqueRef = ref(db, 'estoque');
-  const solicitantesRef = ref(db, 'solicitantes');
-
-  // Variáveis Globais
-  window.SENHA_ADM = "3Bprv";
-  window.isAdmin = false;
-  window.itensCarrinho = [];
-  window.solicitacoes = [];
-  window.estoque = [];
-  window.solicitantesCadastrados = [];
-
-  // Inicialização de Datas
-  document.getElementById('data').value = new Date().toISOString().split('T')[0];
-  document.getElementById('filtroMesAno').value = new Date().toISOString().slice(0, 7);
-
-  // LISTENERS DE TEMPO REAL DO FIREBASE
-  onValue(solicitacoesRef, (snapshot) => {
-    const data = snapshot.val();
-    window.solicitacoes = data ? Object.keys(data).map(key => ({ idFirebase: key, ...data[key] })) : [];
-    atualizarTabela();
-    gerarRelatorio();
-  });
-
-  onValue(estoqueRef, (snapshot) => {
-    const data = snapshot.val();
-    window.estoque = data ? Object.keys(data).map(key => ({ idFirebase: key, ...data[key] })) : [];
-    atualizarTabelaEstoque();
-    popularSelectItens();
-  });
-
-  onValue(solicitantesRef, (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      window.solicitantesCadastrados = Object.values(data);
-    } else {
-      window.solicitantesCadastrados = ['Bop/1', 'Bop/2', 'Bop/3', 'P1', 'P2', 'P3', 'P4'];
-      set(solicitantesRef, window.solicitantesCadastrados);
+    import {
+        initializeApp
     }
-    atualizarSelectSolicitantes();
-    popularFiltroSolicitantes();
-    renderizarListaSolicitantesGerenciamento();
-  });
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
-  // FUNÇÕES DE MANIPULAÇÃO DO MODAL E SESSÃO
-  window.abrirModalSolicitacao = function() {
-    document.getElementById('modalSolicitacao').style.display = 'flex';
-    atualizarSelectSolicitantes();
-    popularSelectItens();
-  }
+    import {
+        getDatabase,
+        ref,
+        push,
+        onValue,
+        update,
+        remove,
+        set
+    }
+    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  window.fecharModalSolicitacao = function() {
-    document.getElementById('modalSolicitacao').style.display = 'none';
+
+    /* =====================================================
+       CONFIGURAÇÃO FIREBASE
+    ===================================================== */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyAPjXidhBQ8to3ZDjZaugSJoY2q-4phpr4",
+
+        authDomain:
+            "bprv-2c760.firebaseapp.com",
+
+        projectId:
+            "bprv-2c760",
+
+        storageBucket:
+            "bprv-2c760.firebasestorage.app",
+
+        messagingSenderId:
+            "940006401979",
+
+        appId:
+            "1:940006401979:web:bf678dc236f2fd2332469e",
+
+        databaseURL:
+            "https://bprv-2c760-default-rtdb.firebaseio.com"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const db = getDatabase(app);
+
+
+    /* =====================================================
+       REFERÊNCIAS
+    ===================================================== */
+
+    const solicitacoesRef =
+        ref(db, 'solicitacoes');
+
+    const estoqueRef =
+        ref(db, 'estoque');
+
+    const solicitantesRef =
+        ref(db, 'solicitantes');
+
+    const administradoresRef =
+        ref(db, 'administradores');
+
+
+    /* =====================================================
+       CONFIGURAÇÃO DE ACESSO
+    ===================================================== */
+
+    // SENHA MASTER SOLICITADA
+    window.SENHA_MASTER = "3BPRv";
+
+
+    window.isAdmin = false;
+
+    window.isMaster = false;
+
+    window.usuarioLogado = "";
+
     window.itensCarrinho = [];
-    renderizarListaTemporaria();
-    document.getElementById('solicitacaoForm').reset();
-    document.getElementById('data').value = new Date().toISOString().split('T')[0];
-    alternarItemPersonalizado();
-  }
 
-  window.alternarLogin = function() {
-    if (!window.isAdmin) {
-        let senha = prompt("Digite a senha do ADM:");
-        if (senha === window.SENHA_ADM) {
-            window.isAdmin = true;
-            document.getElementById('usuarioNome').innerText = "Administrador (ADM)";
-            document.getElementById('usuarioNome').style.color = "#4ade80";
-            document.getElementById('btnLoginLogout').innerText = "Sair do ADM";
-            document.getElementById('btnLoginLogout').className = "btn-logout";
-        } else if (senha !== null) {
-            alert("Senha incorreta!");
+    window.solicitacoes = [];
+
+    window.estoque = [];
+
+    window.solicitantesCadastrados = [];
+
+    window.administradores = [];
+
+
+    /* =====================================================
+       DATAS INICIAIS
+    ===================================================== */
+
+    document.getElementById('data').value =
+        new Date().toISOString().split('T')[0];
+
+    document.getElementById('filtroMesAno').value =
+        new Date().toISOString().slice(0, 7);
+
+
+    /* =====================================================
+       SOLICITAÇÕES
+    ===================================================== */
+
+    onValue(
+        solicitacoesRef,
+        (snapshot) => {
+
+            const data = snapshot.val();
+
+            window.solicitacoes =
+                data
+                    ? Object.keys(data).map(
+                        key => ({
+                            idFirebase: key,
+                            ...data[key]
+                        })
+                    )
+                    : [];
+
+            atualizarTabela();
+
+            gerarRelatorio();
         }
-    } else {
-        window.isAdmin = false;
-        document.getElementById('usuarioNome').innerText = "Usuário Comum";
-        document.getElementById('usuarioNome').style.color = "#60a5fa";
-        document.getElementById('btnLoginLogout').innerText = "Entrar como ADM";
-        document.getElementById('btnLoginLogout').className = "btn-alt";
-    }
-    
-    document.getElementById('cadSolicitanteFormCard').style.display = window.isAdmin ? 'block' : 'none';
-    document.getElementById('estoqueFormCard').style.display = window.isAdmin ? 'block' : 'none';
-    
-    atualizarSelectSolicitantes();
-    popularFiltroSolicitantes();
-    atualizarTabela();
-    gerarRelatorio();
-    atualizarTabelaEstoque();
-  }
+    );
 
-  window.mudarAba = function(aba) {
-    const botoes = document.querySelectorAll('.tab-btn:not(.btn-nova-solicitation)');
-    const abas = {
-        solicitacoes: document.getElementById('abaSolicitacoes'),
-        relatorio: document.getElementById('abaRelatorio'),
-        estoque: document.getElementById('abaEstoque')
-    };
-    const indices = { solicitacoes: 0, relatorio: 1, estoque: 2 };
 
-    Object.keys(abas).forEach(nome => {
-        abas[nome].style.display = (nome === aba) ? 'block' : 'none';
-        if (botoes[indices[nome]]) {
-            botoes[indices[nome]].classList.toggle('active', nome === aba);
+    /* =====================================================
+       ESTOQUE
+    ===================================================== */
+
+    onValue(
+        estoqueRef,
+        (snapshot) => {
+
+            const data = snapshot.val();
+
+            window.estoque =
+                data
+                    ? Object.keys(data).map(
+                        key => ({
+                            idFirebase: key,
+                            ...data[key]
+                        })
+                    )
+                    : [];
+
+            atualizarTabelaEstoque();
+
+            popularSelectItens();
         }
-    });
+    );
 
-    if (aba === 'relatorio') {
-        popularFiltroSolicitantes();
-        gerarRelatorio();
-    } else if (aba === 'estoque') {
-        atualizarTabelaEstoque();
-        renderizarListaSolicitantesGerenciamento();
-    }
-  }
 
-  // GERENCIAMENTO DE SOLICITANTES
-  window.cadastrarNovoSolicitante = function(e) {
-    e.preventDefault();
-    if (!window.isAdmin) return;
-    const nome = document.getElementById('novoSolicitanteNome').value.trim();
-    if (nome && !window.solicitantesCadastrados.includes(nome)) {
-        push(solicitantesRef, nome);
-        document.getElementById('novoSolicitanteNome').value = '';
-        alert('Solicitante/Seção cadastrada com sucesso!');
-    } else if (window.solicitantesCadastrados.includes(nome)) {
-        alert('Este solicitante já está cadastrado!');
-    }
-  }
+    /* =====================================================
+       SOLICITANTES
+    ===================================================== */
 
-  window.removerSolicitanteCadastrado = function(nome) {
-    if (!window.isAdmin) return;
-    if (confirm(`Remover "${nome}" da lista de solicitantes?`)) {
-        const novos = window.solicitantesCadastrados.filter(s => s !== nome);
-        set(solicitantesRef, novos);
-    }
-  }
+    onValue(
+        solicitantesRef,
+        (snapshot) => {
 
-  function renderizarListaSolicitantesGerenciamento() {
-    const div = document.getElementById('listaSolicitantesCadastrados');
-    if (!div) return;
-    if (window.solicitantesCadastrados.length === 0) {
-        div.innerHTML = "<em>Nenhum solicitante cadastrado.</em>";
-        return;
-    }
-    let html = "<strong>Cadastrados:</strong> ";
-    html += window.solicitantesCadastrados.map(s => `
-        <span style="background:#e2e8f0; padding:2px 6px; border-radius:4px; margin-right:4px; display:inline-block; margin-top:4px;">
-            ${s} ${window.isAdmin ? `<a href="#" onclick="removerSolicitanteCadastrado('${s}'); return false;" style="color:#dc2626; font-weight:bold; margin-left:4px;">&times;</a>` : ''}
-        </span>
-    `).join('');
-    div.innerHTML = html;
-  }
+            const data = snapshot.val();
 
-  function atualizarSelectSolicitantes() {
-    const select = document.getElementById('solicitanteBase');
-    const valorAtual = select.value;
-    select.innerHTML = '<option value="" disabled selected>Selecione</option>' +
-        window.solicitantesCadastrados.map(s => `<option value="${s}">${s}</option>`).join('');
-    if (window.solicitantesCadastrados.includes(valorAtual)) {
-        select.value = valorAtual;
-    }
-  }
+            if (data) {
 
-  function popularFiltroSolicitantes() {
-    const select = document.getElementById('filtroSolicitante');
-    const valorAtual = select.value;
-    select.innerHTML = '<option value="todos">Todos os Solicitantes</option>' +
-        window.solicitantesCadastrados.map(s => `<option value="${s}">${s}</option>`).join('');
-    select.value = valorAtual || 'todos';
-  }
+                window.solicitantesCadastrados =
+                    Object.values(data);
 
-  // GERENCIAMENTO DO ESTOQUE
-  window.adicionarItemEstoque = function(e) {
-    e.preventDefault();
-    if (!window.isAdmin) return;
-    const itemNome = document.getElementById('estoqueItem').value.trim();
-    const qtd = parseInt(document.getElementById('estoqueQtd').value, 10) || 1;
-
-    const itemExistente = window.estoque.find(e => e.item.toLowerCase() === itemNome.toLowerCase());
-    if (itemExistente) {
-        update(ref(db, `estoque/${itemExistente.idFirebase}`), { quantidade: itemExistente.quantidade + qtd });
-    } else {
-        push(estoqueRef, { item: itemNome, quantidade: qtd });
-    }
-    document.getElementById('estoqueForm').reset();
-  }
-
-  window.removerItemEstoque = function(idFirebase) {
-    if (!window.isAdmin) return;
-    if (confirm("Deseja realmente remover este item do estoque?")) {
-        remove(ref(db, `estoque/${idFirebase}`));
-    }
-  }
-
-  function atualizarTabelaEstoque() {
-    const corpo = document.getElementById('tabelaEstoque');
-    corpo.innerHTML = "";
-    if (window.estoque.length === 0) {
-        corpo.innerHTML = `<tr><td colspan="3" style="text-align:center;">Nenhum item em estoque.</td></tr>`;
-        return;
-    }
-    window.estoque.forEach(e => {
-        const acao = window.isAdmin ? `<button onclick="removerItemEstoque('${e.idFirebase}')" style="background:#dc2626; padding:2px 6px; font-size:10px;">Excluir</button>` : '-';
-        corpo.innerHTML += `<tr><td><strong>${e.item}</strong></td><td>${e.quantidade}</td><td>${acao}</td></tr>`;
-    });
-  }
-
-  function popularSelectItens() {
-    const select = document.getElementById('item');
-    let html = '<option value="" disabled selected>Selecione um item</option>';
-    window.estoque.forEach(e => {
-        html += `<option value="${e.item}">${e.item} (Estoque: ${e.quantidade})</option>`;
-    });
-    html += '<option value="Outro">Outro (Digitar manualmente)</option>';
-    select.innerHTML = html;
-  }
-
-  window.alternarItemPersonalizado = function() {
-    const select = document.getElementById('item');
-    const inputCustom = document.getElementById('itemPersonalizado');
-    inputCustom.style.display = select.value === 'Outro' ? 'block' : 'none';
-  }
-
-  function obterItemSolicitado() {
-    const select = document.getElementById('item');
-    return select.value === 'Outro' ? document.getElementById('itemPersonalizado').value.trim() : select.value;
-  }
-
-  window.atualizarEstoqueDisponivelView = function() {
-    const info = document.getElementById('estoqueDisponivelInfo');
-    const itemVal = obterItemSolicitado().trim().toLowerCase();
-    if (!itemVal) {
-        info.innerText = 'Estoque: -';
-        info.style.color = '#64748b';
-        return;
-    }
-    const entrada = window.estoque.find(e => e.item.trim().toLowerCase() === itemVal);
-    if (entrada) {
-        info.innerText = `Estoque: ${entrada.quantidade}`;
-        info.style.color = entrada.quantidade <= 2 ? '#d97706' : '#16a34a';
-    } else {
-        info.innerText = 'Não controlado';
-        info.style.color = '#94a3b8';
-    }
-  }
-
-  window.adicionarItemTemporario = function() {
-    const itemNome = obterItemSolicitado();
-    const quantidade = parseInt(document.getElementById('quantidade').value, 10) || 1;
-    if (!itemNome) {
-        alert('Selecione ou digite um item válido.');
-        return;
-    }
-    window.itensCarrinho.push({ item: itemNome, quantidade: quantidade });
-    document.getElementById('item').value = '';
-    document.getElementById('quantidade').value = 1;
-    alternarItemPersonalizado();
-    atualizarEstoqueDisponivelView();
-    renderizarListaTemporaria();
-  }
-
-  function renderizarListaTemporaria() {
-    const container = document.getElementById('areaListaTemporaria');
-    const ul = document.getElementById('listaItensTemporarios');
-    ul.innerHTML = '';
-    if (window.itensCarrinho.length === 0) {
-        container.style.display = 'none';
-        return;
-    }
-    container.style.display = 'block';
-    window.itensCarrinho.forEach((it, index) => {
-        ul.innerHTML += `
-            <li style="margin-bottom: 2px;">
-                <strong>${it.item}</strong> — Qtd: ${it.quantidade} 
-                <a href="#" onclick="removerItemCarrinho(${index}); return false;" style="color: #dc2626; margin-left: 8px; font-size: 11px;">[remover]</a>
-            </li>`;
-    });
-  }
-
-  window.removerItemCarrinho = function(index) {
-    window.itensCarrinho.splice(index, 1);
-    renderizarListaTemporaria();
-  }
-
-  // ENVIO DE SOLICITAÇÃO AO FIREBASE
-  document.getElementById('solicitacaoForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const base = document.getElementById('solicitanteBase').value;
-    const re = document.getElementById('solicitanteRE').value.trim();
-
-    if (!base || window.itensCarrinho.length === 0) {
-        alert('Preencha os dados e adicione ao menos um item.');
-        return;
-    }
-
-    const novaSolicitacao = {
-        solicitanteBase: base,
-        solicitanteRE: re,
-        solicitante: `${base} - RE ${re}`,
-        item: window.itensCarrinho.map(i => `${i.item} (x${i.quantidade})`).join(', '),
-        quantidade: window.itensCarrinho.reduce((acc, curr) => acc + curr.quantidade, 0),
-        data: document.getElementById('data').value,
-        status: "Pendente",
-        timestamp: Date.now()
-    };
-
-    // Baixa automática no estoque se o item existir
-    window.itensCarrinho.forEach(carrinhoItem => {
-        const itemEstoque = window.estoque.find(e => e.item.toLowerCase() === carrinhoItem.item.toLowerCase());
-        if (itemEstoque) {
-            const novaQtd = Math.max(0, itemEstoque.quantidade - carrinhoItem.quantidade);
-            update(ref(db, `estoque/${itemEstoque.idFirebase}`), { quantidade: novaQtd });
-        }
-    });
-
-    push(solicitacoesRef, novaSolicitacao);
-    fecharModalSolicitacao();
-  });
-
-  window.alterarStatus = function(idFirebase) {
-    if (!window.isAdmin) return;
-    const item = window.solicitacoes.find(s => s.idFirebase === idFirebase);
-    if (item) {
-        const novoStatus = item.status === "Pendente" ? "Entregue" : "Pendente";
-        update(ref(db, `solicitacoes/${idFirebase}`), { status: novoStatus });
-    }
-  }
-
-  function atualizarTabela() {
-    const corpo = document.getElementById('tabelaCorpo');
-    corpo.innerHTML = "";
-    if (window.solicitacoes.length === 0) {
-        corpo.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhuma solicitação encontrada.</td></tr>`;
-        return;
-    }
-    window.solicitacoes.forEach(s => {
-        const dataFmt = s.data ? s.data.split('-').reverse().join('/') : '-';
-        const badgeClass = s.status === "Entregue" ? "bg-entregue" : "bg-pendente";
-        const acaoHtml = window.isAdmin 
-            ? `<button class="btn-status" onclick="alterarStatus('${s.idFirebase}')">Marcar ${s.status === 'Pendente' ? 'Entregue' : 'Pendente'}</button>`
-            : `<span style="color: #94a3b8; font-size: 10px;">Requer ADM</span>`;
-
-        corpo.innerHTML += `
-            <tr>
-                <td>${dataFmt}</td>
-                <td><strong>${s.solicitante}</strong></td>
-                <td>${s.item}</td>
-                <td>${s.quantidade || 1}</td>
-                <td><span class="badge ${badgeClass}">${s.status}</span></td>
-                <td>${acaoHtml}</td>
-            </tr>
-        `;
-    });
-  }
-
-  // GERAR RELATÓRIO
-  window.gerarRelatorio = function() {
-    const mesAno = document.getElementById('filtroMesAno').value;
-    const filtroSolicitante = document.getElementById('filtroSolicitante').value;
-
-    const filtrados = window.solicitacoes.filter(s => {
-        const bateMes = s.data && s.data.startsWith(mesAno);
-        const bateSolicitante = filtroSolicitante === 'todos' || s.solicitanteBase === filtroSolicitante;
-        return bateMes && bateSolicitante;
-    });
-
-    document.getElementById('statTotal').innerText = filtrados.length;
-    document.getElementById('statEntregue').innerText = filtrados.filter(s => s.status === 'Entregue').length;
-    document.getElementById('statPendente').innerText = filtrados.filter(s => s.status === 'Pendente').length;
-
-    const consolidados = {};
-    filtrados.forEach(s => {
-        const itensArr = s.item.split(', ');
-        itensArr.forEach(iStr => {
-            const match = iStr.match(/(.+) \(x(\d+)\)/);
-            if (match) {
-                const nome = match[1];
-                const qtd = parseInt(match[2], 10);
-                consolidados[nome] = (consolidados[nome] || 0) + qtd;
             } else {
-                consolidados[iStr] = (consolidados[iStr] || 0) + 1;
+
+                window.solicitantesCadastrados = [
+                    'Bop/1',
+                    'Bop/2',
+                    'Bop/3',
+                    'P1',
+                    'P2',
+                    'P3',
+                    'P4'
+                ];
+
+                set(
+                    solicitantesRef,
+                    window.solicitantesCadastrados
+                );
             }
-        });
-    });
 
-    const tbody = document.getElementById('tabelaRelatorio');
-    tbody.innerHTML = '';
-    Object.keys(consolidados).forEach(item => {
-        tbody.innerHTML += `<tr><td>${item}</td><td>${consolidados[item]}</td></tr>`;
-    });
-  }
+            atualizarSelectSolicitantes();
 
-  // EXPORTAÇÃO PDF
-  window.exportarRelatorioPDF = function() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.text("Relatório Mensal de Solicitações - P4 3º BPRv", 14, 15);
-    
-    const rows = [];
-    document.querySelectorAll("#tabelaRelatorio tr").forEach(tr => {
-        const cols = tr.querySelectorAll("td");
-        if(cols.length) rows.push([cols[0].innerText, cols[1].innerText]);
-    });
+            popularFiltroSolicitantes();
 
-    doc.autoTable({
-        head: [['Item', 'Quantidade Solicitada']],
-        body: rows,
-        startY: 25
-    });
+            renderizarListaSolicitantesGerenciamento();
+        }
+    );
 
-    doc.save(`relatorio_${document.getElementById('filtroMesAno').value}.pdf`);
-  }
-</script>
-</body>
-</html>
+
+    /* =====================================================
+       ADMINISTRADORES
+    ===================================================== */
+
+    onValue(
+        administradoresRef,
+        (snapshot) => {
+
+            const data = snapshot.val();
+
+            if (data) {
+
+                window.administradores =
+                    Object.keys(data).map(
+                        key => ({
+                            idFirebase: key,
+                            ...data[key]
+                        })
+                    );
+
+            } else {
+
+                window.administradores = [];
+            }
+
+            renderizarListaAdministradores();
+        }
+    );
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    window.alternarLogin = async function() {
+
+        if (!window.isAdmin) {
+
+            const senha =
+                prompt(
+                    "Digite a senha do ADM ou a senha MASTER:"
+                );
+
+
+            if (senha === null) {
+                return;
+            }
+
+
+            /* =============================================
+               LOGIN MASTER
+            ============================================= */
+
+            if (senha === window.SENHA_MASTER) {
+
+                window.isAdmin = true;
+
+                window.isMaster = true;
+
+                window.usuarioLogado = "MASTER";
+
+                atualizarInterfaceLogin();
+
+                alert(
+                    "Acesso MASTER autorizado!"
+                );
+
+                return;
+            }
+
+
+            /* =============================================
+               LOGIN ADMINISTRADOR
+            ============================================= */
+
+            const administrador =
+                window.administradores.find(
+                    adm => adm.senha === senha
+                );
+
+
+            if (administrador) {
+
+                window.isAdmin = true;
+
+                window.isMaster = false;
+
+                window.usuarioLogado =
+                    administrador.nome;
+
+                atualizarInterfaceLogin();
+
+                alert(
+                    "Login realizado com sucesso!"
+                );
+
+            } else {
+
+                alert(
+                    "Senha incorreta!"
+                );
+            }
+
+        } else {
+
+            /* =============================================
+               SAIR
+            ============================================= */
+
+            window.isAdmin = false;
+
+            window.isMaster = false;
+
+            window.usuarioLogado = "";
+
+            atualizarInterfaceLogin();
+
+            mudarAba('solicitacoes');
+        }
+    };
+
+
+    /* =====================================================
+       ATUALIZAR INTERFACE DO LOGIN
+    ===================================================== */
+
+    function atualizarInterfaceLogin() {
+
+        const nome =
+            document.getElementById('usuarioNome');
+
+        const botao =
+            document.getElementById('btnLoginLogout');
+
+
+        if (window.isMaster) {
+
+            nome.innerText =
+                "MASTER";
+
+            nome.style.color =
+                "#c084fc";
+
+            botao.innerText =
+                "Sair do MASTER";
+
+            botao.className =
+                "btn-logout";
+
+        } else if (window.isAdmin) {
+
+            nome.innerText =
+                "ADM - " + window.usuarioLogado;
+
+            nome.style.color =
+                "#4ade80";
+
+            botao.innerText =
+                "Sair do ADM";
+
+            botao.className =
+                "btn-logout";
+
+        } else {
+
+            nome.innerText =
+                "Usuário Comum";
+
+            nome.style.color =
+                "#60a5fa";
+
+            botao.innerText =
+                "Entrar como ADM";
+
+            botao.className =
+                "btn-alt";
+        }
+
+
+        /* =============================================
+           FORMULÁRIOS ADM
+        ============================================= */
+
+        document.getElementById(
+            'cadSolicitanteFormCard'
+        ).style.display =
+            window.isAdmin
+                ? 'block'
+                : 'none';
+
+
+        document.getElementById(
+            'estoqueFormCard'
+        ).style.display =
+            window.isAdmin
+                ? 'block'
+                : 'none';
+
+
+        /* =============================================
+           ABA ADMINISTRADORES
+           SOMENTE MASTER
+        ============================================= */
+
+        document.getElementById(
+            'tabAdministradores'
+        ).style.display =
+            window.isMaster
+                ? 'inline-block'
+                : 'none';
+
+
+        atualizarTabela();
+
+        atualizarTabelaEstoque();
+
+        renderizarListaSolicitantesGerenciamento();
+
+        renderizarListaAdministradores();
+
+        gerarRelatorio();
+    }
+
+
+    /* =====================================================
+       ABAS
+    ===================================================== */
+
+    window.mudarAba = function(aba) {
+
+        const botoes =
+            document.querySelectorAll(
+                '.tab-btn:not(.btn-nova-solicitation)'
+            );
+
+
+        const abas = {
+
+            solicitacoes:
+                document.getElementById(
+                    'abaSolicitacoes'
+                ),
+
+            relatorio:
+                document.getElementById(
+                    'abaRelatorio'
+                ),
+
+            estoque:
+                document.getElementById(
+                    'abaEstoque'
+                ),
+
+            administradores:
+                document.getElementById(
+                    'abaAdministradores'
+                )
+        };
+
+
+        Object.keys(abas).forEach(
+            nome => {
+
+                abas[nome].style.display =
+                    nome === aba
+                        ? 'block'
+                        : 'none';
+            }
+        );
+
+
+        botoes.forEach(
+            botao => {
+                botao.classList.remove('active');
+            }
+        );
+
+
+        const mapaBotoes = {
+
+            solicitacoes: 0,
+
+            relatorio: 1,
+
+            estoque: 2,
+
+            administradores: 3
+        };
+
+
+        if (
+            botoes[mapaBotoes[aba]] &&
+            (
+                aba !== 'administradores' ||
+                window.isMaster
+            )
+        ) {
+
+            botoes[
+                mapaBotoes[aba]
+            ].classList.add('active');
+        }
+
+
+        /* Segurança da aba MASTER */
+
+        if (
+            aba === 'administradores' &&
+            !window.isMaster
+        ) {
+
+            alert(
+                "Acesso permitido somente ao MASTER."
+            );
+
+            mudarAba('solicitacoes');
+
+            return;
+        }
+
+
+        if (aba === 'relatorio') {
+
+            popularFiltroSolicitantes();
+
+            gerarRelatorio();
+
+        } else if (aba === 'estoque') {
+
+            atualizarTabelaEstoque();
+
+            renderizarListaSolicitantesGerenciamento();
+
+        } else if (aba === 'administradores') {
+
+            renderizarListaAdministradores();
+        }
+    };
+
+
+    /* =====================================================
+       MODAL SOLICITAÇÃO
+    ===================================================== */
+
+    window.abrirModalSolicitacao = function() {
+
+        document.getElementById(
+            'modalSolicitacao'
+        ).style.display = 'flex';
+
+        atualizarSelectSolicitantes();
+
+        popularSelectItens();
+    };
+
+
+    window.fecharModalSolicitacao = function() {
+
+        document.getElementById(
+            'modalSolicitacao'
+        ).style.display = 'none';
+
+        window.itensCarrinho = [];
+
+        renderizarListaTemporaria();
+
+        document.getElementById(
+            'solicitacaoForm'
+        ).reset();
+
+        document.getElementById(
+            'data'
+        ).value =
+            new Date().toISOString().split('T')[0];
+
+        alternarItemPersonalizado();
+    };
+
+
+    /* =====================================================
+       SOLICITANTES
+    ===================================================== */
+
+    window.cadastrarNovoSolicitante =
+        function(e) {
+
+            e.preventDefault();
+
+            if (!window.isAdmin) {
+
+                alert(
+                    "É necessário estar logado como ADM."
+                );
+
+                return;
+            }
+
+
+            const nome =
+                document.getElementById(
+                    'novoSolicitanteNome'
+                ).value.trim();
+
+
+            if (
+                nome &&
+                !window.solicitantesCadastrados
+                    .some(
+                        s =>
+                            s.toLowerCase() ===
+                            nome.toLowerCase()
+                    )
+            ) {
+
+                push(
+                    solicitantesRef,
+                    nome
+                );
+
+                document.getElementById(
+                    'novoSolicitanteNome'
+                ).value = '';
+
+                alert(
+                    'Solicitante/Seção cadastrada com sucesso!'
+                );
+
+            } else {
+
+                alert(
+                    'Este solicitante já está cadastrado!'
+                );
+            }
+        };
+
+
+    window.removerSolicitanteCadastrado =
+        function(nome) {
+
+            if (!window.isAdmin) return;
+
+
+            if (
+                confirm(
+                    `Remover "${nome}" da lista de solicitantes?`
+                )
+            ) {
+
+                const novos =
+                    window.solicitantesCadastrados
+                        .filter(
+                            s => s !== nome
+                        );
+
+                set(
+                    solicitantesRef,
+                    novos
+                );
+            }
+        };
+
+
+    function renderizarListaSolicitantesGerenciamento() {
+
+        const div =
+            document.getElementById(
+                'listaSolicitantesCadastrados'
+            );
+
+
+        if (!div) return;
+
+
+        if (
+            window.solicitantesCadastrados.length === 0
+        ) {
+
+            div.innerHTML =
+                "<em>Nenhum solicitante cadastrado.</em>";
+
+            return;
+        }
+
+
+        let html =
+            "<strong>Cadastrados:</strong> ";
+
+
+        html +=
+            window.solicitantesCadastrados
+                .map(
+                    s => `
+
+                    <span style="
+                        background:#e2e8f0;
+                        padding:2px 6px;
+                        border-radius:4px;
+                        margin-right:4px;
+                        display:inline-block;
+                        margin-top:4px;
+                    ">
+
+                        ${s}
+
+                        ${
+                            window.isAdmin
+                            ?
+                            `<a
+                                href="#"
+                                onclick="removerSolicitanteCadastrado(${JSON.stringify(s)});return false;"
+                                style="
+                                    color:#dc2626;
+                                    font-weight:bold;
+                                    margin-left:4px;
+                                "
+                            >
+                                &times;
+                            </a>`
+                            :
+                            ''
+                        }
+
+                    </span>
+                `
+                )
+                .join('');
+
+
+        div.innerHTML = html;
+    }
+
+
+    function atualizarSelectSolicitantes() {
+
+        const select =
+            document.getElementById(
+                'solicitanteBase'
+            );
+
+
+        const valorAtual =
+            select.value;
+
+
+        select.innerHTML =
+            '<option value="" disabled selected>Selecione</option>' +
+
+            window.solicitantesCadastrados
+                .map(
+                    s =>
+                        `<option value="${s}">
+                            ${s}
+                        </option>`
+                )
+                .join('');
+
+
+        if (
+            window.solicitantesCadastrados
+                .includes(valorAtual)
+        ) {
+
+            select.value =
+                valorAtual;
+        }
+    }
+
+
+    function popularFiltroSolicitantes() {
+
+        const select =
+            document.getElementById(
+                'filtroSolicitante'
+            );
+
+
+        const valorAtual =
+            select.value;
+
+
+        select.innerHTML =
+            '<option value="todos">Todos os Solicitantes</option>' +
+
+            window.solicitantesCadastrados
+                .map(
+                    s =>
+                        `<option value="${s}">
+                            ${s}
+                        </option>`
+                )
+                .join('');
+
+
+        select.value =
+            valorAtual || 'todos';
+    }
+
+
+    /* =====================================================
+       ESTOQUE
+    ===================================================== */
+
+    window.adicionarItemEstoque =
+        function(e) {
+
+            e.preventDefault();
+
+            if (!window.isAdmin) return;
+
+
+            const itemNome =
+                document.getElementById(
+                    'estoqueItem'
+                ).value.trim();
+
+
+            const qtd =
+                parseInt(
+                    document.getElementById(
+                        'estoqueQtd'
+                    ).value,
+                    10
+                ) || 1;
+
+
+            const itemExistente =
+                window.estoque.find(
+                    e =>
+                        e.item.toLowerCase() ===
+                        itemNome.toLowerCase()
+                );
+
+
+            if (itemExistente) {
+
+                update(
+                    ref(
+                        db,
+                        `estoque/${itemExistente.idFirebase}`
+                    ),
+                    {
+                        quantidade:
+                            itemExistente.quantidade + qtd
+                    }
+                );
+
+            } else {
+
+                push(
+                    estoqueRef,
+                    {
+                        item: itemNome,
+                        quantidade: qtd
+                    }
+                );
+            }
+
+
+            document.getElementById(
+                'estoqueForm'
+            ).reset();
+        };
+
+
+    window.removerItemEstoque =
+        function(idFirebase) {
+
+            if (!window.isAdmin) return;
+
+
+            if (
+                confirm(
+                    "Deseja realmente remover este item do estoque?"
+                )
+            ) {
+
+                remove(
+                    ref(
+                        db,
+                        `estoque/${idFirebase}`
+                    )
+                );
+            }
+        };
+
+
+    function atualizarTabelaEstoque() {
+
+        const corpo =
+            document.getElementById(
+                'tabelaEstoque'
+            );
+
+
+        corpo.innerHTML = "";
+
+
+        if (window.estoque.length === 0) {
+
+            corpo.innerHTML = `
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        Nenhum item em estoque.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        window.estoque.forEach(
+            e => {
+
+                const acao =
+                    window.isAdmin
+                    ?
+                    `
+                    <button
+                        onclick="removerItemEstoque('${e.idFirebase}')"
+                        style="
+                            background:#dc2626;
+                            padding:2px 6px;
+                            font-size:10px;
+                        "
+                    >
+                        Excluir
+                    </button>
+                    `
+                    :
+                    '-';
+
+
+                corpo.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                ${e.item}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${e.quantidade}
+                        </td>
+
+                        <td>
+                            ${acao}
+                        </td>
+
+                    </tr>
+                `;
+            }
+        );
+    }
+
+
+    function popularSelectItens() {
+
+        const select =
+            document.getElementById(
+                'item'
+            );
+
+
+        let html =
+            '<option value="" disabled selected>Selecione um item</option>';
+
+
+        window.estoque.forEach(
+            e => {
+
+                html += `
+                    <option value="${e.item}">
+                        ${e.item} (Estoque: ${e.quantidade})
+                    </option>
+                `;
+            }
+        );
+
+
+        html += `
+            <option value="Outro">
+                Outro (Digitar manualmente)
+            </option>
+        `;
+
+
+        select.innerHTML = html;
+    }
+
+
+    window.alternarItemPersonalizado =
+        function() {
+
+            const select =
+                document.getElementById(
+                    'item'
+                );
+
+            const inputCustom =
+                document.getElementById(
+                    'itemPersonalizado'
+                );
+
+
+            inputCustom.style.display =
+                select.value === 'Outro'
+                    ? 'block'
+                    : 'none';
+        };
+
+
+    function obterItemSolicitado() {
+
+        const select =
+            document.getElementById(
+                'item'
+            );
+
+
+        return select.value === 'Outro'
+            ?
+            document.getElementById(
+                'itemPersonalizado'
+            ).value.trim()
+            :
+            select.value;
+    }
+
+
+    window.atualizarEstoqueDisponivelView =
+        function() {
+
+            const info =
+                document.getElementById(
+                    'estoqueDisponivelInfo'
+                );
+
+
+            const itemVal =
+                obterItemSolicitado()
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!itemVal) {
+
+                info.innerText =
+                    'Estoque: -';
+
+                info.style.color =
+                    '#64748b';
+
+                return;
+            }
+
+
+            const entrada =
+                window.estoque.find(
+                    e =>
+                        e.item
+                            .trim()
+                            .toLowerCase() ===
+                        itemVal
+                );
+
+
+            if (entrada) {
+
+                info.innerText =
+                    `Estoque: ${entrada.quantidade}`;
+
+                info.style.color =
+                    entrada.quantidade <= 2
+                        ? '#d97706'
+                        : '#16a34a';
+
+            } else {
+
+                info.innerText =
+                    'Não controlado';
+
+                info.style.color =
+                    '#94a3b8';
+            }
+        };
+
+
+    /* =====================================================
+       CARRINHO DE ITENS
+    ===================================================== */
+
+    window.adicionarItemTemporario =
+        function() {
+
+            const itemNome =
+                obterItemSolicitado();
+
+
+            const quantidade =
+                parseInt(
+                    document.getElementById(
+                        'quantidade'
+                    ).value,
+                    10
+                ) || 1;
+
+
+            if (!itemNome) {
+
+                alert(
+                    'Selecione ou digite um item válido.'
+                );
+
+                return;
+            }
+
+
+            window.itensCarrinho.push({
+
+                item:
+                    itemNome,
+
+                quantidade:
+                    quantidade
+            });
+
+
+            document.getElementById(
+                'item'
+            ).value = '';
+
+
+            document.getElementById(
+                'quantidade'
+            ).value = 1;
+
+
+            alternarItemPersonalizado();
+
+            atualizarEstoqueDisponivelView();
+
+            renderizarListaTemporaria();
+        };
+
+
+    function renderizarListaTemporaria() {
+
+        const container =
+            document.getElementById(
+                'areaListaTemporaria'
+            );
+
+
+        const ul =
+            document.getElementById(
+                'listaItensTemporarios'
+            );
+
+
+        ul.innerHTML = '';
+
+
+        if (
+            window.itensCarrinho.length === 0
+        ) {
+
+            container.style.display =
+                'none';
+
+            return;
+        }
+
+
+        container.style.display =
+            'block';
+
+
+        window.itensCarrinho.forEach(
+            (it, index) => {
+
+                ul.innerHTML += `
+
+                    <li style="margin-bottom:2px;">
+
+                        <strong>
+                            ${it.item}
+                        </strong>
+
+                        — Qtd:
+                        ${it.quantidade}
+
+                        <a
+                            href="#"
+                            onclick="
+                                removerItemCarrinho(${index});
+                                return false;
+                            "
+                            style="
+                                color:#dc2626;
+                                margin-left:8px;
+                                font-size:11px;
+                            "
+                        >
+                            [remover]
+                        </a>
+
+                    </li>
+                `;
+            }
+        );
+    }
+
+
+    window.removerItemCarrinho =
+        function(index) {
+
+            window.itensCarrinho.splice(
+                index,
+                1
+            );
+
+            renderizarListaTemporaria();
+        };
+
+
+    /* =====================================================
+       SALVAR SOLICITAÇÃO
+    ===================================================== */
+
+    document
+        .getElementById('solicitacaoForm')
+        .addEventListener(
+            'submit',
+            function(e) {
+
+                e.preventDefault();
+
+
+                const base =
+                    document.getElementById(
+                        'solicitanteBase'
+                    ).value;
+
+
+                const re =
+                    document.getElementById(
+                        'solicitanteRE'
+                    ).value.trim();
+
+
+                if (
+                    !base ||
+                    window.itensCarrinho.length === 0
+                ) {
+
+                    alert(
+                        'Preencha os dados e adicione ao menos um item.'
+                    );
+
+                    return;
+                }
+
+
+                const novaSolicitacao = {
+
+                    solicitanteBase:
+                        base,
+
+                    solicitanteRE:
+                        re,
+
+                    solicitante:
+                        `${base} - RE ${re}`,
+
+                    item:
+                        window.itensCarrinho
+                            .map(
+                                i =>
+                                    `${i.item} (x${i.quantidade})`
+                            )
+                            .join(', '),
+
+                    /* Guarda os itens individualmente
+                       para permitir recuperação do estoque
+                       caso o MASTER exclua a solicitação. */
+
+                    itensDetalhados:
+                        window.itensCarrinho,
+
+                    quantidade:
+                        window.itensCarrinho.reduce(
+                            (acc, curr) =>
+                                acc + curr.quantidade,
+                            0
+                        ),
+
+                    data:
+                        document.getElementById(
+                            'data'
+                        ).value,
+
+                    status:
+                        "Pendente",
+
+                    timestamp:
+                        Date.now()
+                };
+
+
+                /* =========================================
+                   BAIXA DO ESTOQUE
+                ========================================= */
+
+                window.itensCarrinho.forEach(
+                    carrinhoItem => {
+
+                        const itemEstoque =
+                            window.estoque.find(
+                                e =>
+                                    e.item
+                                        .toLowerCase() ===
+                                    carrinhoItem.item
+                                        .toLowerCase()
+                            );
+
+
+                        if (itemEstoque) {
+
+                            const novaQtd =
+                                Math.max(
+                                    0,
+                                    itemEstoque.quantidade -
+                                    carrinhoItem.quantidade
+                                );
+
+
+                            update(
+                                ref(
+                                    db,
+                                    `estoque/${itemEstoque.idFirebase}`
+                                ),
+                                {
+                                    quantidade:
+                                        novaQtd
+                                }
+                            );
+                        }
+                    }
+                );
+
+
+                push(
+                    solicitacoesRef,
+                    novaSolicitacao
+                );
+
+
+                fecharModalSolicitacao();
+            }
+        );
+
+
+    /* =====================================================
+       ALTERAR STATUS
+    ===================================================== */
+
+    window.alterarStatus =
+        function(idFirebase) {
+
+            if (!window.isAdmin) return;
+
+
+            const item =
+                window.solicitacoes.find(
+                    s =>
+                        s.idFirebase ===
+                        idFirebase
+                );
+
+
+            if (item) {
+
+                const novoStatus =
+                    item.status === "Pendente"
+                        ? "Entregue"
+                        : "Pendente";
+
+
+                update(
+                    ref(
+                        db,
+                        `solicitacoes/${idFirebase}`
+                    ),
+                    {
+                        status:
+                            novoStatus
+                    }
+                );
+            }
+        };
+
+
+    /* =====================================================
+       EXCLUIR SOLICITAÇÃO
+       SOMENTE MASTER
+    ===================================================== */
+
+    window.excluirSolicitacao =
+        async function(idFirebase) {
+
+            if (!window.isMaster) {
+
+                alert(
+                    "Somente o MASTER pode excluir solicitações."
+                );
+
+                return;
+            }
+
+
+            const solicitacao =
+                window.solicitacoes.find(
+                    s =>
+                        s.idFirebase ===
+                        idFirebase
+                );
+
+
+            if (!solicitacao) return;
+
+
+            const confirmar =
+                confirm(
+                    "ATENÇÃO!\n\n" +
+                    "Deseja realmente excluir esta solicitação?\n\n" +
+                    "Solicitante: " +
+                    solicitacao.solicitante +
+                    "\n\n" +
+                    "Essa operação não poderá ser desfeita."
+                );
+
+
+            if (!confirmar) return;
+
+
+            /* =========================================
+               EXCLUIR
+            ========================================= */
+
+            await remove(
+                ref(
+                    db,
+                    `solicitacoes/${idFirebase}`
+                )
+            );
+
+
+            /*
+               Se a solicitação nova possui os itens
+               detalhados, o estoque é devolvido.
+
+               Isso evita perder material caso uma
+               solicitação seja excluída por engano.
+            */
+
+            if (
+                solicitacao.itensDetalhados &&
+                Array.isArray(
+                    solicitacao.itensDetalhados
+                )
+            ) {
+
+                solicitacao.itensDetalhados
+                    .forEach(
+                        itemSolicitado => {
+
+                            const itemEstoque =
+                                window.estoque.find(
+                                    e =>
+                                        e.item
+                                            .toLowerCase() ===
+                                        itemSolicitado.item
+                                            .toLowerCase()
+                                );
+
+
+                            if (itemEstoque) {
+
+                                update(
+                                    ref(
+                                        db,
+                                        `estoque/${itemEstoque.idFirebase}`
+                                    ),
+                                    {
+                                        quantidade:
+                                            itemEstoque.quantidade +
+                                            itemSolicitado.quantidade
+                                    }
+                                );
+                            }
+                        }
+                    );
+            }
+
+
+            alert(
+                "Solicitação excluída com sucesso."
+            );
+        };
+
+
+    /* =====================================================
+       TABELA DE SOLICITAÇÕES
+    ===================================================== */
+
+    function atualizarTabela() {
+
+        const corpo =
+            document.getElementById(
+                'tabelaCorpo'
+            );
+
+
+        corpo.innerHTML = "";
+
+
+        if (
+            window.solicitacoes.length === 0
+        ) {
+
+            corpo.innerHTML = `
+                <tr>
+                    <td
+                        colspan="6"
+                        style="text-align:center;"
+                    >
+                        Nenhuma solicitação encontrada.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        window.solicitacoes
+            .sort(
+                (a,b) =>
+                    (b.timestamp || 0) -
+                    (a.timestamp || 0)
+            );
+
+
+        window.solicitacoes.forEach(
+            s => {
+
+                const dataFmt =
+                    s.data
+                        ? s.data
+                            .split('-')
+                            .reverse()
+                            .join('/')
+                        : '-';
+
+
+                const badgeClass =
+                    s.status === "Entregue"
+                        ? "bg-entregue"
+                        : "bg-pendente";
+
+
+                let acaoHtml = '';
+
+
+                if (window.isAdmin) {
+
+                    acaoHtml += `
+
+                        <button
+                            class="btn-status"
+                            onclick="
+                                alterarStatus('${s.idFirebase}')
+                            "
+                        >
+                            Marcar
+                            ${
+                                s.status === 'Pendente'
+                                ? 'Entregue'
+                                : 'Pendente'
+                            }
+                        </button>
+                    `;
+                } else {
+
+                    acaoHtml += `
+                        <span style="
+                            color:#94a3b8;
+                            font-size:10px;
+                        ">
+                            Requer ADM
+                        </span>
+                    `;
+                }
